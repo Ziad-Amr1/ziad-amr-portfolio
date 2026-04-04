@@ -1,16 +1,82 @@
-# React + Vite
+# Ziad Amr Portfolio 🌐
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and responsive personal portfolio website built to showcase projects, skills, and contact information.
 
-Currently, two official plugins are available:
+🔗 **Live Demo:**
+https://ziad-amr-protoflio.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 📌 Overview
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This project is a personal portfolio website designed to present my projects, technical skills, and professional background in a clean and modern layout.
+It includes interactive UI elements, responsive design, and a contact form to allow visitors to reach out easily.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✨ Features
+
+* Responsive design for all screen sizes 📱💻
+* Modern UI built with Tailwind CSS 🎨
+* Project showcase section 📂
+* Skills section 🧠
+* Contact form using EmailJS 📧
+* Smooth navigation and layout ⚡
+
+---
+
+## 🛠 Tech Stack
+
+* **Frontend:** React, Vite
+* **Styling:** Tailwind CSS
+* **Email Service:** EmailJS
+* **Deployment:** Vercel
+
+---
+
+## 🚀 Getting Started
+
+Follow these steps to run the project locally:
+
+```bash
+git clone https://github.com/Ziad-Amr1/Ziad_Amr_portfolio.git
+
+cd Ziad_Amr_portfolio
+
+npm install
+
+npm run dev
+```
+
+Then open:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## 📂 Project Structure
+
+```bash
+src/
+│
+├── components/     # Reusable UI components
+├── assets/         # Images and static files
+├── pages/          # Page sections
+├── styles/         # Styling files
+├── App.jsx
+└── main.jsx
+```
+
+---
+
+## 📬 Contact
+
+If you'd like to get in touch, feel free to reach out through the contact form on the website.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
