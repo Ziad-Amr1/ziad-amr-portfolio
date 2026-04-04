@@ -11,13 +11,8 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
-    "@fortawesome/fontawesome-svg-core": "^7.0.1",
-    "@fortawesome/free-solid-svg-icons": "^7.0.1",
-    "@fortawesome/react-fontawesome": "^3.0.2",
-    "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/vite": "^4.1.13",
-    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.22",
     "lucide-react": "^0.546.0",
