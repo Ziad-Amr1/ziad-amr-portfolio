@@ -1,40 +1,48 @@
 // src/components/projects/PaginationControls.jsx
-import React from "react";
+import { memo } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function PaginationControls({ currentPage, totalPages, setCurrentPage }) {
+const BTN =
+  "flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 " +
+  "bg-white/70 text-gray-700 dark:bg-navy-surface dark:text-blue-soft " +
+  "hover:bg-white hover:shadow-sm dark:hover:bg-navy-layer " +
+  "disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white/70 dark:disabled:hover:bg-navy-surface";
+
+const PaginationControls = memo(function PaginationControls({
+  currentPage,
+  totalPages,
+  setCurrentPage,
+}) {
+  const isFirst = currentPage === 1;
+  const isLast  = currentPage === totalPages;
+
   return (
-    <div className="flex justify-center items-center gap-4 mt-10">
+    <nav className="flex justify-center items-center gap-4 mt-10" aria-label="Pagination">
       <button
-        onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-        disabled={currentPage === 1}
-        className="
-          px-4 py-2 rounded-md text-sm font-medium
-          bg-white/70 text-gray-700
-          dark:bg-[#0f1f36] dark:text-[#AED4FF]
-          hover:bg-white hover:shadow-sm
-          disabled:opacity-40 disabled:cursor-not-allowed
-        "
-        aria-label="previous page"
-        aria-disabled={currentPage === 1}
+        onClick={() => setCurrentPage((p) => p - 1)}
+        disabled={isFirst}
+        className={BTN}
+        aria-label="Previous page"
       >
-        ‹ Prev
+        <ChevronLeft size={15} />
+        Prev
       </button>
-      <span className="text-sm text-gray-600 dark:text-gray-400">
-        Page {currentPage} of {totalPages}
+
+      <span className="text-sm text-gray-500 dark:text-gray-400 tabular-nums" aria-live="polite">
+        {currentPage} / {totalPages}
       </span>
+
       <button
-        onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-        disabled={currentPage === totalPages}
-        className="
-          px-4 py-2 rounded-md text-sm font-medium
-          bg-white/70 text-gray-700
-          dark:bg-[#0f1f36] dark:text-[#AED4FF]
-          hover:bg-white hover:shadow-sm
-          disabled:opacity-40 disabled:cursor-not-allowed
-        "
+        onClick={() => setCurrentPage((p) => p + 1)}
+        disabled={isLast}
+        className={BTN}
+        aria-label="Next page"
       >
-        Next ›
+        Next
+        <ChevronRight size={15} />
       </button>
-    </div>
+    </nav>
   );
-}
+});
+
+export default PaginationControls;

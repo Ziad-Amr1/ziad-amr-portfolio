@@ -1,56 +1,60 @@
 // src/components/projects/ProjectFilters.jsx
-import React from "react";
+import { memo } from "react";
+import { motion } from "framer-motion";
 
-const baseTab =
-  "relative px-6 py-3 rounded-full font-semibold text-base \
-   transition-[background-color,color,box-shadow,transform] duration-300 ease-out \
-   cursor-pointer focus:outline-none text-sm sm:text-base";
+const BASE =
+  "relative px-5 py-2.5 rounded-full text-sm font-semibold " +
+  "transition-[background-color,color,box-shadow,transform] duration-300 ease-out " +
+  "cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500";
 
-const inactiveTab =
-  "bg-white/70 text-gray-700 \
-   dark:bg-[#0f1f36] dark:text-[#AED4FF] \
-   hover:bg-white/90 hover:text-gray-900 \
-   dark:hover:bg-[#162c4d] dark:hover:text-[#E6F1FF] \
-   hover:shadow-md hover:-translate-y-[1px]";
+const INACTIVE =
+  "bg-white/70 text-gray-700 " +
+  "dark:bg-navy-surface dark:text-blue-soft " +
+  "hover:bg-white/90 hover:text-gray-900 " +
+  "dark:hover:bg-navy-layer dark:hover:text-dark-text " +
+  "hover:shadow-md hover:-translate-y-[1px]";
 
-// const activeTabStyle = `
-//   bg-gradient-to-r ${accent}
-//   text-white
-//   shadow-lg
-//   scale-[1.05]
-// `;
-
-export default function ProjectFilters({
+const ProjectFilters = memo(function ProjectFilters({
   categories,
   activeFilter,
   setActiveFilter,
   setCurrentPage,
   accentMap,
 }) {
+  const handleSelect = (cat) => {
+    if (cat === activeFilter) return;
+    setActiveFilter(cat);
+    setCurrentPage(1);
+  };
+
   return (
-    <div className="flex justify-center gap-3 mb-8 flex-wrap">
+    <div className="flex justify-center gap-3 mb-8 flex-wrap" role="group" aria-label="Filter projects by category">
       {categories.map((cat) => {
         const isActive = activeFilter === cat;
-        const accent = accentMap?.[cat] || "from-[#4F7FD9] to-[#9ECFFF]";
-        
+        const accent   = accentMap?.[cat] ?? "from-blue-link to-blue-muted";
+
         return (
           <button
             key={cat}
-            onClick={() => {
-              setActiveFilter(cat);
-              setCurrentPage(1);
-            }}
-            className={`
-              ${baseTab}
-              ${isActive ? `bg-gradient-to-r ${accent} text-white shadow-lg scale-[1.05]` : inactiveTab}
-            `}
+            onClick={() => handleSelect(cat)}
+            className={`${BASE} ${isActive ? `bg-gradient-to-r ${accent} text-white shadow-lg scale-[1.05]` : INACTIVE}`}
             aria-pressed={isActive}
-            aria-label={`filter by ${cat}`}
+            aria-label={`Filter by ${cat}`}
           >
-            {cat}
+            <span className="relative z-10 capitalize">{cat}</span>
+
+            {isActive && (
+              <motion.span
+                layoutId="filter-indicator"
+                className="absolute inset-0 rounded-full bg-white/10"
+                transition={{ type: "spring", stiffness: 300, damping: 28 }}
+              />
+            )}
           </button>
         );
       })}
     </div>
   );
-}
+});
+
+export default ProjectFilters;
