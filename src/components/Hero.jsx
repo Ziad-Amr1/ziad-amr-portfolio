@@ -47,40 +47,35 @@ const socials = [
       overflow-hidden transition-all duration-700`}
     >
       <div
-        className="flex flex-col-reverse md:flex-row items-center justify-between 
-        gap-6 md:gap-10 lg:gap-14 
-        p-5 md:p-8 rounded-2xl shadow-xl 
-        bg-[#f8f8f8] dark:bg-[#112240] bg-opacity-80 backdrop-blur-sm 
+        className="flex flex-col-reverse md:flex-row items-center justify-between
+        gap-6 md:gap-10 lg:gap-14
+        p-5 md:p-8 rounded-2xl shadow-xl
+        bg-surface-light dark:bg-dark-card bg-opacity-80 backdrop-blur-sm
         w-full max-w-[1200px] mx-auto h-fit md:h-auto"
       >
-        {/* النص والمحتوى */}
+        {/* Text content */}
         <motion.article
           className="text-center md:text-left max-w-xl md:max-w-[550px]"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          {/* <p
-            className="uppercase tracking-widest font-semibold mb-3 ${
-             dark:text-[#AED4FF] text-blue-600"
-          > */}
-          <p className="uppercase tracking-widest font-semibold mb-0 md:mb-3 text-blue-600 dark:text-[#AED4FF]">
+          <p className="uppercase tracking-widest font-semibold mb-0 md:mb-3 text-blue-600 dark:text-blue-soft">
             Hello, I'm
           </p>
 
           <h1
             className="
-          text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-extrabold mb-0.75 md:mb-3 
+          text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-extrabold mb-0.75 md:mb-3
           leading-tight bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400
-
-          dark:from-[#AED4FF] dark:via-[#8EC9FF] dark:to-[#E6F1FF]
+          dark:from-blue-soft dark:via-blue-mid dark:to-dark-text
           bg-clip-text text-transparent"
           >
             Ziad Amr
           </h1>
 
-          <div 
-            className="text-lg sm:text-xl md:text-2xl text-gray-700 dark:text-[#E6F1FF] mb-1.25 md:mb-6 min-h-[32px]"
+          <div
+            className="text-lg sm:text-xl md:text-2xl text-gray-700 dark:text-dark-text mb-1.25 md:mb-6 min-h-[32px]"
               onMouseEnter={pause}
               onMouseLeave={resume}
           >
@@ -99,8 +94,8 @@ const socials = [
             <a
               href="#contact"
               className="px-5 py-3 text-sm sm:text-base rounded-full font-semibold border transition-all hover:shadow-lg
-                  dark:border-[#AED4FF] dark:text-[#AED4FF] dark:hover:bg-[#AED4FF] dark:hover:text-[#0a192f]
-                  border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white "
+                  dark:border-blue-soft dark:text-blue-soft dark:hover:bg-blue-soft dark:hover:text-dark
+                  border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
             >
               Get in Touch
             </a>
@@ -110,7 +105,7 @@ const socials = [
               href="/images/Ziad_Amr_Said_CV.pdf"
               download
               className="text-sm sm:text-base flex items-center gap-2 px-6 py-3 rounded-full font-semibold shadow-md transition-all
-                        dark:bg-gradient-to-r from-[#AED4FF] to-[#E6F1FF] dark:hover:from-[#E6F1FF] dark:hover:to-[#AED4FF] dark:text-[#0a192f]
+                        dark:bg-gradient-to-r from-blue-soft to-dark-text dark:hover:from-dark-text dark:hover:to-blue-soft dark:text-dark
                         bg-blue-500 hover:bg-blue-600 text-white"
             >
               <Download className="w-5 h-5" />
@@ -128,7 +123,7 @@ const socials = [
                 rel="noopener noreferrer"
                 whileHover={{ y: -4, scale: 1.1 }}
                 className="text-2xl transition-colors
-              dark:text-[#AED4FF] dark:hover:text-[#8EC9FF] text-blue-600 hover:text-blue-500"
+              dark:text-blue-soft dark:hover:text-blue-mid text-blue-600 hover:text-blue-500"
               >
                 {icon}
               </motion.a>
@@ -138,16 +133,17 @@ const socials = [
 
         {/* Profile Image */}
         <motion.figure
-          className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 
-          rounded-full overflow-hidden shadow-xl border-4 border-blue-500 dark:border-[#AED4FF] p-[3px] flex-shrink-0"
+          className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72
+          rounded-full overflow-hidden shadow-xl border-4 border-blue-500 dark:border-blue-soft p-[3px] flex-shrink-0"
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
           <img
-            loading="lazy"
+            loading="eager"
             decoding="async"
-            src="/images/profile.webp"
+            fetchPriority="high"
+            src="/images/profile/profile.webp"
             alt="Ziad Amr"
             className="rounded-full w-full h-full object-cover object-top"
           />

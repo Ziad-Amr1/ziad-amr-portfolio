@@ -1,224 +1,136 @@
-// src/hooks/projects_hooks/useProjectModal.js
+// src/hooks/projects/useProjectModal.js
 import { useState, useEffect, useCallback } from "react";
 
-export default function useProjectModal(
-  projectsData,
-  filteredProjects,
-  getImages
-) {
-  const [modalProject, setModalProject] = useState(null);
-  const [imageIndex, setImageIndex] = useState(0);
+// ─────────────────────────────────────────
+// URL helpers
+// ─────────────────────────────────────────
 
-  // =========================
-  // Open modal (ONLY place that pushes history)
-  // =========================
+function getHashId() {
+  const hash = window.location.hash ?? "";
+  if (!hash.startsWith("#project-")) return null;
+  const id = Number(hash.replace("#project-", ""));
+  return Number.isFinite(id) ? id : null;
+}
+
+const tryHistory = (fn) => { try { fn(); } catch (_) {} };
+
+const pushHash    = (id) => tryHistory(() => { if (window.location.hash !== `#project-${id}`) window.history.pushState({ projectId: id }, "", `#project-${id}`); });
+const replaceHash = (id) => tryHistory(() => window.history.replaceState({ projectId: id }, "", `#project-${id}`));
+const clearHash   = ()   => tryHistory(() => window.history.replaceState({}, "", window.location.pathname + window.location.search));
+
+// ─────────────────────────────────────────
+// Scroll lock — preserves scroll position so page doesn't jump
+// ─────────────────────────────────────────
+
+function lockScroll() {
+  const y = window.scrollY;
+  Object.assign(document.body.style, { top: `-${y}px`, position: "fixed", width: "100%", overflow: "hidden" });
+  document.body.dataset.scrollY = String(y);
+}
+
+function unlockScroll() {
+  const y = parseInt(document.body.dataset.scrollY ?? "0", 10);
+  Object.assign(document.body.style, { position: "", top: "", width: "", overflow: "" });
+  delete document.body.dataset.scrollY;
+  window.scrollTo(0, y);
+}
+
+// ─────────────────────────────────────────
+// Hook
+// ─────────────────────────────────────────
+
+export default function useProjectModal(projectsData, filteredProjects, getImages) {
+  const [modalProject, setModalProject] = useState(null);
+  const [imageIndex,   setImageIndex]   = useState(0);
+
   const openModal = useCallback((project) => {
     setModalProject(project);
     setImageIndex(0);
-
-    try {
-      const token = `project-${project.id}`;
-      if (window.location.hash !== `#${token}`) {
-        window.history.pushState(
-          { projectId: project.id },
-          "",
-          `#${token}`
-        );
-      }
-    } catch (e) {
-      // ignore history errors (SSR / restricted env)
-    }
+    pushHash(project.id);
   }, []);
 
-  // =========================
-  // Close modal
-  // =========================
   const closeModal = useCallback(() => {
     setModalProject(null);
     setImageIndex(0);
-
-    try {
-      const clean =
-        window.location.pathname + window.location.search;
-      window.history.replaceState({}, "", clean);
-    } catch (e) {
-      if (window.location.hash?.startsWith("#project-")) {
-        window.location.hash = "";
-      }
-    }
+    clearHash();
   }, []);
 
-  // =========================
-  // Navigate between projects (REPLACE history)
-  // =========================
   const handlePrevProject = useCallback(() => {
     if (!modalProject) return;
-
-    const idx = filteredProjects.findIndex(
-      (p) => p.id === modalProject.id
-    );
-
-    if (idx > 0) {
-      const prev = filteredProjects[idx - 1];
-
-      try {
-        window.history.replaceState(
-          { projectId: prev.id },
-          "",
-          `#project-${prev.id}`
-        );
-      } catch (e) {}
-
-      setModalProject(prev);
-      setImageIndex(0);
-    }
+    const idx = filteredProjects.findIndex((p) => p.id === modalProject.id);
+    if (idx <= 0) return;
+    const prev = filteredProjects[idx - 1];
+    replaceHash(prev.id);
+    setModalProject(prev);
+    setImageIndex(0);
   }, [modalProject, filteredProjects]);
 
   const handleNextProject = useCallback(() => {
     if (!modalProject) return;
-
-    const idx = filteredProjects.findIndex(
-      (p) => p.id === modalProject.id
-    );
-
-    if (idx < filteredProjects.length - 1) {
-      const next = filteredProjects[idx + 1];
-
-      try {
-        window.history.replaceState(
-          { projectId: next.id },
-          "",
-          `#project-${next.id}`
-        );
-      } catch (e) {}
-
-      setModalProject(next);
-      setImageIndex(0);
-    }
+    const idx = filteredProjects.findIndex((p) => p.id === modalProject.id);
+    if (idx >= filteredProjects.length - 1) return;
+    const next = filteredProjects[idx + 1];
+    replaceHash(next.id);
+    setModalProject(next);
+    setImageIndex(0);
   }, [modalProject, filteredProjects]);
 
-  // =========================
-  // Sync with browser back / forward
-  // =========================
+  // ── browser back / forward ─────────────
   useEffect(() => {
     const onPop = () => {
-      const hash = window.location.hash || "";
-
-      if (!hash.startsWith("#project-")) {
-        setModalProject(null);
-        setImageIndex(0);
-        return;
-      }
-
-      const id = Number(hash.replace("#project-", ""));
-      const found = projectsData.find((p) => p.id === id);
-
-      if (found) {
-        setModalProject(found);
-        setImageIndex(0);
-      } else {
-        setModalProject(null);
-        setImageIndex(0);
-      }
+      const id    = getHashId();
+      const found = id != null ? projectsData.find((p) => p.id === id) : null;
+      setModalProject(found ?? null);
+      setImageIndex(0);
     };
-
     window.addEventListener("popstate", onPop);
 
-    // Handle initial hash on load
-    const initialHash = window.location.hash || "";
-    if (initialHash.startsWith("#project-")) {
-      const id = Number(initialHash.replace("#project-", ""));
-      const found = projectsData.find((p) => p.id === id);
-      if (found) {
-        setModalProject(found);
-        setImageIndex(0);
-      }
+    // hydrate from URL hash on first load
+    const initId = getHashId();
+    if (initId != null) {
+      const found = projectsData.find((p) => p.id === initId);
+      if (found) { setModalProject(found); setImageIndex(0); }
     }
 
-    return () => {
-      window.removeEventListener("popstate", onPop);
-    };
+    return () => window.removeEventListener("popstate", onPop);
   }, [projectsData]);
 
-  // =========================
-  // Keyboard navigation
-  // =========================
+  // ── keyboard ───────────────────────────
   useEffect(() => {
-    const onKey = (e) => {
-      if (!modalProject) return;
+    if (!modalProject) return;
 
-      if (e.key === "Escape") {
-        closeModal();
-        return;
-      }
+    const onKey = (e) => {
+      if (e.key === "Escape") { closeModal(); return; }
 
       if (e.key === "ArrowLeft") {
-        if (imageIndex > 0) {
-          setImageIndex((i) => i - 1);
-        } else {
-          handlePrevProject();
-        }
+        if (imageIndex > 0) setImageIndex((i) => i - 1);
+        else handlePrevProject();
+        return;
       }
 
       if (e.key === "ArrowRight") {
         const imgs = getImages(modalProject);
-
-        if (imageIndex < imgs.length - 1) {
-          setImageIndex((i) => i + 1);
-        } else {
-          handleNextProject();
-        }
+        if (imageIndex < imgs.length - 1) setImageIndex((i) => i + 1);
+        else handleNextProject();
       }
     };
 
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [
-    modalProject,
-    imageIndex,
-    closeModal,
-    getImages,
-    handlePrevProject,
-    handleNextProject,
-  ]);
+  }, [modalProject, imageIndex, closeModal, getImages, handlePrevProject, handleNextProject]);
 
-  // =========================
-  // Body scroll lock (SAFE & CENTRALIZED)
-  // =========================
+  // ── scroll lock ────────────────────────
   useEffect(() => {
-    if (modalProject) {
-      document.body.style.overflow = "hidden";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-    };
+    if (modalProject) lockScroll();
+    return () => unlockScroll();
   }, [modalProject]);
 
-  // =========================
-  // Close modal if filter changes and project disappears
-  // =========================
+  // ── close if filtered project disappears
   useEffect(() => {
-    if (
-      modalProject &&
-      !filteredProjects.some(
-        (p) => p.id === modalProject.id
-      )
-    ) {
+    if (modalProject && !filteredProjects.some((p) => p.id === modalProject.id)) {
       closeModal();
     }
   }, [filteredProjects, modalProject, closeModal]);
 
-  // =========================
-  // Public API
-  // =========================
-  return {
-    modalProject,
-    imageIndex,
-    setImageIndex,
-    openModal,
-    closeModal,
-    handlePrevProject,
-    handleNextProject,
-  };
+  return { modalProject, imageIndex, setImageIndex, openModal, closeModal, handlePrevProject, handleNextProject };
 }

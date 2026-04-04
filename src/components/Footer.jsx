@@ -12,12 +12,12 @@ import {
 } from "react-icons/fa";
 
 const socialLinks = [
-  { icon: <FaLinkedin />, url: "https://linkedin.com/in/ziad-amr-ah17" },
-  { icon: <FaGithub />, url: "https://github.com/Ziad-Amr1" },
-  { icon: <FaBehance />, url: "https://www.behance.net/ZiadAmrSaid" },
-  { icon: <FaDribbble />, url: "https://dribbble.com/yourprofile" },
-  { icon: <FaEnvelope />, url: "mailto:zyadamr177@gmail.com" },
-  { icon: <FaPhone />, url: "tel:01122708543" },
+  { id: "linkedin", icon: <FaLinkedin />, url: "https://www.linkedin.com/in/ziadamrsaid/" },
+  { id: "github", icon: <FaGithub />, url: "https://github.com/Ziad-Amr1" },
+  { id: "behance", icon: <FaBehance />, url: "https://www.behance.net/ZiadAmrSaid" },
+  { id: "dribbble", icon: <FaDribbble />, url: "https://dribbble.com/yourprofile" },
+  { id: "email", icon: <FaEnvelope />, url: "mailto:zyadamr177@gmail.com" },
+  { id: "phone", icon: <FaPhone />, url: "tel:01122708543" },
 ];
 
 function Footer() {
@@ -26,7 +26,7 @@ function Footer() {
       className="
         mt-20 py-10
         border-t border-gray-200 dark:border-gray-700
-        bg-[#f8f8f8] dark:bg-[#112240]
+        bg-surface-light dark:bg-dark-card
         bg-opacity-80 backdrop-blur-sm
         transition-colors duration-500
       "
@@ -46,7 +46,7 @@ function Footer() {
           {/* Left: copyright */}
           <p className="text-sm text-gray-500 dark:text-gray-400 text-center md:text-left">
             © {new Date().getFullYear()}{" "}
-            <span className="font-semibold text-gray-800 dark:text-[#E6F1FF]">
+            <span className="font-semibold text-gray-800 dark:text-dark-text">
               Ziad Amr
             </span>
             . All rights reserved.
@@ -54,9 +54,9 @@ function Footer() {
 
           {/* Right: social icons */}
           <div className="flex items-center gap-6 text-lg">
-            {socialLinks.map(({ icon, url }, index) => (
+            {socialLinks.map(({ id, icon, url }) => (
               <motion.a
-                key={index}
+                key={id}
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -64,9 +64,9 @@ function Footer() {
                 whileHover={{ y: -3, scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 className="
-                  text-gray-500 dark:text-[#AED4FF]
+                  text-gray-500 dark:text-blue-soft
                   hover:text-blue-600
-                  dark:hover:text-[#E6F1FF]
+                  dark:hover:text-dark-text
                   transition-colors
                 "
               >

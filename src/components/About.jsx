@@ -28,19 +28,19 @@ function AboutCard({ icon: Icon, title, align = "center", children }) {
       transition={{ type: "spring", stiffness: 260 }}
       className="
         group
-        bg-white/80 dark:bg-[#0f1e36]
+        bg-white/80 dark:bg-navy-about
         backdrop-blur-sm
         rounded-xl
         p-6
-        border border-[#5B8DEF]/10 dark:border-[#9ECFFF]/15
+        border border-blue-border/10 dark:border-blue-muted/15
         shadow-[0_10px_40px_rgba(79,127,217,0.12)]
         hover:shadow-[0_20px_60px_rgba(79,127,217,0.18)]
-        hover:border-[#5B8DEF]/30
+        hover:border-blue-border/30
         transition-all duration-300
       "
     >
       {/* Icon */}
-      <Icon className="text-4xl mb-4 text-[#4F7FD9] dark:text-[#9ECFFF]" aria-hidden="true" />
+      <Icon className="text-4xl mb-4 text-blue-link dark:text-blue-muted" aria-hidden="true" />
 
       {/* Title */}
       <h3
@@ -55,7 +55,7 @@ function AboutCard({ icon: Icon, title, align = "center", children }) {
       <div
         className={`h-[2px] w-10 mb-4 ${
           align === "left" ? "" : "mx-auto"
-        } bg-gradient-to-r from-[#4F7FD9] to-[#9ECFFF]`}
+        } bg-gradient-to-r from-blue-link to-blue-muted`}
       />
 
       {/* Content */}
@@ -91,7 +91,7 @@ export default function About() {
             className="
               text-4xl md:text-5xl font-bold leading-tight
               md:leading-[1.15] pb-1
-              bg-gradient-to-r from-[#4F7FD9] to-[#9ECFFF]
+              bg-gradient-to-r from-blue-link to-blue-muted
               bg-clip-text text-transparent
             "
           >
@@ -115,11 +115,11 @@ export default function About() {
           {/* Bio */}
           <AboutCard icon={FaUserTie} title="Bio" align="left">
             <p>
-              I’m an <strong className="text-[#4F7FD9] dark:text-[#9ECFFF]">
+              I’m an <strong className="text-blue-link dark:text-blue-muted">
                 Architecture student
               </strong>{" "}
               passionate about blending design thinking with{" "}
-              <strong className="text-[#4F7FD9] dark:text-[#9ECFFF]">
+              <strong className="text-blue-link dark:text-blue-muted">
                 front-end development
               </strong>.
               I enjoy transforming ideas into functional, visually balanced,
@@ -130,8 +130,8 @@ export default function About() {
               href="#skills"
               className="
                 inline-block mt-4 text-sm font-medium
-                text-[#5B8DEF] hover:text-[#4F7FD9]
-                dark:text-[#9ECFFF] dark:hover:text-[#B6DDFF]
+                text-blue-border hover:text-blue-link
+                dark:text-blue-muted dark:hover:text-blue-bright
                 underline-offset-4 hover:underline
               "
             >

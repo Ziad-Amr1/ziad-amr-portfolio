@@ -32,3 +32,20 @@ dist-ssr
 *.docx
 
 .env
+structure.txt
+PROJECT_STRUCTURE.md
+generate-structure.cjs
+*zip
+*.7z
+*.tar.gz
+*.rar
+*.bak
+*.tmp
+*.backup
+*.old
+*.orig
+*.log
+*.sql
+*.sqlite
+*.db
+*.csv

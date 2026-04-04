@@ -1,35 +1,26 @@
-// src/hooks/useHeader.js
+// src/hooks/useSidebar.js
 import { useState, useEffect } from "react";
 
-export function useHeader(sidebarRef, toggleButtonRef) {
+export function useSidebar(sidebarRef, toggleButtonRef) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    // إذا لم تكن القائمة مفتوحة، لا داعي لإضافة المستمعين
     if (!menuOpen) return;
 
-    const handleClickOutside = (e) => {
-      // إغلاق القائمة إذا تم النقر خارج الـ sidebar أو الزر
-      if (
-        sidebarRef.current &&
-        !sidebarRef.current.contains(e.target) &&
-        toggleButtonRef.current &&
-        !toggleButtonRef.current.contains(e.target)
-      ) {
-        setMenuOpen(false);
-      }
+    const onClickOutside = (e) => {
+      const outsideSidebar = !sidebarRef.current?.contains(e.target);
+      const outsideToggle  = !toggleButtonRef.current?.contains(e.target);
+      if (outsideSidebar && outsideToggle) setMenuOpen(false);
     };
 
-    const handleScroll = () => setMenuOpen(false);
+    const onScroll = () => setMenuOpen(false);
 
-    // إضافة المستمعين
-    document.addEventListener("mousedown", handleClickOutside);
-    window.addEventListener("scroll", handleScroll);
+    document.addEventListener("mousedown", onClickOutside);
+    window.addEventListener("scroll", onScroll, { passive: true });
 
-    // تنظيف المستمعين عند إغلاق القائمة أو إلغاء تحميل المكون
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("mousedown", onClickOutside);
+      window.removeEventListener("scroll", onScroll);
     };
   }, [menuOpen, sidebarRef, toggleButtonRef]);
 
