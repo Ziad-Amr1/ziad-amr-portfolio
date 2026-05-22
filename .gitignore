@@ -49,3 +49,5 @@ generate-structure.cjs
 *.sqlite
 *.db
 *.csv
+./images/projects/archive/*
+public/images/projects/archive/

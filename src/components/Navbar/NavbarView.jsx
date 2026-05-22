@@ -1,104 +1,272 @@
 // src/components/NavbarView.jsx
 
-/**
- * Pure presentational component.
- * Renders the <header> frame: progress bar, logo, desktop nav, controls slot.
- * Zero hooks — all data arrives as props.
- */
 export default function NavbarView({
   navLinks,
   activeSection,
   scrollProgress,
-  controls,        // slot: <ThemeToggle /> + <MobileNav hamburger />
+  controls,
 }) {
   return (
     <header
       className="
-        fixed top-0 left-0 right-0 z-50
-        h-[60px]
-        px-[5%]
-        grid grid-cols-[auto_1fr_auto] items-center gap-4
+      fixed
+      top-0
+      left-0
+      right-0
+      z-50
 
-        bg-white/80 dark:bg-dark/70
-        backdrop-blur-xl
+      px-[4%]
+      md:px-[6%]
 
-        border-b border-primary/10 dark:border-accent1/10
-        shadow-md dark:shadow-[0_0_25px_rgba(99,102,241,0.15)]
-
-        transition-colors duration-300
+      pt-4
       "
     >
-      {/* ── Scroll progress bar ── */}
-      <div className="absolute top-0 left-0 w-full h-[2px]">
+      <div
+        className="
+        relative
+
+        h-[74px]
+
+        grid
+        grid-cols-[auto_1fr_auto]
+        items-center
+        gap-6
+
+        rounded-[24px]
+
+        border
+        border-black/5
+        dark:border-white/10
+
+        bg-white/80
+        dark:bg-[#081120]/70
+
+        backdrop-blur-2xl
+
+        shadow-[0_0_30px_rgba(59,130,246,0.08)]
+
+        px-6
+        lg:px-8
+
+        transition-all
+        duration-300
+        "
+      >
+        {/* Glow */}
         <div
           className="
-            h-full
-            bg-primary dark:bg-accent1
-            shadow-[0_0_10px_rgba(99,102,241,0.55)]
-            transition-[width] duration-150 ease-out
-          "
-          style={{ width: `${scrollProgress}%` }}
-        />
-      </div>
+          absolute
+          inset-0
 
-      {/* ── Logo ── */}
-      <a href="#home" className="no-underline">
-        <h1
+          opacity-60
+
+          bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.12),transparent_40%)]
+          rounded-[24px]
+          "
+        />
+
+        {/* Progress */}
+        <div
           className="
-            text-xl lg:text-2xl font-extrabold leading-tight
-            bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400
-            dark:text-light tracking-wide
-            bg-clip-text text-transparent
+          absolute
+          top-0
+          left-0
+
+          w-full
+          h-[2px]
           "
         >
-          Ziad Amr
-        </h1>
-      </a>
+          <div
+            className="
+            h-full
 
-      {/* ── Desktop navigation ── */}
-      <nav className="hidden md:flex justify-center">
-        <ul className="flex gap-10 list-none m-0 p-0">
-          {navLinks.map((item) => {
-            const id       = item.toLowerCase();
-            const isActive = activeSection === id;
+            rounded-full
 
-            return (
-              <li key={item}>
-                <a
-                  href={`#${id}`}
-                  className={`
-                    relative font-semibold transition-colors duration-300
+            bg-gradient-to-r
+            from-blue-400
+            via-cyan-300
+            to-blue-500
+
+            shadow-[0_0_15px_rgba(59,130,246,0.6)]
+
+            transition-[width]
+            duration-150
+            ease-out
+            "
+            style={{
+              width: `${scrollProgress}%`,
+            }}
+          />
+        </div>
+
+        {/* Logo */}
+        <a
+          href="#home"
+          className="
+          relative
+          z-10
+
+          no-underline
+          "
+        >
+          <h1
+            className="
+            text-2xl
+            lg:text-3xl
+
+            font-black
+            tracking-tight
+
+            text-foreground
+            dark:text-white
+            "
+          >
+            Ziad{" "}
+
+            <span
+              className="
+              bg-gradient-to-r
+              from-blue-400
+              via-cyan-300
+              to-blue-500
+
+              bg-clip-text
+              text-transparent
+              "
+            >
+              Amr
+            </span>
+          </h1>
+        </a>
+
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex justify-center">
+          <ul
+            className="
+            flex
+            items-center
+            gap-3
+
+            list-none
+            m-0
+            p-0
+            "
+          >
+            {navLinks.map((item) => {
+              const id =
+                item.toLowerCase();
+
+              const isActive =
+                activeSection === id;
+
+              return (
+                <li key={item}>
+                  <a
+                    href={`#${id}`}
+                    className={`
+                    relative
+
+                    px-5
+                    py-3
+
+                    rounded-2xl
+
+                    font-semibold
+                    text-sm
+                    tracking-wide
+
+                    transition-all
+                    duration-300
+
                     ${
                       isActive
-                        ? "text-primary dark:text-accent1 drop-shadow-[0_0_6px_rgba(99,102,241,0.45)]"
-                        : "text-dark/80 dark:text-light/80 hover:text-primary dark:hover:text-accent1"
+                        ? `
+                          text-foreground
+                          dark:text-white
+
+                          bg-slate-900/[0.04]
+                          dark:bg-white/[0.08]
+
+                          border
+                          border-black/5
+                          dark:border-white/10
+
+                          shadow-[0_0_18px_rgba(59,130,246,0.12)]
+                        `
+                        : `
+                          text-slate-600
+                          dark:text-gray-400
+
+                          hover:text-foreground
+                          dark:hover:text-white
+
+                          hover:bg-slate-900/[0.03]
+                          dark:hover:bg-white/[0.04]
+                        `
                     }
-                  `}
-                >
-                  {item}
-
-                  {/* Animated underline */}
-                  <span
-                    className={`
-                      absolute left-0 -bottom-1 h-[2px] w-full
-                      origin-left scale-x-0
-                      bg-primary dark:bg-accent1
-                      transition-transform duration-300 ease-out
-                      ${isActive && "scale-x-100"}
                     `}
-                  />
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
+                  >
+                    {isActive && (
+                      <div
+                        className="
+                        absolute
+                        inset-0
 
-      {/* ── Controls slot (theme toggle + mobile menu) ── */}
-      <div className="flex items-center w-full md:w-auto gap-2">
-        {/* Push controls to the right on mobile */}
-        <div className="flex-1 md:hidden" />
-        {controls}
+                        rounded-2xl
+
+                        bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.14),transparent_60%)]
+                        "
+                      />
+                    )}
+
+                    <span className="relative z-10">
+                      {item}
+                    </span>
+
+                    {isActive && (
+                      <span
+                        className="
+                        absolute
+                        left-1/2
+                        -translate-x-1/2
+                        bottom-1
+
+                        w-6
+                        h-[3px]
+
+                        rounded-full
+
+                        bg-gradient-to-r
+                        from-blue-400
+                        to-cyan-300
+                        "
+                      />
+                    )}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+
+        {/* Controls */}
+        <div
+          className="
+          relative
+          z-10
+
+          flex
+          items-center
+          gap-3
+
+          w-full
+          md:w-auto
+          "
+        >
+          <div className="flex-1 md:hidden" />
+
+          {controls}
+        </div>
       </div>
     </header>
   );

@@ -1,153 +1,644 @@
 // src/components/projects/ProjectCard.jsx
-import { useRef, useState, useEffect, useMemo, memo } from "react";
+
+import {
+  useRef,
+  useState,
+  useEffect,
+  useMemo,
+  memo,
+} from "react";
+
 import { motion } from "framer-motion";
 
+import {
+  ArrowUpRight,
+  Play,
+  Sparkles,
+} from "lucide-react";
+
+/* ======================================================
+   CATEGORY STYLES
+====================================================== */
+
 const BADGE_COLORS = {
-  development:  "bg-teal-500/80   text-white",
-  design:       "bg-purple-500/80 text-white",
-  architecture: "bg-amber-500/80  text-white",
+  development: `
+    bg-blue-500/80
+    text-foreground dark:text-white
+  `,
+
+  design: `
+    bg-purple-500/80
+    text-foreground dark:text-white
+  `,
+
+  architecture: `
+    bg-amber-500/80
+    text-foreground dark:text-white
+  `,
 };
 
 const TAG_COLORS = {
-  development:  "bg-teal-100   text-teal-800   dark:bg-teal-900/50   dark:text-teal-300",
-  design:       "bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300",
-  architecture: "bg-amber-100  text-amber-800  dark:bg-amber-900/50  dark:text-amber-300",
-  default:      "bg-blue-100   text-blue-800   dark:bg-navy-layer     dark:text-blue-soft",
+  development: `
+    bg-blue-500/10
+    text-blue-300
+    border border-blue-400/20
+  `,
+
+  design: `
+    bg-purple-500/10
+    text-purple-300
+    border border-purple-400/20
+  `,
+
+  architecture: `
+    bg-amber-500/10
+    text-amber-300
+    border border-amber-400/20
+  `,
+
+  default: `
+    bg-slate-100/80 dark:bg-white/[0.04]
+    text-slate-600 dark:text-gray-300
+    border border-slate-200 dark:border-white/10
+  `,
 };
 
-function getVisibleTagLimit(width, tagCount) {
-  if (tagCount <= 1) return tagCount;
-  if (width < 220) return Math.min(tagCount, 1);
-  if (width < 280) return Math.min(tagCount, 2);
-  if (width < 360) return Math.min(tagCount, 3);
-  return Math.min(tagCount, 4);
+/* ======================================================
+   HELPERS
+====================================================== */
+
+function getVisibleTagLimit(
+  width,
+  tagCount
+) {
+  if (tagCount <= 1)
+    return tagCount;
+
+  if (width < 220)
+    return Math.min(tagCount, 1);
+
+  if (width < 320)
+    return Math.min(tagCount, 2);
+
+  return Math.min(tagCount, 3);
 }
 
-// index prop: first card in grid gets LCP priority treatment
-const ProjectCard = memo(function ProjectCard({
-  project,
-  index = 0,
-  getImages,
-  loadedMap,
-  handleThumbLoad,
-  openModal,
-  CARD_VARIANTS,
-}) {
-  const thumb       = getImages(project)[0] ?? "";
-  const isVideo     = project.type === "video";
-  const isLoaded    = !!loadedMap[project.id];
-  const isFirstCard = index === 0;
+/* ======================================================
+   COMPONENT
+====================================================== */
 
-  const containerRef = useRef(null);
-  const [containerWidth, setContainerWidth] = useState(0);
+const ProjectCard = memo(
+  function ProjectCard({
+    project,
+    index = 0,
+    getImages,
+    loadedMap,
+    handleThumbLoad,
+    openModal,
+    CARD_VARIANTS,
+  }) {
+    const thumb =
+      getImages(project)[0] ?? "";
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-    let frame;
-    const run = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const nextWidth = Math.round(container.offsetWidth);
-        setContainerWidth((prev) => (prev === nextWidth ? prev : nextWidth));
-      });
-    };
-    run();
-    const ro = new ResizeObserver(run);
-    ro.observe(container);
-    return () => { cancelAnimationFrame(frame); ro.disconnect(); };
-  }, []);
+    const isVideo =
+      project.type === "video";
 
-  const tags        = project.tags ?? [];
-  const visibleCount = useMemo(
-    () => getVisibleTagLimit(containerWidth, tags.length),
-    [containerWidth, tags.length],
-  );
-  const visibleTags = tags.slice(0, visibleCount);
-  const hiddenCount = tags.length - visibleTags.length;
-  const tagCls      = TAG_COLORS[project.category]   ?? TAG_COLORS.default;
-  const badgeCls    = BADGE_COLORS[project.category] ?? "bg-gray-500/80 text-white";
+    const isLoaded =
+      !!loadedMap[project.id];
 
-  return (
-    <motion.article
-      variants={CARD_VARIANTS}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      whileHover={{ y: -6, scale: 1.02 }}
-      transition={{ duration: 0.22, ease: "easeOut" }}
-      onClick={() => openModal(project)}
-      onKeyDown={(e) => e.key === "Enter" && openModal(project)}
-      tabIndex={0}
-      role="button"
-      aria-label={`View case study for ${project.title}`}
-      className="group relative bg-white dark:bg-navy-surface rounded-xl overflow-hidden shadow-md hover:shadow-xl cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-    >
-      <div className="relative w-full overflow-hidden bg-gray-100 dark:bg-gray-800/60">
-        {!isLoaded && (
-          <div className="h-[240px] overflow-hidden bg-gray-200 dark:bg-gray-700/60">
-            <div className="h-full w-full -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/40 dark:via-white/10 to-transparent" />
-          </div>
-        )}
+    const isFirstCard =
+      index === 0;
 
-        {/* LCP fix: first card = eager + high priority. Others = lazy + async */}
-        <img
-          src={thumb}
-          alt={project.title}
-          loading={isFirstCard ? "eager" : "lazy"}
-          decoding={isFirstCard ? "sync" : "async"}
-          fetchPriority={isFirstCard ? "high" : "auto"}
-          width="640"
-          height="240"
-          onLoad={() => handleThumbLoad(project.id)}
-          className={`w-full h-[240px] object-cover transition-all duration-500 group-hover:scale-105 ${isLoaded ? "opacity-100" : "opacity-0 absolute inset-0"}`}
+    const containerRef =
+      useRef(null);
+
+    const [
+      containerWidth,
+      setContainerWidth,
+    ] = useState(0);
+
+    /* ==================================================
+       RESIZE
+    ================================================== */
+
+    useEffect(() => {
+      const container =
+        containerRef.current;
+
+      if (!container) return;
+
+      let frame;
+
+      const run = () => {
+        cancelAnimationFrame(frame);
+
+        frame =
+          requestAnimationFrame(() => {
+            const nextWidth =
+              Math.round(
+                container.offsetWidth
+              );
+
+            setContainerWidth(
+              (prev) =>
+                prev === nextWidth
+                  ? prev
+                  : nextWidth
+            );
+          });
+      };
+
+      run();
+
+      const ro =
+        new ResizeObserver(run);
+
+      ro.observe(container);
+
+      return () => {
+        cancelAnimationFrame(frame);
+
+        ro.disconnect();
+      };
+    }, []);
+
+    /* ==================================================
+       TAGS
+    ================================================== */
+
+    const tags =
+      project.tags ?? [];
+
+    const visibleCount =
+      useMemo(
+        () =>
+          getVisibleTagLimit(
+            containerWidth,
+            tags.length
+          ),
+        [
+          containerWidth,
+          tags.length,
+        ]
+      );
+
+    const visibleTags =
+      tags.slice(0, visibleCount);
+
+    const hiddenCount =
+      tags.length -
+      visibleTags.length;
+
+    const tagCls =
+      TAG_COLORS[
+        project.category
+      ] ?? TAG_COLORS.default;
+
+    const badgeCls =
+      BADGE_COLORS[
+        project.category
+      ] ??
+      "bg-gray-500/80 text-foreground dark:text-white";
+
+    /* ==================================================
+       RENDER
+    ================================================== */
+
+    return (
+      <motion.article
+        variants={CARD_VARIANTS}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        whileHover={{
+          y: -8,
+        }}
+        transition={{
+          duration: 0.25,
+        }}
+        onClick={() =>
+          openModal(project)
+        }
+        onKeyDown={(e) =>
+          e.key === "Enter" &&
+          openModal(project)
+        }
+        tabIndex={0}
+        role="button"
+        aria-label={`View ${project.title}`}
+        className="
+        group
+        relative
+        overflow-hidden
+
+        rounded-[30px]
+
+        border
+        border-slate-200 dark:border-white/10
+
+        bg-slate-100/80 dark:bg-white/[0.03]
+
+        backdrop-blur-xl
+
+        cursor-pointer
+
+        transition-all
+        duration-500
+
+        hover:border-blue-400/20
+        hover:shadow-[0_0_45px_rgba(59,130,246,0.12)]
+
+        outline-none
+        "
+      >
+        {/* ==================================================
+           GLOW
+        ================================================== */}
+
+        <div
+          className="
+          absolute
+          inset-0
+
+          opacity-0
+          group-hover:opacity-100
+
+          transition-opacity
+          duration-500
+
+          bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.14),transparent_50%)]
+          "
         />
 
-        {isLoaded && <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-all duration-300" />}
-        {isLoaded && (
-          <div className="absolute inset-x-3 top-3 z-10 flex items-start justify-between gap-2 pointer-events-none">
-            <div className="min-w-0 flex-1">
-              {project.category && (
-                <span className={`inline-flex max-w-full items-center rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wide backdrop-blur-sm ${badgeCls}`}>
-                  <span className="truncate">{project.category}</span>
-                </span>
-              )}
-            </div>
+        {/* ==================================================
+           IMAGE
+        ================================================== */}
 
+        <div
+          className="
+          relative
+
+          h-[260px]
+
+          overflow-hidden
+
+          bg-slate-100 dark:bg-[#081120]
+          "
+        >
+          {/* Skeleton */}
+          {!isLoaded && (
+            <div
+              className="
+              absolute
+              inset-0
+
+              overflow-hidden
+
+              bg-slate-100/80 dark:bg-white/[0.03]
+              "
+            >
+              <div
+                className="
+                h-full
+                w-full
+
+                -translate-x-full
+
+                animate-[shimmer_1.5s_infinite]
+
+                bg-gradient-to-r
+                from-transparent
+                via-white/10
+                to-transparent
+                "
+              />
+            </div>
+          )}
+
+          {/* Image */}
+          <img
+            src={thumb}
+            alt={project.title}
+            loading={
+              isFirstCard
+                ? "eager"
+                : "lazy"
+            }
+            decoding={
+              isFirstCard
+                ? "sync"
+                : "async"
+            }
+            fetchPriority={
+              isFirstCard
+                ? "high"
+                : "auto"
+            }
+            width="640"
+            height="260"
+            onLoad={() =>
+              handleThumbLoad(
+                project.id
+              )
+            }
+            className={`
+            w-full
+            h-full
+
+            object-cover
+
+            transition-all
+            duration-700
+
+            group-hover:scale-105
+
+            ${
+              isLoaded
+                ? "opacity-100"
+                : "opacity-0"
+            }
+            `}
+          />
+
+          {/* Overlay */}
+          <div
+            className="
+            absolute
+            inset-0
+
+            bg-gradient-to-t
+            from-[#020817]
+            via-[#020817]/20
+            to-transparent
+
+            opacity-90
+            "
+          />
+
+          {/* Top Content */}
+          <div
+            className="
+            absolute
+            top-4
+            left-4
+            right-4
+
+            z-10
+
+            flex
+            items-start
+            justify-between
+            gap-3
+            "
+          >
+            {/* Category */}
+            <span
+              className={`
+              inline-flex
+              items-center
+
+              px-3
+              py-1.5
+
+              rounded-full
+
+              text-[11px]
+              font-bold
+
+              uppercase
+              tracking-[0.14em]
+
+              backdrop-blur-xl
+
+              ${badgeCls}
+              `}
+            >
+              {project.category}
+            </span>
+
+            {/* Video */}
             {isVideo && (
-              <span className="inline-flex shrink-0 items-center rounded-md bg-black/60 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white backdrop-blur-sm">
-                ▶ Video
+              <div
+                className="
+                flex
+                items-center
+                gap-1.5
+
+                px-3
+                py-1.5
+
+                rounded-full
+
+                bg-black/50
+
+                text-foreground dark:text-white
+                text-[11px]
+                font-semibold
+
+                backdrop-blur-xl
+                "
+              >
+                <Play
+                  size={12}
+                  fill="white"
+                />
+
+                Video
+              </div>
+            )}
+          </div>
+
+          {/* Hover CTA */}
+          <div
+            className="
+            absolute
+            inset-0
+
+            flex
+            items-center
+            justify-center
+
+            opacity-0
+            group-hover:opacity-100
+
+            transition-all
+            duration-500
+            "
+          >
+            <div
+              className="
+              flex
+              items-center
+              gap-3
+
+              px-6
+              py-3
+
+              rounded-2xl
+
+              border
+              border-slate-200 dark:border-white/10
+
+              bg-black/40
+
+              backdrop-blur-xl
+
+              text-foreground dark:text-white
+              font-semibold
+              "
+            >
+              View Case Study
+
+              <ArrowUpRight
+                size={18}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* ==================================================
+           CONTENT
+        ================================================== */}
+
+        <div className="relative z-10 p-6">
+          {/* Meta */}
+          <div
+            className="
+            flex
+            items-center
+            gap-2
+
+            mb-3
+            "
+          >
+            <Sparkles
+              size={14}
+              className="
+              text-blue-300
+              "
+            />
+
+            <span
+              className="
+              text-xs
+              uppercase
+              tracking-[0.16em]
+
+              text-slate-500 dark:text-gray-500
+              "
+            >
+              {project.role}
+            </span>
+          </div>
+
+          {/* Title */}
+          <h3
+            className="
+            text-2xl
+            font-bold
+
+            text-foreground dark:text-white
+
+            leading-tight
+
+            transition-colors
+            duration-300
+
+            group-hover:text-blue-300
+            "
+          >
+            {project.title}
+          </h3>
+
+          {/* Description */}
+          <p
+            className="
+            mt-4
+
+            text-muted dark:text-slate-500 dark:text-gray-400
+            text-sm
+
+            leading-relaxed
+
+            line-clamp-3
+            "
+          >
+            {project.description}
+          </p>
+
+          {/* Divider */}
+          <div
+            className="
+            mt-5
+            mb-5
+
+            h-px
+
+            bg-gradient-to-r
+            from-white/10
+            to-transparent
+            "
+          />
+
+          {/* Tags */}
+          <div
+            ref={containerRef}
+            className="
+            flex
+            flex-wrap
+            gap-2
+            "
+          >
+            {visibleTags.map(
+              (tag) => (
+                <span
+                  key={tag}
+                  title={tag}
+                  className={`
+                  px-3
+                  py-1.5
+
+                  rounded-full
+
+                  text-xs
+                  font-medium
+
+                  whitespace-nowrap
+
+                  ${tagCls}
+                  `}
+                >
+                  {tag}
+                </span>
+              )
+            )}
+
+            {hiddenCount > 0 && (
+              <span
+                className="
+                px-3
+                py-1.5
+
+                rounded-full
+
+                text-xs
+                font-medium
+
+                bg-slate-100/80 dark:bg-white/[0.04]
+                text-slate-600 dark:text-gray-300
+
+                border
+                border-slate-200 dark:border-white/10
+                "
+              >
+                +{hiddenCount}
               </span>
             )}
           </div>
-        )}
-        {isLoaded && (
-          <p className="absolute bottom-3 right-3 z-10 text-xs font-medium text-white select-none pointer-events-none opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-            View case study →
-          </p>
-        )}
-      </div>
-
-      <div className="p-4">
-        <h3 className="font-semibold text-base text-blue-600 dark:text-blue-mid mb-1 truncate" title={project.title}>
-          {project.title}
-        </h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-3 leading-relaxed">
-          {project.description}
-        </p>
-
-        <div ref={containerRef} className="flex gap-1.5 overflow-hidden">
-          {visibleTags.map((t) => (
-            <span key={t} title={t} className={`text-xs px-2 py-0.5 rounded-full whitespace-nowrap font-medium ${tagCls}`}>{t}</span>
-          ))}
-          {hiddenCount > 0 && (
-            <span className="text-xs px-2 py-0.5 rounded-full whitespace-nowrap bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300">+{hiddenCount}</span>
-          )}
         </div>
-
-      </div>
-    </motion.article>
-  );
-});
+      </motion.article>
+    );
+  }
+);
 
 export default ProjectCard;

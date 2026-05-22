@@ -1,8 +1,25 @@
-// src/components/Projects/ProjectMediaPanel.jsx
-import { useRef, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Maximize2, X } from "lucide-react";
+// src/components/projects/ProjectMediaPanel.jsx
+
+import {
+  useRef,
+  useEffect,
+} from "react";
+
+import {
+  motion,
+  AnimatePresence,
+} from "framer-motion";
+
+import {
+  Maximize2,
+  X,
+} from "lucide-react";
+
 import ImageSlider from "./ImageSlider";
+
+/* ======================================================
+   COMPONENT
+====================================================== */
 
 export default function ProjectMediaPanel({
   project,
@@ -14,61 +31,186 @@ export default function ProjectMediaPanel({
   onOpenFullscreen,
   onCloseFullscreen,
 }) {
-  const videoRef   = useRef(null);
-  const isVideo    = project?.type === "video";
-  const videoSrc   = project?.video ?? null;
-  const hasMulti   = images.length > 1;
+  const videoRef =
+    useRef(null);
 
-  // Auto-play / pause video when videoSrc changes
+  const isVideo =
+    project?.type ===
+    "video";
+
+  const videoSrc =
+    project?.video ??
+    null;
+
+  const hasMulti =
+    images.length > 1;
+
+  /* ==================================================
+     VIDEO AUTOPLAY
+  ================================================== */
+
   useEffect(() => {
-    if (!videoRef.current || !videoSrc) return;
-    const el = videoRef.current;
-    const p  = el.play();
-    if (p?.catch) p.catch(() => {});
-    return () => el.pause();
+    if (
+      !videoRef.current ||
+      !videoSrc
+    )
+      return;
+
+    const el =
+      videoRef.current;
+
+    const promise =
+      el.play();
+
+    if (
+      promise?.catch
+    ) {
+      promise.catch(() => {});
+    }
+
+    return () =>
+      el.pause();
   }, [videoSrc]);
 
-  // Expose a pause handle so the shell can pause on nav/close
-  // (we do this via a forwarded ref pattern — see note in ProjectModalShell)
+  /* ==================================================
+     RENDER
+  ================================================== */
 
   return (
     <>
-      {/* ── Media container ── */}
+      {/* ==============================================
+         MEDIA CONTAINER
+      ============================================== */}
+
       <div
         className={`
-          relative bg-black/5 dark:bg-black
-          flex items-center justify-center shrink-0 overflow-hidden
-          ${isPortrait
-            ? "w-full md:w-[42%] max-h-[55vh] md:max-h-none md:self-stretch"
-            : "w-full h-[38vh] md:h-[44vh]"
-          }
+        relative
+
+        bg-slate-100
+        dark:bg-[#030712]
+
+        flex
+        items-center
+        justify-center
+
+        overflow-hidden
+
+        ${
+          isPortrait
+            ? `
+              w-full
+
+              min-h-[68vh]
+              lg:min-h-0
+              lg:h-full
+              lg:flex-1
+            `
+            : `
+              w-full
+
+              h-[40vh]
+              md:h-[48vh]
+            `
+        }
         `}
       >
-        {/* Fullscreen trigger (images only) */}
+        {/* Gradient */}
+        <div
+          className="
+          absolute
+          inset-0
+
+          bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.14),transparent_50%)]
+          "
+        />
+
+        {/* ==========================================
+           FULLSCREEN BTN
+        ========================================== */}
+
         {!isVideo && (
           <button
-            onClick={onOpenFullscreen}
+            onClick={
+              onOpenFullscreen
+            }
             aria-label="View fullscreen"
             className="
-              absolute top-3 left-3 z-20
-              p-1.5 rounded-md
-              bg-black/50 text-white
-              hover:bg-black/75 transition
+            absolute
+            top-5
+            left-5
+            z-20
+
+            w-11
+            h-11
+
+            rounded-2xl
+
+            border
+            border-slate-200 dark:border-white/10
+
+            bg-black/40
+
+            backdrop-blur-xl
+
+            flex
+            items-center
+            justify-center
+
+            text-foreground dark:text-white
+
+            hover:bg-black/60
+            hover:border-blue-400/20
+
+            transition-all
+            duration-300
             "
           >
-            <Maximize2 size={15} />
+            <Maximize2
+              size={17}
+            />
           </button>
         )}
 
-        {/* Image counter badge */}
+        {/* ==========================================
+           COUNTER
+        ========================================== */}
+
         {hasMulti && (
-          <div className="absolute bottom-3 right-3 z-20 px-2 py-0.5 text-xs rounded bg-black/60 text-white">
-            {imageIndex + 1} / {images.length}
+          <div
+            className="
+            absolute
+            bottom-5
+            right-5
+            z-20
+
+            px-3
+            py-1.5
+
+            rounded-full
+
+            border
+            border-slate-200 dark:border-white/10
+
+            bg-black/50
+
+            backdrop-blur-xl
+
+            text-foreground dark:text-white
+            text-xs
+            font-medium
+            "
+          >
+            {imageIndex + 1} /{" "}
+            {images.length}
           </div>
         )}
 
-        {/* Media */}
-        {isVideo && videoSrc ? (
+        {/* ==========================================
+           VIDEO
+        ========================================== */}
+
+        {isVideo &&
+        videoSrc ? (
           <video
             ref={videoRef}
             src={videoSrc}
@@ -78,52 +220,143 @@ export default function ProjectMediaPanel({
             muted
             playsInline
             preload="metadata"
-            className="h-full max-h-full w-full rounded-md object-contain"
+            className="
+            h-full
+            max-h-full
+            w-full
+
+            object-contain
+            "
           />
-        ) : images.length > 0 ? (
+        ) : images.length >
+          0 ? (
+          /* ======================================
+             IMAGES
+          ====================================== */
+
           <ImageSlider
             images={images}
-            imageIndex={imageIndex}
-            setImageIndex={setImageIndex}
+            imageIndex={
+              imageIndex
+            }
+            setImageIndex={
+              setImageIndex
+            }
           />
         ) : null}
       </div>
 
-      {/* ── Fullscreen overlay ── */}
+      {/* ==============================================
+         FULLSCREEN
+      ============================================== */}
+
       <AnimatePresence>
         {isFullscreen && (
           <motion.div
             key="fullscreen"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            exit={{
+              opacity: 0,
+            }}
+            transition={{
+              duration: 0.16,
+            }}
             className="
-              fixed inset-0 z-[999]
-              bg-black/92
-              flex items-center justify-center
-              p-4 cursor-zoom-out
+            fixed
+            inset-0
+            z-[999]
+
+            bg-black/95
+
+            flex
+            items-center
+            justify-center
+
+            p-4
+
+            backdrop-blur-md
             "
-            onClick={onCloseFullscreen}
+            onClick={
+              onCloseFullscreen
+            }
           >
+            {/* Image */}
             <motion.img
-              src={images?.[imageIndex]}
-              alt={project.title}
-              initial={{ scale: 0.94 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.94 }}
-              transition={{ duration: 0.18 }}
-              className="max-w-full max-h-full object-contain cursor-default rounded-md"
-              onClick={(e) => e.stopPropagation()}
+              src={
+                images?.[
+                  imageIndex
+                ]
+              }
+              alt={
+                project.title
+              }
+              initial={{
+                scale: 0.95,
+              }}
+              animate={{
+                scale: 1,
+              }}
+              exit={{
+                scale: 0.95,
+              }}
+              transition={{
+                duration: 0.2,
+              }}
+              className="
+              max-w-full
+              max-h-full
+
+              object-contain
+
+              rounded-[20px]
+
+              shadow-[0_0_50px_rgba(0,0,0,0.45)]
+
+              cursor-default
+              "
+              onClick={(e) =>
+                e.stopPropagation()
+              }
             />
+
+            {/* Close */}
             <button
-              onClick={onCloseFullscreen}
+              onClick={
+                onCloseFullscreen
+              }
               aria-label="Exit fullscreen"
               className="
-                absolute top-4 right-4
-                p-2 rounded-full
-                bg-white/10 text-white
-                hover:bg-white/20 transition
+              absolute
+              top-5
+              right-5
+
+              w-12
+              h-12
+
+              rounded-2xl
+
+              border
+              border-slate-200 dark:border-white/10
+
+              bg-white/10
+
+              backdrop-blur-xl
+
+              flex
+              items-center
+              justify-center
+
+              text-foreground dark:text-white
+
+              hover:bg-white/20
+
+              transition-all
+              duration-300
               "
             >
               <X size={20} />

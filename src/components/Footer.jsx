@@ -1,7 +1,11 @@
 // src/components/Footer.jsx
+
 import React from "react";
+
 import { motion } from "framer-motion";
+
 import { fadeInUp } from "../utils/motionVariants";
+
 import {
   FaLinkedin,
   FaGithub,
@@ -11,78 +15,567 @@ import {
   FaPhone,
 } from "react-icons/fa";
 
+import {
+  ArrowUpRight,
+  Sparkles,
+} from "lucide-react";
+
+/* ======================================================
+   SOCIALS
+====================================================== */
+
 const socialLinks = [
-  { id: "linkedin", icon: <FaLinkedin />, url: "https://www.linkedin.com/in/ziadamrsaid/" },
-  { id: "github", icon: <FaGithub />, url: "https://github.com/Ziad-Amr1" },
-  { id: "behance", icon: <FaBehance />, url: "https://www.behance.net/ZiadAmrSaid" },
-  { id: "dribbble", icon: <FaDribbble />, url: "https://dribbble.com/yourprofile" },
-  { id: "email", icon: <FaEnvelope />, url: "mailto:zyadamr177@gmail.com" },
-  { id: "phone", icon: <FaPhone />, url: "tel:01122708543" },
+  {
+    id: "linkedin",
+    icon: <FaLinkedin />,
+    url: "https://www.linkedin.com/in/ziadamrsaid/",
+  },
+
+  {
+    id: "github",
+    icon: <FaGithub />,
+    url: "https://github.com/Ziad-Amr1",
+  },
+
+  {
+    id: "behance",
+    icon: <FaBehance />,
+    url: "https://www.behance.net/ZiadAmrSaid",
+  },
+
+  {
+    id: "dribbble",
+    icon: <FaDribbble />,
+    url: "https://dribbble.com/ziadamrsaid",
+  },
+
+  {
+    id: "email",
+    icon: <FaEnvelope />,
+    url: "mailto:zyadamr177@gmail.com",
+  },
+
+  {
+    id: "phone",
+    icon: <FaPhone />,
+    url: "tel:01122708543",
+  },
 ];
+
+/* ======================================================
+   FOOTER
+====================================================== */
 
 function Footer() {
   return (
     <footer
       className="
-        mt-20 py-10
-        border-t border-gray-200 dark:border-gray-700
-        bg-surface-light dark:bg-dark-card
-        bg-opacity-80 backdrop-blur-sm
-        transition-colors duration-500
+      relative
+      overflow-hidden
+
+      border-t
+      border-slate-200
+      dark:border-white/10
+
+      bg-slate-50
+      dark:bg-background
+
+      pt-24
+      pb-10
+
+      transition-colors
+      duration-300
       "
     >
-      <div className="container mx-auto px-[5%]">
+      {/* ======================================================
+         BACKGROUND EFFECTS
+      ====================================================== */}
+
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {/* Top Glow */}
+        <div
+          className="
+          absolute
+          top-[-180px]
+          left-1/2
+          -translate-x-1/2
+
+          w-[550px]
+          h-[300px]
+
+          rounded-full
+
+          bg-blue-500/10
+
+          blur-[140px]
+          "
+        />
+
+        {/* Left Glow */}
+        <div
+          className="
+          absolute
+          left-[-180px]
+          bottom-[-120px]
+
+          w-[350px]
+          h-[350px]
+
+          rounded-full
+
+          bg-cyan-400/10
+
+          blur-[120px]
+          "
+        />
+
+        {/* Grid */}
+        <div
+          className="
+          absolute
+          inset-0
+
+          opacity-[0.03]
+
+          bg-[linear-gradient(to_right,rgba(15,23,42,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.06)_1px,transparent_1px)]
+
+          dark:bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
+
+          bg-[size:80px_80px]
+          "
+        />
+      </div>
+
+      <div
+        className="
+        max-w-[1350px]
+        mx-auto
+
+        px-[6%]
+        md:px-[8%]
+        lg:px-[10%]
+        "
+      >
+        {/* ======================================================
+           TOP CTA
+        ====================================================== */}
+
         <motion.div
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           className="
-            flex flex-col-reverse md:flex-row
-            items-center justify-between
-            gap-6
+          relative
+          overflow-hidden
+
+          rounded-[36px]
+
+          border
+          border-slate-200
+          dark:border-white/10
+
+          bg-white
+          dark:bg-white/[0.03]
+
+          shadow-[0_10px_40px_rgba(15,23,42,0.05)]
+          dark:shadow-none
+
+          backdrop-blur-xl
+
+          p-8
+          md:p-12
+
+          mb-16
           "
         >
-          {/* Left: copyright */}
-          <p className="text-sm text-gray-500 dark:text-gray-400 text-center md:text-left">
-            © {new Date().getFullYear()}{" "}
-            <span className="font-semibold text-gray-800 dark:text-dark-text">
-              Ziad Amr
-            </span>
-            . All rights reserved.
-          </p>
+          {/* Glow */}
+          <div
+            className="
+            absolute
+            inset-0
 
-          {/* Right: social icons */}
-          <div className="flex items-center gap-6 text-lg">
-            {socialLinks.map(({ id, icon, url }) => (
-              <motion.a
-                key={id}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="social link"
-                whileHover={{ y: -3, scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+            bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.15),transparent_45%)]
+            "
+          />
+
+          <div
+            className="
+            relative
+            z-10
+
+            flex
+            flex-col
+            lg:flex-row
+
+            items-start
+            lg:items-center
+
+            justify-between
+
+            gap-10
+            "
+          >
+            {/* Left */}
+            <div className="max-w-2xl">
+              {/* Label */}
+              <div
                 className="
-                  text-gray-500 dark:text-blue-soft
-                  hover:text-blue-600
-                  dark:hover:text-dark-text
-                  transition-colors
+                inline-flex
+                items-center
+                gap-2
+
+                px-5
+                py-2
+
+                rounded-2xl
+
+                border
+                border-slate-200
+                dark:border-white/10
+
+                bg-white
+                dark:bg-white/[0.03]
+
+                shadow-[0_4px_20px_rgba(15,23,42,0.04)]
+                dark:shadow-none
+
+                text-blue-500
+                dark:text-blue-300
+
+                text-sm
+
+                tracking-[0.18em]
+                uppercase
+
+                mb-6
                 "
               >
-                {icon}
-              </motion.a>
-            ))}
+                <Sparkles className="w-4 h-4" />
+
+                Let's Connect
+              </div>
+
+              {/* Heading */}
+              <h2
+                className="
+                text-3xl
+                md:text-5xl
+
+                font-black
+
+                leading-tight
+                tracking-tight
+
+                text-foreground
+                dark:text-white
+                "
+              >
+                Have an Idea?
+                <br />
+
+                <span
+                  className="
+                  bg-gradient-to-r
+                  from-blue-400
+                  via-cyan-300
+                  to-blue-500
+
+                  bg-clip-text
+                  text-transparent
+                  "
+                >
+                  Let's Build It Together
+                </span>
+              </h2>
+
+              {/* Text */}
+              <p
+                className="
+                mt-6
+
+                text-muted
+                dark:text-gray-400
+
+                text-lg
+                leading-relaxed
+
+                max-w-xl
+                "
+              >
+                I’m always open to
+                collaborations,
+                freelance projects,
+                and creative ideas
+                that blend technology
+                with design.
+              </p>
+            </div>
+
+            {/* Button */}
+            <a
+              href="#contact"
+              className="
+              group
+
+              inline-flex
+              items-center
+              gap-3
+
+              px-8
+              py-4
+
+              rounded-2xl
+
+              bg-gradient-to-r
+              from-blue-500
+              to-cyan-400
+
+              text-white
+
+              font-semibold
+
+              shadow-[0_0_25px_rgba(59,130,246,0.35)]
+
+              transition-all
+              duration-300
+
+              hover:scale-[1.03]
+
+              hover:shadow-[0_0_40px_rgba(59,130,246,0.5)]
+              "
+            >
+              Start a Project
+
+              <ArrowUpRight
+                className="
+                w-5
+                h-5
+
+                transition-transform
+                duration-300
+
+                group-hover:-translate-y-1
+                group-hover:translate-x-1
+                "
+              />
+            </a>
           </div>
         </motion.div>
 
-        {/* subtle divider line */}
-        <div className="mt-8 h-px w-full bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent" />
+        {/* ======================================================
+           FOOTER MAIN
+        ====================================================== */}
 
-        {/* small closing note */}
-        <p className="mt-6 text-xs text-center text-gray-400 dark:text-gray-500">
-          Designed & built with care.
-        </p>
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="
+          flex
+          flex-col
+          lg:flex-row
+
+          items-center
+          justify-between
+
+          gap-10
+          "
+        >
+          {/* LEFT */}
+          <div className="text-center lg:text-left">
+            {/* Logo */}
+            <h3
+              className="
+              text-3xl
+
+              font-black
+              tracking-tight
+
+              text-foreground
+              dark:text-white
+              "
+            >
+              Ziad{" "}
+
+              <span
+                className="
+                bg-gradient-to-r
+                from-blue-400
+                to-cyan-300
+
+                bg-clip-text
+                text-transparent
+                "
+              >
+                Amr
+              </span>
+            </h3>
+
+            {/* Description */}
+            <p
+              className="
+              mt-4
+
+              text-muted
+              dark:text-gray-400
+
+              leading-relaxed
+
+              max-w-md
+              "
+            >
+              Frontend Developer,
+              Designer, and
+              Architecture student
+              focused on building
+              immersive digital
+              experiences.
+            </p>
+
+            {/* Copyright */}
+            <p
+              className="
+              mt-6
+
+              text-sm
+
+              text-gray-500
+              "
+            >
+              ©{" "}
+              {new Date().getFullYear()}{" "}
+              Ziad Amr.
+              <br className="sm:hidden" />{" "}
+              All rights reserved.
+            </p>
+          </div>
+
+          {/* RIGHT */}
+          <div
+            className="
+            flex
+            flex-col
+
+            items-center
+            lg:items-end
+            "
+          >
+            {/* Socials */}
+            <div
+              className="
+              flex
+              items-center
+              flex-wrap
+              justify-center
+
+              gap-4
+              "
+            >
+              {socialLinks.map(
+                ({
+                  id,
+                  icon,
+                  url,
+                }) => (
+                  <motion.a
+                    key={id}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{
+                      y: -4,
+                      scale: 1.08,
+                    }}
+                    whileTap={{
+                      scale: 0.95,
+                    }}
+                    className="
+                    group
+
+                    w-14
+                    h-14
+
+                    rounded-2xl
+
+                    border
+                    border-slate-200
+                    dark:border-white/10
+
+                    bg-white
+                    dark:bg-white/[0.03]
+
+                    shadow-[0_4px_18px_rgba(15,23,42,0.04)]
+                    dark:shadow-none
+
+                    flex
+                    items-center
+                    justify-center
+
+                    text-xl
+
+                    text-slate-600
+                    dark:text-gray-400
+
+                    hover:text-blue-500
+                    dark:hover:text-blue-300
+
+                    hover:border-blue-200
+                    dark:hover:border-blue-400/30
+
+                    hover:bg-blue-50
+                    dark:hover:bg-blue-500/10
+
+                    hover:shadow-[0_10px_30px_rgba(59,130,246,0.12)]
+                    dark:hover:shadow-none
+
+                    transition-all
+                    duration-300
+                    "
+                  >
+                    {icon}
+                  </motion.a>
+                )
+              )}
+            </div>
+
+            {/* Divider */}
+            <div
+              className="
+              mt-8
+
+              w-full
+              h-px
+
+              bg-gradient-to-r
+              from-transparent
+              via-slate-300
+              dark:via-white/10
+              to-transparent
+              "
+            />
+
+            {/* Bottom Text */}
+            <p
+              className="
+              mt-6
+
+              text-sm
+
+              text-gray-500
+
+              text-center
+              lg:text-right
+              "
+            >
+              Designed & built with
+              passion using React,
+              TailwindCSS, and
+              creativity ✨
+            </p>
+          </div>
+        </motion.div>
       </div>
     </footer>
   );

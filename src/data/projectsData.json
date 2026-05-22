@@ -13,9 +13,7 @@
       "problem": "The client needed a complete visual presentation of their villa concept before construction — floor plans alone weren't communicating the design vision.",
       "solution": "Delivered a full 3D model with interior detailing, material selection, and landscape integration using 3ds Max and Lumion.",
       "result": "Client approved the design on first presentation. The renders were used directly in the project proposal.",
-      "links": [
-        { "text": "View Project", "url": "#" }
-      ]
+      "links": [{ "text": "View Project", "url": null }]
     },
     {
       "id": 2,
@@ -30,9 +28,7 @@
       "problem": "The client needed to visualize multiple facade options quickly before committing to one direction.",
       "solution": "Created a detailed 3D exterior model with material and lighting variations to support decision-making.",
       "result": "Design was selected for development after client review of the rendered options.",
-      "links": [
-        { "text": "View Project", "url": "#" }
-      ]
+      "links": [{ "text": "View Project", "url": null }]
     },
     {
       "id": 3,
@@ -47,9 +43,7 @@
       "problem": "Needed to communicate a high-end residential aesthetic to a client unfamiliar with technical drawings.",
       "solution": "Produced photorealistic renders with focus on material quality and natural lighting using 3ds Max and Lumion.",
       "result": "Client could clearly evaluate and approve the design direction without needing to interpret technical plans.",
-      "links": [
-        { "text": "View Project", "url": "#" }
-      ]
+      "links": [{ "text": "View Project", "url": null }]
     },
     {
       "id": 4,
@@ -124,29 +118,10 @@
       "problem": "Wanted to create a fan art piece that matched the visual quality of official promotional material.",
       "solution": "Used advanced Photoshop techniques — layer blending, light painting, and color grading — to achieve a cinematic result.",
       "result": "Piece received strong community feedback and was shared across gaming design forums.",
-      "links": [
-        { "text": "View Project", "url": "#" }
-      ]
+      "links": [{ "text": "View Project", "url": null }]
     },
     {
       "id": 8,
-      "title": "Hu Tao Dark Edition",
-      "category": "design",
-      "year": "2023",
-      "role": "Graphic Designer",
-      "image": "images/projects/hu-tao.webp",
-      "aspect_ratio": "portrait",
-      "tags": ["Photoshop", "Color Grading"],
-      "description": "Alternative dark-toned poster variation with dramatic shadows and enhanced character focus.",
-      "problem": "The original poster felt too bright for the character's darker personality traits in the game's lore.",
-      "solution": "Reworked the color grading and shadow balance to create a moodier, more character-accurate version.",
-      "result": "The dark edition was preferred by the community over the original for its tonal accuracy.",
-      "links": [
-        { "text": "View Project", "url": "#" }
-      ]
-    },
-    {
-      "id": 9,
       "title": "Jean Character Poster",
       "category": "design",
       "year": "2023",
@@ -158,12 +133,10 @@
       "problem": "Needed to convey authority and elegance matching the character's role as a high-ranking knight.",
       "solution": "Applied directional lighting and depth-of-field composition to draw focus and communicate the character's presence.",
       "result": "Clean, high-contrast poster that communicates character identity at a glance.",
-      "links": [
-        { "text": "View Project", "url": "#" }
-      ]
+      "links": [{ "text": "View Project", "url": null }]
     },
     {
-      "id": 10,
+      "id": 9,
       "title": "Deku Motivational Design",
       "category": "design",
       "year": "2023",
@@ -175,12 +148,115 @@
       "problem": "Wanted to create a piece where the typography itself carried as much visual weight as the character art.",
       "solution": "Designed a layout where bold type and character art work together structurally, not just decoratively.",
       "result": "Strong visual hierarchy where the message and image reinforce each other.",
-      "links": [
-        { "text": "View Project", "url": "#" }
-      ]
+      "links": [{ "text": "View Project", "url": null }]
+    },
+    {
+      "id": 10,
+      "title": "Linnea Poster Design",
+      "category": "design",
+      "year": "2025",
+      "role": "Graphic Designer",
+      "image": "images/projects/linnea.webp",
+      "aspect_ratio": "portrait",
+      "tags": ["Photoshop", "Poster Design", "Anime", "Game"],
+      "description": "",
+      "problem": "",
+      "solution": "",
+      "result": "",
+      "links": [{ "text": "View Project", "url": null }]
     },
     {
       "id": 11,
+      "title": "Soft Light Cover Design",
+      "category": "design",
+      "year": "2026",
+      "role": "Graphic Designer",
+      "image": "images/projects/soft_light.webp",
+      "aspect_ratio": "portrait",
+      "tags": ["Photoshop", "Poster Design", "Anime", "Game"],
+      "description": "",
+      "problem": "",
+      "solution": "",
+      "result": "",
+      "links": [{ "text": "View Project", "url": null }]
+    },
+    {
+      "id": 12,
+      "title": "Kayda Poster Design",
+      "category": "design",
+      "year": "2026",
+      "role": "Graphic Designer",
+      "image": "images/projects/kayda_poster.webp",
+      "aspect_ratio": "portrait",
+      "tags": ["Photoshop", "Poster Design", "Anime", "Game"],
+      "description": "",
+      "problem": "",
+      "solution": "",
+      "result": "",
+      "links": [{ "text": "View Project", "url": null }]
+    },
+    {
+      "id": 13,
+      "title": "Bra3am Academy Poster Design",
+      "category": "design",
+      "year": "2026",
+      "role": "Graphic Designer",
+      "image": "images/projects/bra3am.webp",
+      "aspect_ratio": "portrait",
+      "tags": ["Photoshop", "Poster Design", "Academy"],
+      "description": "",
+      "problem": "",
+      "solution": "",
+      "result": "",
+      "links": [{ "text": "View Project", "url": null }]
+    },
+    {
+      "id": 14,
+      "title": "Dr. Poster Design",
+      "category": "design",
+      "year": "2025",
+      "role": "Graphic Designer",
+      "image": "images/projects/dr_design.webp",
+      "aspect_ratio": "landscape",
+      "tags": ["Photoshop", "Poster Design", "Doctor"],
+      "description": "",
+      "problem": "",
+      "solution": "",
+      "result": "",
+      "links": [{ "text": "View Project", "url": null }]
+    },
+    {
+      "id": 15,
+      "title": "Markaz El Kalma Poster Design",
+      "category": "design",
+      "year": "2025",
+      "role": "Graphic Designer",
+      "image": "images/projects/markaz-el-kalma.webp",
+      "aspect_ratio": "landscape",
+      "tags": ["Photoshop", "Poster Design", "Anime", "Game"],
+      "description": "",
+      "problem": "",
+      "solution": "",
+      "result": "",
+      "links": [{ "text": "View Project", "url": null }]
+    },
+    {
+      "id": 16,
+      "title": "Hu Tao Dark Edition",
+      "category": "design",
+      "year": "2023",
+      "role": "Graphic Designer",
+      "image": "images/projects/hu-tao.webp",
+      "aspect_ratio": "portrait",
+      "tags": ["Photoshop", "Color Grading"],
+      "description": "Alternative dark-toned poster variation with dramatic shadows and enhanced character focus.",
+      "problem": "The original poster felt too bright for the character's darker personality traits in the game's lore.",
+      "solution": "Reworked the color grading and shadow balance to create a moodier, more character-accurate version.",
+      "result": "The dark edition was preferred by the community over the original for its tonal accuracy.",
+      "links": [{ "text": "View Project", "url": null }]
+    },
+    {
+      "id": 17,
       "title": "Healthy Lifestyle Campaign",
       "category": "design",
       "year": "2023",
@@ -192,12 +268,10 @@
       "problem": "The client needed advertising material that felt fresh and trustworthy, not clinical or generic.",
       "solution": "Used a light, natural color palette with clean layout and minimal text to keep the focus on the product.",
       "result": "Design was approved in the first round and used across the campaign's print and digital materials.",
-      "links": [
-        { "text": "View Project", "url": "#" }
-      ]
+      "links": [{ "text": "View Project", "url": null }]
     },
     {
-      "id": 12,
+      "id": 18,
       "title": "Automotive Promotional Poster",
       "category": "design",
       "year": "2023",
@@ -209,12 +283,10 @@
       "problem": "The client needed a high-energy visual that made the vehicle the undisputed focal point.",
       "solution": "Applied dramatic studio-style lighting and dark background to isolate and elevate the car as the hero element.",
       "result": "Delivered a print-ready promotional asset that matched the brand's premium positioning.",
-      "links": [
-        { "text": "View Project", "url": "#" }
-      ]
+      "links": [{ "text": "View Project", "url": null }]
     },
     {
-      "id": 13,
+      "id": 19,
       "title": "Banking Vector Illustration",
       "category": "design",
       "year": "2023",
@@ -226,12 +298,10 @@
       "problem": "The financial brand needed a custom illustration that communicated trust and simplicity without using stock art.",
       "solution": "Created a fully original flat vector illustration built for scalability across digital and print formats.",
       "result": "Delivered a brand-aligned asset usable at any resolution without quality loss.",
-      "links": [
-        { "text": "View Project", "url": "#" }
-      ]
+      "links": [{ "text": "View Project", "url": null }]
     },
     {
-      "id": 14,
+      "id": 20,
       "title": "Moon Night Landscape",
       "category": "design",
       "year": "2023",
@@ -243,12 +313,10 @@
       "problem": "Wanted to explore depth and atmosphere using only flat vector shapes — no gradients or blur effects.",
       "solution": "Built depth through strategic layering and a limited, harmonious color palette across foreground, mid-ground, and sky.",
       "result": "A calm, atmospheric piece that demonstrates control of composition and color theory within strict constraints.",
-      "links": [
-        { "text": "View Project", "url": "#" }
-      ]
+      "links": [{ "text": "View Project", "url": null }]
     },
     {
-      "id": 15,
+      "id": 21,
       "title": "Anime Series Cover Art",
       "category": "design",
       "year": "2023",
@@ -260,9 +328,7 @@
       "problem": "Needed a cover that stood out visually while still feeling cohesive with the series' identity.",
       "solution": "Combined strong typographic structure with a bold color contrast strategy to create immediate visual impact.",
       "result": "Cover design effectively communicates series genre and tone at a glance.",
-      "links": [
-        { "text": "View Project", "url": "#" }
-      ]
+      "links": [{ "text": "View Project", "url": null }]
     }
   ]
 }

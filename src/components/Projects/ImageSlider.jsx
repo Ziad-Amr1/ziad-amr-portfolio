@@ -1,128 +1,387 @@
 // src/components/projects/ImageSlider.jsx
-import { useState, memo } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
-// ─────────────────────────────────────────
-// Skeleton
-// ─────────────────────────────────────────
+import {
+  useState,
+  useEffect,
+  memo,
+} from "react";
+
+import {
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+
+/* ======================================================
+   SKELETON
+====================================================== */
 
 function SliderSkeleton() {
   return (
-    <div className="w-full h-full min-h-[200px] animate-pulse bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 bg-[length:200%_100%] rounded-md" />
+    <div
+      className="
+      w-full
+      h-full
+      min-h-[260px]
+
+      rounded-[24px]
+
+      overflow-hidden
+
+      bg-slate-100/80 dark:bg-white/[0.03]
+      "
+    >
+      <div
+        className="
+        h-full
+        w-full
+
+        -translate-x-full
+
+        animate-[shimmer_1.5s_infinite]
+
+        bg-gradient-to-r
+        from-transparent
+        via-white/10
+        to-transparent
+        "
+      />
+    </div>
   );
 }
 
-// ─────────────────────────────────────────
-// Component
-// ─────────────────────────────────────────
+/* ======================================================
+   COMPONENT
+====================================================== */
 
-const ImageSlider = memo(function ImageSlider({
-  images = [],
-  video  = null,
-  imageIndex,
-  setImageIndex,
-}) {
-  const [imgLoaded, setImgLoaded] = useState(false);
+const ImageSlider = memo(
+  function ImageSlider({
+    images = [],
+    video = null,
+    imageIndex,
+    setImageIndex,
+  }) {
+    const [imgLoaded, setImgLoaded] =
+      useState(false);
 
-  // ── Video-only mode ──
-  if (video && !images.length) {
+    // Reset skeleton whenever image changes
+    useEffect(() => {
+      setImgLoaded(false);
+    }, [imageIndex]);
+
+    /* ==================================================
+       VIDEO ONLY
+    ================================================== */
+
+    if (video && !images.length) {
+      return (
+        <div className="w-full p-4">
+          <video
+            src={video}
+            controls
+            autoPlay
+            muted
+            playsInline
+            className="
+            w-full
+            max-h-[520px]
+
+            rounded-[24px]
+
+            object-cover
+            "
+          />
+        </div>
+      );
+    }
+
+    /* ==================================================
+       EMPTY
+    ================================================== */
+
+    if (!images.length) {
+      return (
+        <div
+          className="
+          p-10
+
+          text-center
+          text-muted dark:text-slate-500 dark:text-gray-400
+          "
+        >
+          No preview available
+        </div>
+      );
+    }
+
+    const hasMultiple =
+      images.length > 1;
+
+    /* ==================================================
+       RENDER
+    ================================================== */
+
     return (
-      <div className="w-full p-4">
-        {/* Fix: added muted — browsers block autoplay without it */}
-        <video
-          src={video}
-          controls
-          autoPlay
-          muted
-          playsInline
-          className="w-full max-h-[480px] rounded-md object-cover"
-        />
-      </div>
-    );
-  }
+      <div
+        className="
+          w-full
+          h-full
 
-  // ── Image mode ──
-  if (!images.length) {
-    return (
-      <div className="p-6 text-center text-sm text-gray-500 dark:text-gray-400">
-        No preview available
-      </div>
-    );
-  }
+          relative
 
-  const hasMultiple = images.length > 1;
+          flex
+          flex-col
+          items-center
+          justify-center
 
-  return (
-    <div className="w-full relative flex flex-col items-center justify-center">
-      <div className="w-full flex items-center justify-center relative">
+          min-h-0
+        "
+      >
+        {/* Main Image */}
+        <div
+          className="
+            relative
 
-        {/* Skeleton while loading */}
-        {!imgLoaded && <SliderSkeleton />}
+            w-full
+            flex-1
+            min-h-0
 
-        <img
-          key={images[imageIndex]}
-          src={images[imageIndex]}
-          alt={`slide-${imageIndex + 1}`}
-          loading="lazy"
-          decoding="async"
-          onLoad={() => setImgLoaded(true)}
-          className={`
-            max-w-full max-h-full object-contain rounded-md
-            transition-opacity duration-300
-            ${imgLoaded ? "opacity-100" : "opacity-0 absolute inset-0"}
-          `}
-        />
+            flex
+            items-center
+            justify-center
 
-        {/* Prev / Next — only with multiple images */}
+            overflow-hidden
+
+            rounded-[28px]
+
+            bg-slate-100
+            dark:bg-[#081120]
+          "
+        >
+          {!imgLoaded && (
+            <SliderSkeleton />
+          )}
+
+          <img
+            key={images[imageIndex]}
+            src={images[imageIndex]}
+            alt={`slide-${
+              imageIndex + 1
+            }`}
+            loading="lazy"
+            decoding="async"
+            onLoad={() =>
+              setImgLoaded(true)
+            }
+            className={`
+            w-full
+            h-full
+
+            object-contain
+            object-center
+
+            transition-opacity
+            duration-300
+
+            ${
+              imgLoaded
+                ? "opacity-100"
+                : "opacity-0 absolute inset-0"
+            }
+            `}
+          />
+
+          {/* Controls */}
+          {hasMultiple && (
+            <>
+              {/* Prev */}
+              <button
+                onClick={() => {
+                  setImgLoaded(
+                    false
+                  );
+
+                  setImageIndex(
+                    (i) =>
+                      (i -
+                        1 +
+                        images.length) %
+                      images.length
+                  );
+                }}
+                aria-label="Previous image"
+                className="
+                absolute
+                left-4
+                top-1/2
+                -translate-y-1/2
+
+                w-12
+                h-12
+
+                rounded-2xl
+
+                border
+                border-slate-200 dark:border-white/10
+
+                bg-black/40
+
+                backdrop-blur-xl
+
+                flex
+                items-center
+                justify-center
+
+                text-foreground dark:text-white
+
+                hover:bg-black/60
+
+                transition-all
+                duration-300
+                "
+              >
+                <ChevronLeft
+                  size={20}
+                />
+              </button>
+
+              {/* Next */}
+              <button
+                onClick={() => {
+                  setImgLoaded(
+                    false
+                  );
+
+                  setImageIndex(
+                    (i) =>
+                      (i + 1) %
+                      images.length
+                  );
+                }}
+                aria-label="Next image"
+                className="
+                absolute
+                right-4
+                top-1/2
+                -translate-y-1/2
+
+                w-12
+                h-12
+
+                rounded-2xl
+
+                border
+                border-slate-200 dark:border-white/10
+
+                bg-black/40
+
+                backdrop-blur-xl
+
+                flex
+                items-center
+                justify-center
+
+                text-foreground dark:text-white
+
+                hover:bg-black/60
+
+                transition-all
+                duration-300
+                "
+              >
+                <ChevronRight
+                  size={20}
+                />
+              </button>
+            </>
+          )}
+        </div>
+
+        {/* Thumbnails */}
         {hasMultiple && (
-          <>
-            <button
-              onClick={() => {
-                setImgLoaded(false);
-                setImageIndex((i) => (i - 1 + images.length) % images.length);
-              }}
-              aria-label="Previous image"
-              className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full transition"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <button
-              onClick={() => {
-                setImgLoaded(false);
-                setImageIndex((i) => (i + 1) % images.length);
-              }}
-              aria-label="Next image"
-              className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full transition"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </>
+          <div
+            className="
+            mt-5
+
+            w-full
+
+            flex
+            gap-3
+
+            overflow-x-auto
+
+            pb-2
+            "
+          >
+            {images.map(
+              (src, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setImgLoaded(
+                      false
+                    );
+
+                    setImageIndex(
+                      idx
+                    );
+                  }}
+                  aria-label={`Go to image ${
+                    idx + 1
+                  }`}
+                  className={`
+                  relative
+
+                  shrink-0
+
+                  w-[92px]
+                  h-[62px]
+
+                  overflow-hidden
+
+                  rounded-2xl
+
+                  border-2
+
+                  transition-all
+                  duration-300
+
+                  ${
+                    idx ===
+                    imageIndex
+                      ? `
+                        border-blue-400
+                        shadow-[0_0_20px_rgba(59,130,246,0.35)]
+                        opacity-100
+                      `
+                      : `
+                        border-transparent
+                        opacity-50
+                        hover:opacity-100
+                      `
+                  }
+                  `}
+                >
+                  <img
+                    src={src}
+                    loading="lazy"
+                    alt={`thumb-${
+                      idx + 1
+                    }`}
+                    className="
+                    w-full
+                    h-full
+
+                    object-cover
+                    "
+                  />
+                </button>
+              )
+            )}
+          </div>
         )}
       </div>
-
-      {/* Thumbnails */}
-      {hasMultiple && (
-        <div className="mt-3 w-full px-4 flex gap-2 overflow-x-auto">
-          {images.map((src, idx) => (
-            <button
-              key={idx}
-              onClick={() => {
-                setImgLoaded(false);
-                setImageIndex(idx);
-              }}
-              aria-label={`Go to image ${idx + 1}`}
-              className={`rounded-md overflow-hidden border-2 shrink-0 transition ${
-                idx === imageIndex ? "border-blue-500 dark:border-blue-soft" : "border-transparent opacity-60 hover:opacity-100"
-              }`}
-              style={{ width: 84, height: 56 }}
-            >
-              <img src={src} loading="lazy" alt={`thumb-${idx + 1}`} className="w-full h-full object-cover" />
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-});
+    );
+  }
+);
 
 export default ImageSlider;

@@ -1,153 +1,667 @@
 // src/components/Hero.jsx
+
 import React, { useMemo } from "react";
+
 import { motion } from "framer-motion";
-import { Download } from "lucide-react";
-import { FaBehance, FaDribbble, FaGithub, FaLinkedin } from "react-icons/fa";
+
+import {
+  Download,
+  ArrowRight,
+} from "lucide-react";
+
+import {
+  FaBehance,
+  FaDribbble,
+  FaGithub,
+  FaLinkedin,
+} from "react-icons/fa";
+
 import useTypingEffect from "../hooks/useTypingEffect";
 
 export default function Hero() {
-const titles = useMemo(
-  () => ["Frontend Developer", "Graphic Designer", "Architect", "UI/UX Designer", "Creative Coder"],
-  []
-);
+  const titles = useMemo(
+    () => [
+      "Frontend Developer",
+      "Graphic Designer",
+      "Architect",
+      "UI/UX Designer",
+      "Creative Coder",
+    ],
+    []
+  );
 
-const { text, blink, pause, resume } = useTypingEffect(titles);
+  const {
+    text,
+    blink,
+    pause,
+    resume,
+  } = useTypingEffect(titles);
 
-const socials = [
-  {
-    id: "linkedin",
-    icon: <FaLinkedin />,
-    link: "https://www.linkedin.com/in/ziadamrsaid/"
-  },
-  { 
-    id: "github",
-    icon: <FaGithub />,
-    link: "https://github.com/Ziad-Amr1/"
-  },
-  {
-    id: "behance",
-    icon: <FaBehance />,
-    link: "https://www.behance.net/ziadamrsaid",
-  },
-  {
-    id: "dribbble",
-    icon: <FaDribbble />,
-    link: "https://dribbble.com/ZiadAmrSaid",
-  },
-];
+  const socials = [
+    {
+      id: "linkedin",
+      icon: <FaLinkedin />,
+      link: "https://www.linkedin.com/in/ziadamrsaid/",
+    },
+
+    {
+      id: "github",
+      icon: <FaGithub />,
+      link: "https://github.com/Ziad-Amr1/",
+    },
+
+    {
+      id: "behance",
+      icon: <FaBehance />,
+      link: "https://www.behance.net/ziadamrsaid",
+    },
+
+    {
+      id: "dribbble",
+      icon: <FaDribbble />,
+      link: "https://dribbble.com/ZiadAmrSaid",
+    },
+  ];
 
   return (
     <section
       id="home"
-      className={`relative flex flex-col-reverse md:flex-row items-center justify-center
-      min-h-[calc(100svh-70px)]
-      md:max-h-[calc(100svh-70px)]
-      px-[6%] md:px-[10%] lg:px-[12%]
-      py-0.5 sm:py-4 md:py-12
-      overflow-hidden transition-all duration-700`}
+      className="
+      relative
+
+      min-h-screen
+
+      flex
+      items-center
+      justify-center
+
+      overflow-hidden
+
+      px-[6%]
+      md:px-[8%]
+      lg:px-[10%]
+
+      pt-28
+      pb-20
+
+      bg-background
+
+      transition-colors
+      duration-300
+      "
     >
+      {/* ======================================================
+         BACKGROUND EFFECTS
+      ====================================================== */}
+
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {/* Main Glow */}
+        <div
+          className="
+          absolute
+          top-[-200px]
+          left-[-150px]
+
+          w-[500px]
+          h-[500px]
+
+          rounded-full
+
+          bg-blue-500/20
+          dark:bg-blue-500/20
+
+          blur-[140px]
+          "
+        />
+
+        {/* Secondary Glow */}
+        <div
+          className="
+          absolute
+          bottom-[-250px]
+          right-[-150px]
+
+          w-[450px]
+          h-[450px]
+
+          rounded-full
+
+          bg-cyan-400/10
+          dark:bg-cyan-400/10
+
+          blur-[120px]
+          "
+        />
+
+        {/* Radial Overlay */}
+        <div
+          className="
+          absolute
+          inset-0
+
+          bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.08),transparent_35%)]
+
+          dark:bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.12),transparent_35%)]
+          "
+        />
+
+        {/* Grid */}
+        <div
+          className="
+          absolute
+          inset-0
+
+          opacity-[0.04]
+          dark:opacity-[0.03]
+
+          bg-[linear-gradient(to_right,rgba(15,23,42,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.06)_1px,transparent_1px)]
+
+          dark:bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
+
+          bg-[size:80px_80px]
+          "
+        />
+      </div>
+
+      {/* ======================================================
+         HERO CARD
+      ====================================================== */}
+
       <div
-        className="flex flex-col-reverse md:flex-row items-center justify-between
-        gap-6 md:gap-10 lg:gap-14
-        p-5 md:p-8 rounded-2xl shadow-xl
-        bg-surface-light dark:bg-dark-card bg-opacity-80 backdrop-blur-sm
-        w-full max-w-[1200px] mx-auto h-fit md:h-auto"
+        className="
+        relative
+
+        w-full
+        max-w-[1350px]
+
+        rounded-[36px]
+
+        border
+        border-black/5
+        dark:border-white/10
+
+        bg-white/70
+        dark:bg-white/[0.04]
+
+        backdrop-blur-xl
+
+        shadow-[0_10px_50px_rgba(15,23,42,0.06)]
+        dark:shadow-[0_0_60px_rgba(59,130,246,0.08)]
+
+        px-8
+        md:px-14
+
+        py-10
+        md:py-16
+
+        transition-colors
+        duration-300
+        "
       >
-        {/* Text content */}
-        <motion.article
-          className="text-center md:text-left max-w-xl md:max-w-[550px]"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+        {/* Glow */}
+        <div
+          className="
+          absolute
+          inset-0
+
+          rounded-[36px]
+
+          bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.08),transparent_45%)]
+
+          dark:bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.12),transparent_45%)]
+          "
+        />
+
+        <div
+          className="
+          relative
+          z-10
+
+          flex
+          flex-col-reverse
+          lg:flex-row
+
+          items-center
+          justify-between
+
+          gap-16
+          "
         >
-          <p className="uppercase tracking-widest font-semibold mb-0 md:mb-3 text-blue-600 dark:text-blue-soft">
-            Hello, I'm
-          </p>
+          {/* ======================================================
+             LEFT CONTENT
+          ====================================================== */}
 
-          <h1
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 40,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 0.8,
+            }}
             className="
-          text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-extrabold mb-0.75 md:mb-3
-          leading-tight bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400
-          dark:from-blue-soft dark:via-blue-mid dark:to-dark-text
-          bg-clip-text text-transparent"
+            max-w-[650px]
+            "
           >
-            Ziad Amr
-          </h1>
+            {/* Label */}
+            <div
+              className="
+              inline-flex
+              items-center
 
-          <div
-            className="text-lg sm:text-xl md:text-2xl text-gray-700 dark:text-dark-text mb-1.25 md:mb-6 min-h-[32px]"
+              px-4
+              py-2
+
+              rounded-2xl
+
+              border
+              border-black/5
+              dark:border-white/10
+
+              bg-slate-900/[0.03]
+              dark:bg-white/[0.03]
+
+              text-blue-500
+              dark:text-blue-300
+
+              text-sm
+
+              tracking-[0.2em]
+              uppercase
+
+              mb-7
+              "
+            >
+              Hello, I'm
+            </div>
+
+            {/* Heading */}
+            <h1
+              className="
+              text-5xl
+              sm:text-6xl
+              lg:text-8xl
+
+              font-black
+
+              leading-[0.95]
+              tracking-tight
+
+              text-foreground
+              dark:text-white
+
+              drop-shadow-[0_0_20px_rgba(96,165,250,0.12)]
+              dark:drop-shadow-[0_0_25px_rgba(96,165,250,0.2)]
+              "
+            >
+              Ziad{" "}
+
+              <span
+                className="
+                bg-gradient-to-r
+                from-blue-400
+                via-cyan-300
+                to-blue-500
+
+                bg-clip-text
+                text-transparent
+                "
+              >
+                Amr
+              </span>
+            </h1>
+
+            {/* Typing Text */}
+            <div
               onMouseEnter={pause}
               onMouseLeave={resume}
-          >
-            <span>{text}</span>
-            <span className="ml-1">{blink ? "|" : " "}</span>
-          </div>
+              className="
+              mt-5
 
-          <p className="text-left text-gray-600 dark:text-gray-400 leading-relaxed mb-5 sm:mb-8 text-base md:text-lg">
-            Passionate about crafting interactive, responsive, and visually
-            engaging digital experiences that merge creativity with functionality.
-          </p>
+              text-2xl
+              md:text-3xl
 
-          {/* Buttons */}
-          <div className="flex flex-row flex-wrap justify-center md:justify-start gap-4">
-            {/* Contact */}
-            <a
-              href="#contact"
-              className="px-5 py-3 text-sm sm:text-base rounded-full font-semibold border transition-all hover:shadow-lg
-                  dark:border-blue-soft dark:text-blue-soft dark:hover:bg-blue-soft dark:hover:text-dark
-                  border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+              font-semibold
+
+              text-blue-500
+              dark:text-blue-300
+
+              min-h-[40px]
+              "
             >
-              Get in Touch
-            </a>
+              {text}
 
-            {/* Download CV */}
-            <a
-              href="/images/Ziad_Amr_Said_CV.pdf"
-              download
-              className="text-sm sm:text-base flex items-center gap-2 px-6 py-3 rounded-full font-semibold shadow-md transition-all
-                        dark:bg-gradient-to-r from-blue-soft to-dark-text dark:hover:from-dark-text dark:hover:to-blue-soft dark:text-dark
-                        bg-blue-500 hover:bg-blue-600 text-white"
+              <span className="ml-1">
+                {blink
+                  ? "|"
+                  : " "}
+              </span>
+            </div>
+
+            {/* Description */}
+            <p
+              className="
+              mt-8
+
+              text-muted
+              dark:text-gray-400
+
+              text-lg
+
+              leading-relaxed
+
+              max-w-[620px]
+              "
             >
-              <Download className="w-5 h-5" />
-              Download CV
-            </a>
-          </div>
+              Passionate about crafting
+              interactive, responsive, and
+              visually engaging digital
+              experiences that merge
+              creativity with functionality.
+            </p>
 
-          {/* Social Links */}
-          <div className="flex justify-center md:justify-start gap-5 mt-8">
-            {socials.map(({ id, icon, link }) => (
-              <motion.a
-                key={id}
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -4, scale: 1.1 }}
-                className="text-2xl transition-colors
-              dark:text-blue-soft dark:hover:text-blue-mid text-blue-600 hover:text-blue-500"
+            {/* ======================================================
+               BUTTONS
+            ====================================================== */}
+
+            <div
+              className="
+              flex
+              flex-col
+              sm:flex-row
+              flex-wrap
+              gap-5
+              mt-10
+              "
+            >
+              {/* Primary */}
+              <a
+                href="#contact"
+                className="
+                group
+                w-full
+                sm:w-auto
+                justify-center
+                inline-flex
+                items-center
+                gap-3
+                px-8
+                py-4
+                rounded-2xl
+                bg-gradient-to-r
+                from-blue-500
+                to-cyan-400
+                text-white
+                font-semibold
+                shadow-[0_0_25px_rgba(59,130,246,0.35)]
+                transition-all
+                duration-300
+                hover:scale-[1.03]
+                hover:shadow-[0_0_40px_rgba(59,130,246,0.55)]
+                "
               >
-                {icon}
-              </motion.a>
-            ))}
-          </div>
-        </motion.article>
+                Let's Work Together
 
-        {/* Profile Image */}
-        <motion.figure
-          className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72
-          rounded-full overflow-hidden shadow-xl border-4 border-blue-500 dark:border-blue-soft p-[3px] flex-shrink-0"
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          <img
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            src="/images/profile/profile.webp"
-            alt="Ziad Amr"
-            className="rounded-full w-full h-full object-cover object-top"
-          />
-        </motion.figure>
+                <ArrowRight
+                  className="
+                  w-5
+                  h-5
+                  transition-transform
+                  duration-300
+                  group-hover:translate-x-1
+                  "
+                />
+              </a>
+
+              {/* Secondary */}
+              <a
+                href="/images/Ziad_Amr_Said_CV.pdf"
+                download
+                className="
+                w-full
+                sm:w-auto
+                justify-center
+                inline-flex
+                items-center
+                gap-3
+                px-8
+                py-4
+                rounded-2xl
+                border
+                border-slate-200
+                dark:border-white/10
+
+                bg-white
+                dark:bg-white/[0.03]
+
+                shadow-[0_6px_24px_rgba(15,23,42,0.06)]
+                dark:shadow-none
+
+                hover:bg-slate-50
+                dark:hover:bg-white/[0.07]
+
+                hover:border-blue-200
+                dark:hover:border-blue-400/20
+
+                hover:shadow-[0_10px_35px_rgba(59,130,246,0.12)]
+                dark:hover:shadow-none
+                text-foreground
+                dark:text-white
+                font-semibold
+                transition-all
+                duration-300
+                "
+              >
+                <Download className="w-5 h-5" />
+
+                Download CV
+              </a>
+            </div>
+
+            {/* ======================================================
+               SOCIALS
+            ====================================================== */}
+
+            <div
+              className="
+              flex
+              items-center
+
+              gap-6
+
+              mt-12
+              "
+            >
+              {socials.map(
+                ({
+                  id,
+                  icon,
+                  link,
+                }) => (
+                  <motion.a
+                    key={id}
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{
+                      y: -4,
+                      scale: 1.12,
+                    }}
+                    whileTap={{
+                      scale: 0.95,
+                    }}
+                    className="
+                        w-12
+                        h-12
+
+                        rounded-2xl
+
+                        border
+                        border-slate-200
+                        dark:border-white/10
+
+                        bg-white
+                        dark:bg-white/[0.03]
+
+                        shadow-[0_4px_18px_rgba(15,23,42,0.05)]
+                        dark:shadow-none
+
+                        flex
+                        items-center
+                        justify-center
+
+                        text-xl
+
+                        text-slate-600
+                        dark:text-gray-300
+
+                        hover:text-blue-500
+                        dark:hover:text-blue-300
+
+                        hover:border-blue-200
+                        dark:hover:border-blue-400/30
+
+                        hover:bg-blue-50
+                        dark:hover:bg-blue-500/10
+
+                        hover:shadow-[0_10px_30px_rgba(59,130,246,0.14)]
+                        dark:hover:shadow-none
+
+                        transition-all
+                        duration-300
+                        "
+                  >
+                    {icon}
+                  </motion.a>
+                )
+              )}
+            </div>
+          </motion.div>
+
+          {/* ======================================================
+             RIGHT IMAGE
+          ====================================================== */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: 0.85,
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+            }}
+            transition={{
+              duration: 0.9,
+              delay: 0.2,
+            }}
+            className="relative"
+          >
+            {/* Glow */}
+            <div
+              className="
+              absolute
+              inset-0
+
+              rounded-full
+
+              bg-blue-500/20
+              dark:bg-blue-500/30
+
+              blur-[80px]
+
+              scale-110
+              "
+            />
+
+            {/* Dots */}
+            <div
+              className="
+              absolute
+              -top-6
+              -right-4
+
+              grid
+              grid-cols-4
+
+              gap-2
+
+              opacity-40
+              dark:opacity-50
+              "
+            >
+              {Array.from({
+                length: 16,
+              }).map((_, i) => (
+                <span
+                  key={i}
+                  className="
+                  w-1.5
+                  h-1.5
+
+                  rounded-full
+
+                  bg-blue-400
+                  "
+                />
+              ))}
+            </div>
+
+            {/* Image Ring */}
+            <div
+              className="
+              relative
+
+              w-[280px]
+              h-[280px]
+
+              sm:w-[340px]
+              sm:h-[340px]
+
+              lg:w-[400px]
+              lg:h-[400px]
+
+              rounded-full
+
+              p-[4px]
+
+              bg-gradient-to-br
+              from-blue-400
+              via-cyan-300
+              to-blue-600
+
+              shadow-[0_0_40px_rgba(59,130,246,0.28)]
+              dark:shadow-[0_0_50px_rgba(59,130,246,0.45)]
+              "
+            >
+              <img
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+                src="/images/profile/profile.webp"
+                alt="Ziad Amr"
+                className="
+                w-full
+                h-full
+
+                rounded-full
+
+                object-cover
+                object-top
+
+                border-[6px]
+
+                border-white
+                dark:border-[#020817]
+                "
+              />
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
