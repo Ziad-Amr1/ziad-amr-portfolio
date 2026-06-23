@@ -23,6 +23,7 @@ export default function ProjectGrid({
   GRID_VARIANTS,
   isLoading = false,
   skeletonCount = 6,
+  onTagClick,
 }) {
   /* ======================================================
      LOADING
@@ -189,6 +190,7 @@ export default function ProjectGrid({
               CARD_VARIANTS={
                 CARD_VARIANTS
               }
+              onTagClick={onTagClick}
             />
           )
         )}

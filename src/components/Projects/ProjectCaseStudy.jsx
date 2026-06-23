@@ -40,6 +40,7 @@ export const CATEGORY_COLORS = {
 function TagBadge({
   tag,
   category,
+  onClick,
 }) {
   const colorClass =
     CATEGORY_COLORS[
@@ -51,8 +52,18 @@ function TagBadge({
     border border-slate-200 dark:border-white/10
     `;
 
+  const isClickable = typeof onClick === "function";
+  const Component = isClickable ? "button" : "span";
+
   return (
-    <span
+    <Component
+      type={isClickable ? "button" : undefined}
+      aria-label={
+        isClickable
+          ? `Filter projects by ${tag}`
+          : undefined
+      }
+      onClick={isClickable ? onClick : undefined}
       className={`
       px-3
       py-1.5
@@ -64,11 +75,13 @@ function TagBadge({
 
       whitespace-nowrap
 
+      ${isClickable ? "transition-all duration-200 hover:brightness-125" : ""}
+
       ${colorClass}
       `}
     >
       {tag}
-    </span>
+    </Component>
   );
 }
 
@@ -294,6 +307,7 @@ function ProjectLinks({
 
 export default function ProjectCaseStudy({
   project,
+  onTagClick,
 }) {
   return (
     <div
@@ -514,6 +528,14 @@ export default function ProjectCaseStudy({
                 tag={tag}
                 category={
                   project.category
+                }
+                onClick={
+                  onTagClick
+                    ? (e) => {
+                      e?.stopPropagation();
+                      onTagClick(tag);
+                    }
+                    : undefined
                 }
               />
             )

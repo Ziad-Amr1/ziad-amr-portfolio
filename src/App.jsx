@@ -1,12 +1,15 @@
 // src/App.jsx
 
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState, useMemo, useCallback } from "react";
 
 import Navbar from "./components/Navbar";
 
 import Hero from "./components/Hero";
 
 import MainLayout from "./layout/MainLayout";
+
+import projectsJson from "./data/projectsData.json";
+import { computeTagCounts } from "./utils/projectCounts";
 
 /* ======================================================
    LAZY LOADING
@@ -78,7 +81,25 @@ function SectionFallback() {
    APP
 ====================================================== */
 
+const projectsData = projectsJson.projects ?? [];
+
 export default function App() {
+  const [tagFilter, setTagFilter] = useState(null);
+
+  const tagCounts = useMemo(() => computeTagCounts(projectsData), []);
+
+  const handleSkillSelect = useCallback((tagName) => {
+    setTagFilter((prev) => (prev === tagName ? null : tagName));
+
+    requestAnimationFrame(() => {
+      document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+    });
+  }, []);
+
+  const handleClearTagFilter = useCallback(() => {
+    setTagFilter(null);
+  }, []);
+
   return (
     <>
       {/* ==================================================
@@ -102,12 +123,20 @@ export default function App() {
 
         {/* Skills */}
         <Suspense fallback={<SectionFallback />}>
-          <Skills />
+          <Skills
+            tagCounts={tagCounts}
+            activeTagFilter={tagFilter}
+            onSkillSelect={handleSkillSelect}
+          />
         </Suspense>
 
         {/* Projects */}
         <Suspense fallback={<SectionFallback />}>
-          <Projects />
+          <Projects
+            tagFilter={tagFilter}
+            onClearTagFilter={handleClearTagFilter}
+            onTagClick={handleSkillSelect}
+          />
         </Suspense>
 
         {/* Contact */}

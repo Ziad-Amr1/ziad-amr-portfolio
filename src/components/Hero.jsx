@@ -276,7 +276,7 @@ export default function Hero() {
               mb-7
               "
             >
-              Hello, I'm
+              Hello, I&apos;m
             </div>
 
             {/* Heading */}
@@ -404,7 +404,7 @@ export default function Hero() {
                 hover:shadow-[0_0_40px_rgba(59,130,246,0.55)]
                 "
               >
-                Let's Work Together
+                Let&apos;s Work Together
 
                 <ArrowRight
                   className="

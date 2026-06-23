@@ -96,6 +96,7 @@ const ProjectCard = memo(
     handleThumbLoad,
     openModal,
     CARD_VARIANTS,
+    onTagClick,
   }) {
     const thumb =
       getImages(project)[0] ?? "";
@@ -591,9 +592,20 @@ const ProjectCard = memo(
           >
             {visibleTags.map(
               (tag) => (
-                <span
+                <button
                   key={tag}
-                  title={tag}
+                  type="button"
+                  title={`Filter by ${tag}`}
+                  aria-label={`Filter projects by ${tag}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onTagClick?.(tag);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === " ") {
+                      e.stopPropagation();
+                    }
+                  }}
                   className={`
                   px-3
                   py-1.5
@@ -605,11 +617,16 @@ const ProjectCard = memo(
 
                   whitespace-nowrap
 
+                  transition-all
+                  duration-200
+
+                  hover:brightness-125
+
                   ${tagCls}
                   `}
                 >
                   {tag}
-                </span>
+                </button>
               )
             )}
 

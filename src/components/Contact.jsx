@@ -304,7 +304,7 @@ function Contact() {
 
       if (!nextError) {
         const {
-          [name]: removed,
+          [name]: _removed,
           ...rest
         } = prev;
 
@@ -328,7 +328,7 @@ function Contact() {
     setErrors((prev) => {
       if (!nextError) {
         const {
-          [name]: removed,
+          [name]: _removed,
           ...rest
         } = prev;
 
@@ -601,7 +601,7 @@ function Contact() {
             dark:text-white
             "
           >
-            Let's Build
+            Let&apos;s Build
             <br />
 
             <span

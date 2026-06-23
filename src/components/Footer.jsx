@@ -253,7 +253,7 @@ function Footer() {
               >
                 <Sparkles className="w-4 h-4" />
 
-                Let's Connect
+                Let&apos;s Connect
               </div>
 
               {/* Heading */}
@@ -285,7 +285,7 @@ function Footer() {
                   text-transparent
                   "
                 >
-                  Let's Build It Together
+                  Let&apos;s Build It Together
                 </span>
               </h2>
 

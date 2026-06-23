@@ -36,6 +36,7 @@ export default function ProjectModal({
   getImages,
   handlePrevProject,
   handleNextProject,
+  onTagClick,
 }) {
   const [
     isFullscreen,
@@ -252,6 +253,7 @@ export default function ProjectModal({
             project={
               modalProject
             }
+            onTagClick={onTagClick}
           />
         ),
 

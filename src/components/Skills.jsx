@@ -1,10 +1,12 @@
 // src/components/Skills.jsx
 
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { motion } from "framer-motion";
 
 import { useTabs } from "../hooks/useTabs";
 import { fadeInUp } from "../utils/motionVariants";
+import { CATEGORIES, LEVEL_STYLES, SKILLS_DATA } from "../data/skillsData";
+import { getSkillProjectCount } from "../utils/projectCounts";
 
 import {
   Code2,
@@ -12,50 +14,6 @@ import {
   Database,
   Sparkles,
 } from "lucide-react";
-
-/* ======================================================
-   CATEGORIES
-====================================================== */
-
-const CATEGORIES = [
-  "Creative Foundation",
-  "Frontend Engineering",
-  "Expanding Horizons",
-];
-
-/* ======================================================
-   LEVEL STYLES
-====================================================== */
-
-const LEVEL_STYLES = {
-  Core: `
-    bg-emerald-500/10
-    text-emerald-600
-    dark:text-emerald-300
-    border border-emerald-400/20
-  `,
-
-  Used: `
-    bg-blue-500/10
-    text-blue-600
-    dark:text-blue-300
-    border border-blue-400/20
-  `,
-
-  Learning: `
-    bg-amber-500/10
-    text-amber-600
-    dark:text-amber-300
-    border border-amber-400/20
-  `,
-
-  Exploring: `
-    bg-purple-500/10
-    text-purple-600
-    dark:text-purple-300
-    border border-purple-400/20
-  `,
-};
 
 /* ======================================================
    CUSTOM ICONS
@@ -67,237 +25,54 @@ const CUSTOM_ICONS = {
 };
 
 /* ======================================================
-   DATA
-====================================================== */
-
-const SKILLS_DATA = {
-  "Creative Foundation": {
-    tagline:
-      "Design thinking shaped by architectural structure and visual composition.",
-
-    accent: "from-[#6EE7B7] via-[#3B82F6] to-[#60A5FA]",
-
-    groups: [
-      {
-        title: "Architecture",
-
-        skills: [
-          {
-            name: "Revit",
-            level: "Core",
-            note: "BIM modeling & structured workflows",
-          },
-
-          {
-            name: "AutoCAD",
-            level: "Used",
-            note: "2D documentation & drafting",
-          },
-
-          {
-            name: "SketchUp",
-            level: "Used",
-            note: "Concept & massing exploration",
-          },
-
-          {
-            name: "Lumion",
-            level: "Used",
-            note: "Rendering & walkthroughs",
-          },
-
-          {
-            name: "3ds Max",
-            level: "Learning",
-            note: "Visualization fundamentals",
-          },
-        ],
-      },
-
-      {
-        title: "Graphic & Visual Design",
-
-        skills: [
-          {
-            name: "Adobe Illustrator",
-            level: "Used",
-            note: "Icons & visual systems",
-          },
-
-          {
-            name: "Adobe Photoshop",
-            level: "Used",
-            note: "Image refinement",
-          },
-
-          {
-            name: "Adobe InDesign",
-            level: "Used",
-            note: "Typography & layout",
-          },
-
-          {
-            name: "Adobe Premiere Pro",
-            level: "Used",
-            note: "Motion storytelling",
-          },
-
-          {
-            name: "Canva",
-            level: "Used",
-            note: "Quick visual assets",
-          },
-        ],
-      },
-
-      {
-        title: "UI / UX",
-
-        skills: [
-          {
-            name: "Figma",
-            level: "Core",
-            note: "Interface design & prototyping",
-          },
-        ],
-      },
-    ],
-  },
-
-  "Frontend Engineering": {
-    tagline:
-      "Building scalable, component-driven interfaces with clean architecture.",
-
-    accent: "from-[#60A5FA] via-[#3B82F6] to-[#38BDF8]",
-
-    groups: [
-      {
-        title: "Core Web Stack",
-
-        skills: [
-          {
-            name: "HTML5",
-            level: "Core",
-            note: "Semantic structure",
-          },
-
-          {
-            name: "CSS3",
-            level: "Core",
-            note: "Responsive layouts & styling logic",
-          },
-
-          {
-            name: "JavaScript",
-            level: "Core",
-            note: "Async logic & DOM handling",
-          },
-
-          {
-            name: "React",
-            level: "Core",
-            note: "Component-based architecture",
-          },
-        ],
-      },
-
-      {
-        title: "UI & Styling",
-
-        skills: [
-          {
-            name: "TailwindCSS",
-            level: "Core",
-            note: "Utility-first design system",
-          },
-
-          {
-            name: "Bootstrap",
-            level: "Used",
-            note: "Component-based UI framework",
-          },
-        ],
-      },
-
-      {
-        title: "Development Tools",
-
-        skills: [
-          {
-            name: "Vite",
-            level: "Used",
-            note: "Modern dev tooling",
-          },
-
-          {
-            name: "Git",
-            level: "Used",
-            note: "Version control workflows",
-          },
-
-          {
-            name: "GitHub",
-            level: "Used",
-            note: "Repositories & collaboration",
-          },
-
-          {
-            name: "VS Code",
-            level: "Used",
-            note: "Primary development environment",
-          },
-        ],
-      },
-    ],
-  },
-
-  "Expanding Horizons": {
-    tagline:
-      "Exploring backend systems, data workflows, and interactive experimentation.",
-
-    accent: "from-[#A78BFA] via-[#C084FC] to-[#F472B6]",
-
-    skills: [
-      {
-        name: "Node.js",
-        level: "Learning",
-        note: "Backend fundamentals",
-      },
-
-      {
-        name: "Python",
-        level: "Used",
-        note: "Automation & scripting",
-      },
-
-      {
-        name: "Data Engineering",
-        level: "Learning",
-        note: "Academic & practical exposure",
-      },
-
-      {
-        name: "Game Development",
-        level: "Exploring",
-        note: "Interactive experiments",
-      },
-    ],
-  },
-};
-
-/* ======================================================
    SKILL CARD
 ====================================================== */
 
-const SkillCard = memo(function SkillCard({ skill, index }) {
+function getPrimaryFilterTag(skill, tagCounts) {
+  if (!Array.isArray(skill.tags)) return null;
+  for (const tag of skill.tags) {
+    const key = tag.toLowerCase();
+    if (tagCounts[key] > 0) return tag;
+  }
+  return skill.tags[0] ?? null;
+}
+
+function isSkillActive(skill, activeTagFilter) {
+  if (!activeTagFilter || !Array.isArray(skill.tags)) return false;
+  const filter = activeTagFilter.toLowerCase();
+  return skill.tags.some((t) => t.toLowerCase() === filter);
+}
+
+const SkillCard = memo(function SkillCard({
+  skill,
+  index,
+  tagCounts,
+  activeTagFilter,
+  onSkillSelect,
+}) {
   const imgName = skill.name.replace(/[\s/]/g, "");
   const imgSrc = `/images/skills/${imgName}.webp`;
 
   const levelClass = LEVEL_STYLES[skill.level] ?? "";
 
   const isCore = skill.level === "Core";
-
   const CustomIcon = CUSTOM_ICONS[skill.name];
+
+  const projectCount = getSkillProjectCount(skill, tagCounts);
+  const primaryTag = getPrimaryFilterTag(skill, tagCounts);
+  const active = isSkillActive(skill, activeTagFilter);
+  const clickable = primaryTag !== null;
+
+  const handleClick = useCallback(() => {
+    if (primaryTag && onSkillSelect) onSkillSelect(primaryTag);
+  }, [primaryTag, onSkillSelect]);
+
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (primaryTag && onSkillSelect) onSkillSelect(primaryTag);
+    }
+  }, [primaryTag, onSkillSelect]);
 
   return (
     <motion.div
@@ -310,7 +85,13 @@ const SkillCard = memo(function SkillCard({ skill, index }) {
       className="h-full"
     >
       <div
-        className="
+        role={clickable ? "button" : undefined}
+        tabIndex={clickable ? 0 : undefined}
+        aria-pressed={clickable ? active : undefined}
+        aria-label={clickable ? `Filter projects by ${skill.name}` : undefined}
+        onClick={clickable ? handleClick : undefined}
+        onKeyDown={clickable ? handleKeyDown : undefined}
+        className={`
         group
         relative
         overflow-hidden
@@ -329,13 +110,19 @@ const SkillCard = memo(function SkillCard({ skill, index }) {
         p-5
         transition-all
         duration-500
+
+        ${clickable ? "cursor-pointer" : ""}
+
         hover:-translate-y-2
         hover:border-blue-200
         dark:hover:border-blue-400/25
 
         hover:shadow-[0_18px_50px_rgba(59,130,246,0.12)]
         dark:hover:shadow-[0_0_40px_rgba(59,130,246,0.15)]
-        "
+
+        ${active ? "ring-2 ring-blue-400/50 dark:ring-blue-400/60" : ""}
+        ${clickable ? "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900" : ""}
+        `}
       >
         {/* Glow */}
         <div
@@ -470,6 +257,39 @@ const SkillCard = memo(function SkillCard({ skill, index }) {
                 <span className="break-words">
                   {skill.name}
                 </span>
+
+                {clickable && (
+                  <span
+                    className="
+                    inline-flex
+                    items-center
+                    justify-center
+
+                    ml-auto
+                    min-w-[28px]
+                    h-6
+
+                    px-2
+
+                    rounded-full
+
+                    text-xs
+                    font-bold
+
+                    bg-blue-500/10
+                    text-blue-600
+                    dark:text-blue-300
+
+                    border
+                    border-blue-400/20
+
+                    shrink-0
+                    "
+                    aria-label={`${projectCount} project${projectCount !== 1 ? "s" : ""}`}
+                  >
+                    {projectCount}
+                  </span>
+                )}
               </h4>
 
               {/* Note */}
@@ -560,7 +380,11 @@ hover:border-blue-400/20
    MAIN COMPONENT
 ====================================================== */
 
-function Skills() {
+function Skills({
+  tagCounts = {},
+  activeTagFilter = null,
+  onSkillSelect,
+}) {
   const { activeTab, changeTab } = useTabs(
     CATEGORIES,
     "Frontend Engineering"
@@ -842,6 +666,9 @@ function Skills() {
                       key={skill.name}
                       skill={skill}
                       index={i}
+                      tagCounts={tagCounts}
+                      activeTagFilter={activeTagFilter}
+                      onSkillSelect={onSkillSelect}
                     />
                   ))}
                 </div>
@@ -864,6 +691,9 @@ function Skills() {
                   key={skill.name}
                   skill={skill}
                   index={i}
+                  tagCounts={tagCounts}
+                  activeTagFilter={activeTagFilter}
+                  onSkillSelect={onSkillSelect}
                 />
               ))}
             </div>

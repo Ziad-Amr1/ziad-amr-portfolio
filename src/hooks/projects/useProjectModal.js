@@ -12,7 +12,7 @@ function getHashId() {
   return Number.isFinite(id) ? id : null;
 }
 
-const tryHistory = (fn) => { try { fn(); } catch (_) {} };
+const tryHistory = (fn) => { try { fn(); } catch { /* noop */ } };
 
 const pushHash    = (id) => tryHistory(() => { if (window.location.hash !== `#project-${id}`) window.history.pushState({ projectId: id }, "", `#project-${id}`); });
 const replaceHash = (id) => tryHistory(() => window.history.replaceState({ projectId: id }, "", `#project-${id}`));

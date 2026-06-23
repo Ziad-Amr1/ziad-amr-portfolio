@@ -1,5 +1,5 @@
 // src/hooks/useTypingEffect.js
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 
 export default function useTypingEffect(
   words = [],
@@ -20,7 +20,7 @@ export default function useTypingEffect(
 
   const timerRef = useRef(null);
 
-  const safeWords    = Array.isArray(words) ? words : [];
+  const safeWords    = useMemo(() => Array.isArray(words) ? words : [], [words]);
   const currentWord  = safeWords[index % safeWords.length] ?? "";
 
   // ── typing logic ───────────────────────
