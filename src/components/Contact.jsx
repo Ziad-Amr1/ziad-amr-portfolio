@@ -213,6 +213,10 @@ function Contact() {
     message: null,
   });
 
+  const submittingRef = useRef(false);
+  const lastSubmitRef = useRef(0);
+  const SUBMIT_COOLDOWN_MS = 30_000;
+
   /* ======================================================
      VALIDATION
   ====================================================== */
@@ -351,6 +355,33 @@ function Contact() {
   ) => {
     e.preventDefault();
 
+    if (
+      loading ||
+      submittingRef.current
+    )
+      return;
+
+    const now = Date.now();
+
+    if (
+      now - lastSubmitRef.current <
+      SUBMIT_COOLDOWN_MS
+    ) {
+      const remaining = Math.ceil(
+        (SUBMIT_COOLDOWN_MS -
+          (now -
+            lastSubmitRef
+              .current)) /
+          1000
+      );
+
+      toast.error(
+        `Please wait ${remaining}s before sending another message.`
+      );
+
+      return;
+    }
+
     const nextErrors =
       validateForm(formData);
 
@@ -385,6 +416,9 @@ function Contact() {
 
       return;
     }
+
+    submittingRef.current =
+      true;
 
     setLoading(true);
 
@@ -427,20 +461,32 @@ function Contact() {
 
       setErrors({});
     } catch (err) {
-      console.error(
-        "EmailJS error:",
-        err
-      );
+      if (
+        import.meta.env.DEV
+      ) {
+        console.error(
+          "EmailJS error:",
+          err
+        );
+      }
 
       toast.dismiss(
         loadingToast
       );
 
       toast.error(
-        "Something went wrong. Try again later."
+        err.status === 429
+          ? "Too many requests. Please try again later."
+          : "Failed to send. Check your connection and try again."
       );
     } finally {
       setLoading(false);
+
+      submittingRef.current =
+        false;
+
+      lastSubmitRef.current =
+        Date.now();
     }
   };
 
