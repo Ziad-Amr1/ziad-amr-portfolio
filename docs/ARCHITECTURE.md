@@ -51,7 +51,7 @@ index.html → main.jsx → App.jsx
 
 - Uses `useTypingEffect()` to cycle through role titles in a typewriter animation.
 - Static content (greeting, name, bio, social links, CTA buttons).
-- Social links from `data/socialData.json` (hardcoded data, no props needed).
+- Social links defined inline in component (hardcoded data, no props needed).
 
 ### `About.jsx` — Bio, education, experience
 
@@ -203,7 +203,7 @@ Projects.jsx: user clicks category button (All / Architecture / Design / Develop
 
 | File | Status |
 |------|--------|
-| `en.json` | Complete (247 lines, 70+ keys) |
+| `en.json` | Complete |
 | `ar.json` | All keys present, all values empty `""` |
 
 ### Limitations
@@ -319,7 +319,7 @@ JavaScript with JSDoc-style comments keeps the build lean and avoids a compilati
 
 ### Why no backend / CMS
 
-All content is static (JSON/JS files). For 21 projects and 25 skills, a CMS adds complexity without proportional value. The content guide covers how to edit the data files directly.
+All content is static (JSON/JS files). At the current scale, a CMS adds complexity without proportional value. The content guide covers how to edit the data files directly.
 
 ### Why custom i18n instead of react-i18next
 
@@ -331,7 +331,7 @@ The app needs simple key-based translation lookups. A custom hook avoids the `re
 
 ### Why client-side pagination
 
-All 21 projects are loaded at once. Pagination is purely visual — it limits how many cards are displayed per page. This avoids unnecessary server requests and keeps the data flow simple.
+All projects are loaded at once. Pagination is purely visual — it limits how many cards are displayed per page. This avoids unnecessary server requests and keeps the data flow simple.
 
 ---
 

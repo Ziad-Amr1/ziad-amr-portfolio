@@ -8,7 +8,7 @@ How to edit the portfolio's content: projects, skills, translations, and tests.
 
 **File**: `src/data/projectsData.json`
 
-21 projects, each represented as an object in the `"projects"` array. Fields:
+Projects, each represented as an object in the `"projects"` array. Fields:
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
@@ -27,6 +27,8 @@ How to edit the portfolio's content: projects, skills, translations, and tests.
 | `key_features` | string[] | no | Bullet points for key features. |
 | `challenges` | string | no | Longer-form challenges faced. |
 | `what_i_learned` | string | no | Key lessons learned. |
+| `video` | string | no | Path to a video file (e.g., `"images/projects/webvideo2.mp4"`). If set with `type: "video"`, a video player is shown instead of the image gallery. |
+| `type` | string | no | `"video"` when the project uses a video instead of images. Omit for image-only projects. |
 | `images` | string[] | no | Gallery image paths (e.g., `["images/projects/arc-1a.webp"]`). If provided, the ImageSlider shows these; otherwise only the `image` thumbnail is displayed. |
 | `links` | array | no | Array of `{ text: string, url: string \| null }` objects. External links related to the project. |
 
@@ -54,7 +56,7 @@ How to edit the portfolio's content: projects, skills, translations, and tests.
 
 **File**: `src/data/skillsData.js`
 
-25 skills across 4 categories. The file exports three things:
+Skills across 4 categories. The file exports three things:
 
 ### `CATEGORIES` (array)
 
@@ -141,7 +143,7 @@ All images are **WebP**. No automatic fallback to JPEG/PNG.
 - Thumbnails: `public/images/projects/arc-1.webp`
 - Gallery images: `public/images/projects/arc-1a.webp`, `arc-1b.webp`, etc.
 - Image paths in `projectsData.json` omit `public/` prefix (e.g., `"images/projects/arc-1.webp"`).
-- Profile image: `public/images/profile.webp`
+- Profile image: `public/images/profile/profile.webp`
 
 ### Image handling
 
@@ -169,7 +171,7 @@ All images are **WebP**. No automatic fallback to JPEG/PNG.
 
 ```
 src/i18n/locales/
-├── en.json      # English (complete, ~247 lines, 70+ keys)
+├── en.json      # English (complete)
 └── ar.json      # Arabic (all keys present, values are empty strings)
 ```
 

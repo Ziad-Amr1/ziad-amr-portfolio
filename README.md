@@ -128,8 +128,8 @@ src/
 ├── context/
 │   └── ThemeContext.jsx   # Theme state with localStorage persistence and error handling
 ├── data/
-│   ├── projectsData.json  # 21 project entries with full case study data
-│   └── skillsData.js      # 25 skills across 4 categories with proficiency levels
+│   ├── projectsData.json  # Project entries with full case study data
+│   └── skillsData.js      # Skills across 4 categories with proficiency levels
 ├── hooks/
 │   ├── projects/
 │   │   └── useProjectModal.js   # Modal state, URL hash sync, scroll lock, keyboard nav
@@ -143,7 +143,7 @@ src/
 ├── i18n/
 │   ├── index.js           # Translation hook (useTranslation) with nested key lookup
 │   └── locales/
-│       ├── en.json        # English translations (complete, 247 lines)
+│       ├── en.json        # English translations (complete)
 │       └── ar.json        # Arabic stub (keys present, values empty)
 ├── layout/
 │   └── MainLayout.jsx    # Section wrapper for consistent spacing
@@ -184,7 +184,7 @@ Detailed content editing guide: [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md)
 
 ### Projects (`src/data/projectsData.json`)
 
-21 projects with case study data. Each project requires:
+Projects with case study data. Each project requires:
 
 - `id` (unique number), `title`, `category` (architecture/design/development), `tags` (matches Skills)
 - At least one of `image` (thumbnail path) or `images[]` (gallery paths)
@@ -192,7 +192,7 @@ Detailed content editing guide: [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md)
 
 ### Skills (`src/data/skillsData.js`)
 
-25 skills organized into 4 categories: Architecture, Design, Software Development, Data & Emerging Tech. Each skill has a `name`, `level` (Core/Used/Learning/Exploring), `note`, and `tags` array linking to projects.
+Skills organized into 4 categories: Architecture, Design, Software Development, Data & Emerging Tech. Each skill has a `name`, `level` (Core/Used/Learning/Exploring), `note`, and `tags` array linking to projects.
 
 ### Translations (`src/i18n/locales/`)
 
@@ -204,19 +204,6 @@ Detailed content editing guide: [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md)
 ## Testing
 
 Testing philosophy and detailed guide: [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md#testing) (testing section inside content guide).
-
-### Stack
-
-- **Vitest** — Test runner
-- **React Testing Library** — Component testing
-- **jsdom** — Browser environment simulation
-
-### Running Tests
-
-```bash
-npm run test        # Run once
-npm run test:watch  # Watch mode
-```
 
 ### Test Areas
 
@@ -242,7 +229,7 @@ Deployed to Netlify. Pushing to `master` triggers an automatic build and deploy.
 | Publish directory | `dist` |
 | Production branch | `master` |
 | SPA redirect | `/* → /index.html` (200) |
-| CSP | `default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.emailjs.com; frame-ancestors 'none'; form-action 'self'; base-uri 'self'` |
+| CSP | `default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.emailjs.com; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; upgrade-insecure-requests` |
 
 ### Production Verification
 
@@ -305,20 +292,20 @@ Security headers applied at the Netlify edge via `netlify.toml`:
 | Header | Value |
 |--------|-------|
 | Content-Security-Policy | Restricted to self, inline styles, EmailJS API |
-| Strict-Transport-Security | max-age=31536000, preload |
+| Strict-Transport-Security | max-age=31536000; includeSubDomains; preload |
 | X-Frame-Options | DENY |
 | X-Content-Type-Options | nosniff |
 | Referrer-Policy | strict-origin-when-cross-origin |
-| Permissions-Policy | Camera, microphone, geolocation disabled |
+| Permissions-Policy | Camera, microphone, geolocation, interest-cohort disabled |
 
 ---
 
 ## Localization
 
-The i18n system uses a custom hook (`useTranslation`) with nested JSON key lookup and `{{variable}}` interpolation. Only English is fully translated.
+Custom i18n with `useTranslation` hook. Only English is fully translated.
 
-- `en.json` — Complete English translations (247 lines)
-- `ar.json` — All primary keys exist but values are empty objects `{}`. Arabic UI is not currently functional.
+- `en.json` — Complete English translations
+- `ar.json` — All keys present but values are empty stubs; Arabic UI is not currently functional.
 
 Adding a new language requires:
 1. Creating a new locale file (e.g., `fr.json`)
@@ -331,7 +318,7 @@ Adding a new language requires:
 ## Known Limitations
 
 - **Arabic translations** — `ar.json` contains empty stubs. The entire UI displays in English.
-- **No backend/data projects** — 21 projects across architecture, design, and development. No backend or data engineering projects are currently represented.
+- **No backend/data projects** — Projects across architecture, design, and development. No backend or data engineering projects are currently represented.
 - **BIM/AEC content** — The bio mentions BIM and AEC technology as a future direction, but no dedicated projects exist yet.
 - **EmailJS** — Contact form uses a free EmailJS tier with rate limits. No self-hosted email option.
 - **SEO meta tags** — Tags in `index.html` are hardcoded, not driven by i18n. The `<html>` `lang` attribute is always `"en"`.
