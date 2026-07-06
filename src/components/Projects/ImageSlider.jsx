@@ -3,6 +3,8 @@
 import {
   useState,
   useEffect,
+  useRef,
+  useCallback,
   memo,
 } from "react";
 
@@ -61,15 +63,38 @@ const ImageSlider = memo(
     video = null,
     imageIndex,
     setImageIndex,
+    onAspectRatioReady,
   }) {
     const { t } = useTranslation();
     const [imgLoaded, setImgLoaded] =
       useState(false);
+    const imgRef = useRef(null);
 
-    // Reset skeleton whenever image changes
+    // Reset skeleton whenever image changes.
+    // Also check img.complete to handle cached images
+    // where onLoad may fire before React attaches the handler.
     useEffect(() => {
       setImgLoaded(false);
-    }, [imageIndex]);
+
+      if (imgRef.current?.complete) {
+        setImgLoaded(true);
+      }
+    }, [imageIndex, images]);
+
+    const handleLoad = useCallback(() => {
+      setImgLoaded(true);
+
+      if (onAspectRatioReady && imgRef.current) {
+        const { naturalWidth, naturalHeight } = imgRef.current;
+        if (naturalWidth && naturalHeight) {
+          onAspectRatioReady(naturalWidth / naturalHeight);
+        }
+      }
+    }, [onAspectRatioReady]);
+
+    const handleError = useCallback(() => {
+      setImgLoaded(true);
+    }, []);
 
     /* ==================================================
        VIDEO ONLY
@@ -165,14 +190,14 @@ const ImageSlider = memo(
           )}
 
           <img
+            ref={imgRef}
             key={images[imageIndex]}
             src={images[imageIndex]}
             alt={t("projectModal.slideAlt", { number: imageIndex + 1 })}
             loading="lazy"
             decoding="async"
-            onLoad={() =>
-              setImgLoaded(true)
-            }
+            onLoad={handleLoad}
+            onError={handleError}
             className={`
             w-full
             h-full

@@ -120,10 +120,12 @@ export default function useProjectModal(projectsData, filteredProjects, getImage
   }, [modalProject, imageIndex, closeModal, getImages, handlePrevProject, handleNextProject]);
 
   // ── scroll lock ────────────────────────
+  const isModalOpen = modalProject !== null;
+
   useEffect(() => {
-    if (modalProject) lockScroll();
+    if (isModalOpen) lockScroll();
     return () => unlockScroll();
-  }, [modalProject]);
+  }, [isModalOpen]);
 
   // ── close if filtered project disappears
   useEffect(() => {

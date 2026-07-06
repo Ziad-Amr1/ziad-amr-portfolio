@@ -2,7 +2,9 @@
 
 import {
   useRef,
+  useState,
   useEffect,
+  useCallback,
 } from "react";
 
 import {
@@ -47,6 +49,19 @@ export default function ProjectMediaPanel({
 
   const hasMulti =
     images.length > 1;
+
+  const [aspectClass, setAspectClass] =
+    useState("landscape");
+
+  const handleAspectRatio = useCallback(
+    (ratio) => {
+      if (ratio < 0.8) setAspectClass("portrait");
+      else if (ratio <= 1.2) setAspectClass("square");
+      else if (ratio <= 2.0) setAspectClass("landscape");
+      else setAspectClass("very-wide");
+    },
+    []
+  );
 
   /* ==================================================
      VIDEO AUTOPLAY
@@ -111,8 +126,18 @@ export default function ProjectMediaPanel({
             : `
               w-full
 
-              h-[40vh]
-              md:h-[48vh]
+              max-h-[40vh]
+              md:max-h-[48vh]
+
+              ${
+                aspectClass === "square"
+                  ? "max-h-[55vh] md:max-h-[60vh]"
+                  : aspectClass === "portrait"
+                    ? "max-h-[55vh] md:max-h-[60vh]"
+                    : aspectClass === "very-wide"
+                      ? "max-h-[38vh] md:max-h-[42vh]"
+                      : ""
+              }
             `
         }
         `}
@@ -244,6 +269,9 @@ export default function ProjectMediaPanel({
             }
             setImageIndex={
               setImageIndex
+            }
+            onAspectRatioReady={
+              handleAspectRatio
             }
           />
         ) : null}

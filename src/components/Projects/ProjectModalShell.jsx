@@ -163,20 +163,6 @@ export default function ProjectModalShell({
   }, [project]);
 
   /* ==================================================
-     LOCK SCROLL
-  ================================================== */
-
-  useEffect(() => {
-    document.body.style.overflow =
-      "hidden";
-
-    return () => {
-      document.body.style.overflow =
-        "";
-    };
-  }, []);
-
-  /* ==================================================
      EMPTY
   ================================================== */
 
@@ -378,7 +364,6 @@ export default function ProjectModalShell({
 
                 flex-1
                 min-h-0
-                overflow-hidden
                 "
               >
                 {content}
