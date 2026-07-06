@@ -16,6 +16,8 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import { useTranslation } from "../../i18n";
+
 /* ======================================================
    CATEGORY STYLES
 ====================================================== */
@@ -98,6 +100,7 @@ const ProjectCard = memo(
     CARD_VARIANTS,
     onTagClick,
   }) {
+    const { t } = useTranslation();
     const thumb =
       getImages(project)[0] ?? "";
 
@@ -226,7 +229,7 @@ const ProjectCard = memo(
         }
         tabIndex={0}
         role="button"
-        aria-label={`View ${project.title}`}
+        aria-label={t("accessibility.viewProject", { title: project.title })}
         className="
         group
         relative
@@ -444,7 +447,7 @@ const ProjectCard = memo(
                   fill="white"
                 />
 
-                Video
+                {t("projectsSection.card.videoLabel")}
               </div>
             )}
           </div>
@@ -488,7 +491,7 @@ const ProjectCard = memo(
               font-semibold
               "
             >
-              View Case Study
+              {t("projectsSection.card.viewCaseStudy")}
 
               <ArrowUpRight
                 size={18}
@@ -595,8 +598,8 @@ const ProjectCard = memo(
                 <button
                   key={tag}
                   type="button"
-                  title={`Filter by ${tag}`}
-                  aria-label={`Filter projects by ${tag}`}
+                  title={t("projectsSection.card.filterByTag", { tag })}
+                  aria-label={t("projectsSection.card.filterByTag", { tag })}
                   onClick={(e) => {
                     e.stopPropagation();
                     onTagClick?.(tag);
@@ -648,7 +651,7 @@ const ProjectCard = memo(
                 border-slate-200 dark:border-white/10
                 "
               >
-                +{hiddenCount}
+                {t("projectsSection.card.hiddenCount", { count: hiddenCount })}
               </span>
             )}
           </div>

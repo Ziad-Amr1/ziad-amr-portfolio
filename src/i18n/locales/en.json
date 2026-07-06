@@ -1,0 +1,249 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+
+  "hero": {
+    "greeting": "Hello, I'm",
+    "name": "Ziad Amr",
+    "firstName": "Ziad",
+    "lastName": "Amr",
+    "titles": [
+      "Frontend Developer",
+      "Graphic Designer",
+      "Architect",
+      "UI/UX Designer",
+      "Creative Coder"
+    ],
+    "description": "Passionate about crafting interactive, responsive, and visually engaging digital experiences that merge creativity with functionality.",
+    "cta": {
+      "workTogether": "Let's Work Together",
+      "downloadCv": "Download CV"
+    }
+  },
+
+  "about": {
+    "label": "About Me",
+    "heading": "Building Design",
+    "headingHighlight": "Through Creativity",
+    "description": "A brief look into my background, education, and journey across architecture, front-end development, and digital design.",
+    "bio": {
+      "title": "Bio",
+      "paragraph1Start": "I'm an",
+      "paragraph1Highlight": "Architecture student",
+      "paragraph1Middle": "passionate about blending design thinking with",
+      "paragraph1Highlight2": "front-end development",
+      "paragraph1End": ".",
+      "paragraph2": "I enjoy transforming ideas into functional, visually balanced, and user-centered digital experiences.",
+      "cta": "Explore my skills \u2192"
+    },
+    "education": {
+      "title": "Education",
+      "entries": [
+        {
+          "title": "BFA in Architecture",
+          "institution": "Helwan University",
+          "period": "2023 \u2014 2028"
+        },
+        {
+          "title": "High School Diploma",
+          "institution": "Al-Shaheed Atef El-Sadat",
+          "period": "2022 \u2014 2023"
+        }
+      ]
+    },
+    "experience": {
+      "title": "Experience",
+      "entries": [
+        {
+          "role": "Freelance Designer & Developer",
+          "description": "Branding, UI/UX, Frontend Development",
+          "period": "2024 \u2014 Present"
+        },
+        {
+          "role": "Architectural Academic Projects",
+          "description": "Residential, commercial, and conceptual design work",
+          "period": "2023 \u2014 Present"
+        }
+      ]
+    }
+  },
+
+  "skillsSection": {
+    "label": "Skills & Expertise",
+    "heading": "Turning Ideas",
+    "headingHighlight": "Into Interactive Experiences"
+  },
+
+  "projectsSection": {
+    "label": "Featured Work",
+    "heading": "Selected Projects",
+    "headingHighlight": "Across Design & Development",
+    "description": "A curated collection of architecture, UI/UX, graphic design, and frontend development projects focused on visual clarity, interaction, and modern digital experiences.",
+    "stats": {
+      "projects": "Projects",
+      "categories": "Categories",
+      "creativeFocus": "Creative Focus",
+      "focusValue": "UI / Architecture"
+    },
+    "filters": {
+      "all": "All",
+      "architecture": "Architecture",
+      "design": "Design",
+      "development": "Development",
+      "ariaLabel": "Project filters",
+      "filterBy": "Filter by {{name}}"
+    },
+    "tagFilter": {
+      "label": "Filtered by skill:",
+      "clear": "Clear skill filter"
+    },
+    "empty": {
+      "title": "No Projects Found",
+      "description": "Try selecting another category or filter to explore more work."
+    },
+    "card": {
+      "videoLabel": "Video",
+      "viewCaseStudy": "View Case Study",
+      "filterByTag": "Filter projects by {{tag}}",
+      "hiddenCount": "+{{count}}"
+    },
+    "loading": "Loading projects"
+  },
+
+  "projectModal": {
+    "featured": "Featured Project",
+    "close": "Close modal",
+    "viewFullscreen": "View fullscreen",
+    "exitFullscreen": "Exit fullscreen",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "goToImage": "Go to image {{number}}",
+    "slideAlt": "slide-{{number}}",
+    "thumbAlt": "thumb-{{number}}",
+    "noPreview": "No preview available",
+    "dialogLabel": "Project: {{title}}",
+    "problem": "Problem",
+    "solution": "Solution",
+    "result": "Result",
+    "filterByTag": "Filter projects by {{tag}}",
+    "previousProject": "Previous project",
+    "nextProject": "Next project",
+    "projectLabel": "Project",
+    "previous": "Previous",
+    "next": "Next",
+    "paginationLabel": "Pagination",
+    "previousPage": "Previous page",
+    "nextPage": "Next page"
+  },
+
+  "contact": {
+    "label": "Contact",
+    "heading": "Let's Build",
+    "headingHighlight": "Something Great Together",
+    "description": "Have a project, idea, or collaboration in mind? I'd love to hear about it and bring it to life.",
+    "panel": {
+      "title": "Open for",
+      "titleHighlight": "freelance & creative work",
+      "description": "Whether you need a modern website, UI/UX design, branding, or architecture presentation work \u2014 I'm always excited to collaborate on meaningful projects.",
+      "services": [
+        "Frontend Development",
+        "UI / UX Design",
+        "Architecture Visualization",
+        "Branding & Creative Design"
+      ]
+    },
+    "form": {
+      "nameLabel": "Your Name",
+      "emailLabel": "Email Address",
+      "subjectLabel": "Subject",
+      "messageLabel": "Your Message",
+      "sendButton": "Send Message",
+      "sending": "Sending...",
+      "replyNote": "Usually replies within 24 hours."
+    },
+    "validation": {
+      "nameRequired": "Name is required.",
+      "emailRequired": "Email is required.",
+      "emailInvalid": "Enter a valid email address.",
+      "messageRequired": "Message is required.",
+      "fillRequired": "Please fill all required fields."
+    },
+    "messages": {
+      "sending": "Sending message...",
+      "success": "Message sent successfully \u2728",
+      "cooldown": "Please wait {{seconds}}s before sending another message.",
+      "notConfigured": "Email service is not configured.",
+      "rateLimited": "Too many requests. Please try again later.",
+      "genericError": "Failed to send. Check your connection and try again.",
+      "noSubject": "(No subject)"
+    }
+  },
+
+  "footer": {
+    "ctaLabel": "Let's Connect",
+    "ctaHeading": "Have an Idea?",
+    "ctaHeadingHighlight": "Let's Build It Together",
+    "ctaDescription": "I'm always open to collaborations, freelance projects, and creative ideas that blend technology with design.",
+    "ctaButton": "Start a Project",
+    "description": "Frontend Developer, Designer, and Architecture student focused on building immersive digital experiences.",
+    "copyright": "\u00a9 {{year}} Ziad Amr. All rights reserved.",
+    "builtWith": "Designed & built with passion using React, TailwindCSS, and creativity \u2728"
+  },
+
+  "buttons": {
+    "close": "Close"
+  },
+
+  "labels": {
+    "close": "Close"
+  },
+
+  "messages": {
+    "loading": "Loading..."
+  },
+
+  "accessibility": {
+    "toggleMenu": "Toggle navigation menu",
+    "toggleTheme": "Toggle theme",
+    "closeModal": "Close modal",
+    "viewFullscreen": "View fullscreen",
+    "exitFullscreen": "Exit fullscreen",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "goToImage": "Go to image {{number}}",
+    "previousProject": "Previous project",
+    "nextProject": "Next project",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "loadingProjects": "Loading projects",
+    "filterBy": "Filter by {{name}}",
+    "filterByTag": "Filter projects by {{tag}}",
+    "clearFilter": "Clear skill filter",
+    "projectDialog": "Project: {{title}}",
+    "socialLink": "Visit {{site}} profile",
+    "viewProject": "View {{title}}",
+    "projectCount": "{{count}} projects"
+  },
+
+  "seo": {
+    "title": "Ziad Amr \u2014 Frontend Developer & Architectural Designer",
+    "description": "Ziad Amr Said \u2014 Frontend developer and architectural designer based in Egypt. Building fast, accessible interfaces with React, Tailwind CSS, and modern web tools.",
+    "ogTitle": "Ziad Amr \u2014 Frontend Developer & Architectural Designer",
+    "ogDescription": "Portfolio of Ziad Amr Said \u2014 frontend development, graphic design, and architectural visualization.",
+    "twitterTitle": "Ziad Amr \u2014 Frontend Developer",
+    "twitterDescription": "Portfolio of Ziad Amr Said \u2014 frontend development, graphic design, and architectural visualization."
+  },
+
+  "common": {
+    "loading": "Loading...",
+    "close": "Close",
+    "previous": "Previous",
+    "next": "Next",
+    "project": "Project"
+  }
+}

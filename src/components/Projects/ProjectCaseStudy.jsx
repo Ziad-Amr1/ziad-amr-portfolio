@@ -9,6 +9,8 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 
+import { useTranslation } from "../../i18n";
+
 /* ======================================================
    CATEGORY COLORS
 ====================================================== */
@@ -42,6 +44,7 @@ function TagBadge({
   category,
   onClick,
 }) {
+  const { t } = useTranslation();
   const colorClass =
     CATEGORY_COLORS[
       category
@@ -60,7 +63,7 @@ function TagBadge({
       type={isClickable ? "button" : undefined}
       aria-label={
         isClickable
-          ? `Filter projects by ${tag}`
+          ? t("projectModal.filterByTag", { tag })
           : undefined
       }
       onClick={isClickable ? onClick : undefined}
@@ -309,6 +312,7 @@ export default function ProjectCaseStudy({
   project,
   onTagClick,
 }) {
+  const { t } = useTranslation();
   return (
     <div
       className="
@@ -478,7 +482,7 @@ export default function ProjectCaseStudy({
           "
         >
           <CaseStudyBlock
-            label="Problem"
+            label={t("projectModal.problem")}
             color="red"
             text={
               project.problem
@@ -487,7 +491,7 @@ export default function ProjectCaseStudy({
           />
 
           <CaseStudyBlock
-            label="Solution"
+            label={t("projectModal.solution")}
             color="blue"
             text={
               project.solution
@@ -496,7 +500,7 @@ export default function ProjectCaseStudy({
           />
 
           <CaseStudyBlock
-            label="Result"
+            label={t("projectModal.result")}
             color="green"
             text={
               project.result

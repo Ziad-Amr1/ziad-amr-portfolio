@@ -1,11 +1,14 @@
 // src/components/NavbarView.jsx
 
+import { useTranslation } from "../../i18n";
+
 export default function NavbarView({
   navLinks,
   activeSection,
   scrollProgress,
   controls,
 }) {
+  const { t } = useTranslation();
   return (
     <header
       className="
@@ -220,7 +223,7 @@ export default function NavbarView({
                     )}
 
                     <span className="relative z-10">
-                      {item}
+                      {t(`navigation.${id}`)}
                     </span>
 
                     {isActive && (

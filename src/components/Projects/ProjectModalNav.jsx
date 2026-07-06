@@ -5,6 +5,8 @@ import {
   ChevronRight,
 } from "lucide-react";
 
+import { useTranslation } from "../../i18n";
+
 const NAV_BUTTON_BASE = `
 group
 
@@ -56,6 +58,7 @@ export default function ProjectModalNav({
   currentIndex,
   total,
 }) {
+  const { t } = useTranslation();
   return (
     <div
       className="
@@ -86,7 +89,7 @@ export default function ProjectModalNav({
         className={
           NAV_BUTTON_BASE
         }
-        aria-label="Previous project"
+        aria-label={t("accessibility.previousProject")}
       >
         <ChevronLeft
           size={18}
@@ -98,7 +101,7 @@ export default function ProjectModalNav({
           "
         />
 
-        Previous
+        {t("common.previous")}
       </button>
 
       {/* Counter */}
@@ -119,7 +122,7 @@ export default function ProjectModalNav({
           dark:text-slate-500 dark:text-gray-500
           "
         >
-          Project
+          {t("common.project")}
         </span>
 
         <span
@@ -146,9 +149,9 @@ export default function ProjectModalNav({
         className={
           NAV_BUTTON_BASE
         }
-        aria-label="Next project"
+        aria-label={t("accessibility.nextProject")}
       >
-        Next
+        {t("common.next")}
 
         <ChevronRight
           size={18}

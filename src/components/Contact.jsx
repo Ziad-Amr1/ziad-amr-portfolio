@@ -13,6 +13,8 @@ import {
 
 import { fadeInUp } from "../utils/motionVariants";
 
+import { useTranslation } from "../i18n";
+
 import emailjs from "@emailjs/browser";
 
 import toast, {
@@ -197,6 +199,7 @@ function FloatingField({
 ====================================================== */
 
 function Contact() {
+  const { t } = useTranslation();
   const [formData, setFormData] =
     useState(EMPTY_FORM);
 
@@ -229,18 +232,18 @@ function Contact() {
       name === "name" &&
       !value.trim()
     ) {
-      return "Name is required.";
+      return t("contact.validation.nameRequired");
     }
 
     if (name === "email") {
       if (!value.trim()) {
-        return "Email is required.";
+        return t("contact.validation.emailRequired");
       }
 
       if (
         !EMAIL_REGEX.test(value)
       ) {
-        return "Enter a valid email address.";
+        return t("contact.validation.emailInvalid");
       }
     }
 
@@ -248,7 +251,7 @@ function Contact() {
       name === "message" &&
       !value.trim()
     ) {
-      return "Message is required.";
+      return t("contact.validation.messageRequired");
     }
 
     return "";
@@ -375,9 +378,7 @@ function Contact() {
           1000
       );
 
-      toast.error(
-        `Please wait ${remaining}s before sending another message.`
-      );
+      toast.error(t("contact.messages.cooldown", { seconds: remaining }));
 
       return;
     }
@@ -398,9 +399,7 @@ function Contact() {
         firstInvalidField
       ]?.focus();
 
-      toast.error(
-        "Please fill all required fields."
-      );
+      toast.error(t("contact.validation.fillRequired"));
 
       return;
     }
@@ -410,9 +409,7 @@ function Contact() {
       !TEMPLATE_ID ||
       !PUBLIC_KEY
     ) {
-      toast.error(
-        "Email service is not configured."
-      );
+      toast.error(t("contact.messages.notConfigured"));
 
       return;
     }
@@ -424,7 +421,7 @@ function Contact() {
 
     const loadingToast =
       toast.loading(
-        "Sending message..."
+        t("contact.messages.sending")
       );
 
     try {
@@ -453,9 +450,7 @@ function Contact() {
         loadingToast
       );
 
-      toast.success(
-        "Message sent successfully ✨"
-      );
+      toast.success(t("contact.messages.success"));
 
       setFormData(EMPTY_FORM);
 
@@ -476,8 +471,8 @@ function Contact() {
 
       toast.error(
         err.status === 429
-          ? "Too many requests. Please try again later."
-          : "Failed to send. Check your connection and try again."
+          ? t("contact.messages.rateLimited")
+          : t("contact.messages.genericError")
       );
     } finally {
       setLoading(false);
@@ -629,7 +624,7 @@ function Contact() {
           >
             <Mail className="w-4 h-4" />
 
-            Contact
+            {t("contact.label")}
           </div>
 
           {/* Heading */}
@@ -647,7 +642,7 @@ function Contact() {
             dark:text-white
             "
           >
-            Let&apos;s Build
+            {t("contact.heading")}
             <br />
 
             <span
@@ -661,8 +656,7 @@ function Contact() {
               text-transparent
               "
             >
-              Something Great
-              Together
+              {t("contact.headingHighlight")}
             </span>
           </h2>
 
@@ -682,11 +676,7 @@ function Contact() {
             leading-relaxed
             "
           >
-            Have a project, idea,
-            or collaboration in
-            mind? I’d love to hear
-            about it and bring it
-            to life.
+            {t("contact.description")}
           </p>
         </motion.div>
 
@@ -802,7 +792,7 @@ function Contact() {
                 leading-tight
                 "
               >
-                Open for
+                {t("contact.panel.title")}
                 <br />
 
                 <span
@@ -811,8 +801,7 @@ function Contact() {
                   dark:text-blue-300
                   "
                 >
-                  freelance &
-                  creative work
+                  {t("contact.panel.titleHighlight")}
                 </span>
               </h3>
 
@@ -828,16 +817,7 @@ function Contact() {
                 text-lg
                 "
               >
-                Whether you need
-                a modern website,
-                UI/UX design,
-                branding, or
-                architecture
-                presentation work —
-                I’m always excited
-                to collaborate on
-                meaningful
-                projects.
+                {t("contact.panel.description")}
               </p>
 
               {/* Stats */}
@@ -850,12 +830,7 @@ function Contact() {
                 flex-1
                 "
               >
-                {[
-                  "Frontend Development",
-                  "UI / UX Design",
-                  "Architecture Visualization",
-                  "Branding & Creative Design",
-                ].map((item) => (
+                {t("contact.panel.services").map((item) => (
                   <div
                     key={item}
                     className="
@@ -981,7 +956,7 @@ function Contact() {
                   onBlur={
                     handleBlur
                   }
-                  label="Your Name"
+                  label={t("contact.form.nameLabel")}
                   required
                   error={
                     errors.name
@@ -1007,7 +982,7 @@ function Contact() {
                   onBlur={
                     handleBlur
                   }
-                  label="Email Address"
+                  label={t("contact.form.emailLabel")}
                   required
                   error={
                     errors.email
@@ -1035,7 +1010,7 @@ function Contact() {
                   onBlur={
                     handleBlur
                   }
-                  label="Subject"
+                  label={t("contact.form.subjectLabel")}
                   inputRef={(
                     node
                   ) => {
@@ -1068,7 +1043,7 @@ function Contact() {
                   onBlur={
                     handleBlur
                   }
-                  label="Your Message"
+                  label={t("contact.form.messageLabel")}
                   required
                   rows={8}
                   error={
@@ -1142,11 +1117,10 @@ function Contact() {
                   "
                 >
                   {loading ? (
-                    "Sending..."
+                    t("contact.form.sending")
                   ) : (
                     <>
-                      Send
-                      Message
+                      {t("contact.form.sendButton")}
 
                       <Send
                         className="
@@ -1170,8 +1144,7 @@ function Contact() {
                   text-gray-500
                   "
                 >
-                  Usually replies
-                  within 24 hours.
+                  {t("contact.form.replyNote")}
                 </p>
               </div>
             </div>

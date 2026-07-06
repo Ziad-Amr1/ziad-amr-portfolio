@@ -11,6 +11,8 @@ import {
   ChevronRight,
 } from "lucide-react";
 
+import { useTranslation } from "../../i18n";
+
 /* ======================================================
    SKELETON
 ====================================================== */
@@ -60,6 +62,7 @@ const ImageSlider = memo(
     imageIndex,
     setImageIndex,
   }) {
+    const { t } = useTranslation();
     const [imgLoaded, setImgLoaded] =
       useState(false);
 
@@ -108,7 +111,7 @@ const ImageSlider = memo(
           text-muted dark:text-slate-500 dark:text-gray-400
           "
         >
-          No preview available
+          {t("projectModal.noPreview")}
         </div>
       );
     }
@@ -164,9 +167,7 @@ const ImageSlider = memo(
           <img
             key={images[imageIndex]}
             src={images[imageIndex]}
-            alt={`slide-${
-              imageIndex + 1
-            }`}
+            alt={t("projectModal.slideAlt", { number: imageIndex + 1 })}
             loading="lazy"
             decoding="async"
             onLoad={() =>
@@ -208,7 +209,7 @@ const ImageSlider = memo(
                       images.length
                   );
                 }}
-                aria-label="Previous image"
+                aria-label={t("accessibility.previousImage")}
                 className="
                 absolute
                 left-4
@@ -257,7 +258,7 @@ const ImageSlider = memo(
                       images.length
                   );
                 }}
-                aria-label="Next image"
+                aria-label={t("accessibility.nextImage")}
                 className="
                 absolute
                 right-4
@@ -325,9 +326,7 @@ const ImageSlider = memo(
                       idx
                     );
                   }}
-                  aria-label={`Go to image ${
-                    idx + 1
-                  }`}
+                  aria-label={t("accessibility.goToImage", { number: idx + 1 })}
                   className={`
                   relative
 
@@ -364,9 +363,7 @@ const ImageSlider = memo(
                   <img
                     src={src}
                     loading="lazy"
-                    alt={`thumb-${
-                      idx + 1
-                    }`}
+                    alt={t("projectModal.thumbAlt", { number: idx + 1 })}
                     className="
                     w-full
                     h-full

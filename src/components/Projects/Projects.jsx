@@ -27,6 +27,8 @@ import ProjectGrid from "./ProjectGrid";
 
 import PaginationControls from "./PaginationControls";
 
+import { useTranslation } from "../../i18n";
+
 import useProjectModal from "../../hooks/projects/useProjectModal";
 
 const ProjectModal = lazy(() =>
@@ -117,6 +119,7 @@ export default function Projects({
   onClearTagFilter,
   onTagClick,
 }) {
+  const { t } = useTranslation();
   const [activeFilter, setActiveFilter] =
     useState("all");
 
@@ -463,7 +466,7 @@ export default function Projects({
           >
             <LayoutGrid className="w-4 h-4" />
 
-            Featured Work
+            {t("projectsSection.label")}
           </div>
 
           {/* Heading */}
@@ -480,7 +483,7 @@ export default function Projects({
             text-foreground dark:text-white
             "
           >
-            Selected Projects
+            {t("projectsSection.heading")}
             <br />
 
             <span
@@ -494,7 +497,7 @@ export default function Projects({
               text-transparent
               "
             >
-              Across Design & Development
+              {t("projectsSection.headingHighlight")}
             </span>
           </h2>
 
@@ -512,12 +515,7 @@ export default function Projects({
             leading-relaxed
             "
           >
-            A curated collection of
-            architecture, UI/UX, graphic
-            design, and frontend development
-            projects focused on visual clarity,
-            interaction, and modern digital
-            experiences.
+            {t("projectsSection.description")}
           </p>
 
           {/* Stats */}
@@ -533,23 +531,18 @@ export default function Projects({
           >
             {[
               {
-                label:
-                  "Projects",
-                value:
-                  projectsData.length,
+                label: t("projectsSection.stats.projects"),
+                value: projectsData.length,
               },
 
               {
-                label:
-                  "Categories",
+                label: t("projectsSection.stats.categories"),
                 value: 3,
               },
 
               {
-                label:
-                  "Creative Focus",
-                value:
-                  "UI / Architecture",
+                label: t("projectsSection.stats.creativeFocus"),
+                value: t("projectsSection.stats.focusValue"),
               },
             ].map((item) => (
               <div
@@ -627,7 +620,7 @@ export default function Projects({
               dark:text-gray-400
               "
             >
-              Filtered by skill:
+              {t("projectsSection.tagFilter.label")}
             </span>
 
             <span
@@ -659,7 +652,7 @@ export default function Projects({
                   if (onClearTagFilter) onClearTagFilter();
                   setCurrentPage(1);
                 }}
-                aria-label="Clear skill filter"
+                aria-label={t("projectsSection.tagFilter.clear")}
                 className="
                 inline-flex
                 items-center

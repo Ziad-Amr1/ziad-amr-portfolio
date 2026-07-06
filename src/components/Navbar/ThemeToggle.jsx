@@ -5,14 +5,18 @@ import {
   SunMedium,
 } from "lucide-react";
 
+import { useTranslation } from "../../i18n";
+
 export default function ThemeToggle({
   isDark,
   onToggle,
 }) {
+  const { t } = useTranslation();
+
   return (
     <button
       onClick={onToggle}
-      aria-label="Toggle theme"
+      aria-label={t("accessibility.toggleTheme")}
       className="
       relative
 

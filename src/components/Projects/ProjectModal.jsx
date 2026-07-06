@@ -15,6 +15,8 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import { useTranslation } from "../../i18n";
+
 import ProjectModalShell from "./ProjectModalShell";
 
 import ProjectMediaPanel from "./ProjectMediaPanel";
@@ -38,6 +40,7 @@ export default function ProjectModal({
   handleNextProject,
   onTagClick,
 }) {
+  const { t } = useTranslation();
   const [
     isFullscreen,
     setIsFullscreen,
@@ -207,7 +210,7 @@ export default function ProjectModal({
                 "
               />
 
-              Featured Project
+              {t("projectModal.featured")}
             </motion.div>
 
             <ProjectMediaPanel

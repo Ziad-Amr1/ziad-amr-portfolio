@@ -15,6 +15,8 @@ import {
   X,
 } from "lucide-react";
 
+import { useTranslation } from "../../i18n";
+
 import ImageSlider from "./ImageSlider";
 
 /* ======================================================
@@ -31,6 +33,7 @@ export default function ProjectMediaPanel({
   onOpenFullscreen,
   onCloseFullscreen,
 }) {
+  const { t } = useTranslation();
   const videoRef =
     useRef(null);
 
@@ -133,7 +136,7 @@ export default function ProjectMediaPanel({
             onClick={
               onOpenFullscreen
             }
-            aria-label="View fullscreen"
+            aria-label={t("accessibility.viewFullscreen")}
             className="
             absolute
             top-5
@@ -329,7 +332,7 @@ export default function ProjectMediaPanel({
               onClick={
                 onCloseFullscreen
               }
-              aria-label="Exit fullscreen"
+              aria-label={t("accessibility.exitFullscreen")}
               className="
               absolute
               top-5

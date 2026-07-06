@@ -1,6 +1,7 @@
 // src/components/MobileNav.jsx
 
 import { Menu, X } from "lucide-react";
+import { useTranslation } from "../../i18n";
 
 export default function MobileNav({
   navLinks,
@@ -10,6 +11,7 @@ export default function MobileNav({
   sidebarRef,
   toggleButtonRef,
 }) {
+  const { t } = useTranslation();
   return (
     <>
       {/* ======================================================
@@ -19,7 +21,7 @@ export default function MobileNav({
       <button
         ref={toggleButtonRef}
         onClick={() => setMenuOpen(!menuOpen)}
-        aria-label="Toggle navigation menu"
+        aria-label={t("accessibility.toggleMenu")}
         aria-expanded={menuOpen}
         className="
         md:hidden
@@ -315,7 +317,7 @@ export default function MobileNav({
                       font-semibold
                       "
                     >
-                      {item}
+                      {t(`navigation.${id}`)}
                     </span>
 
                     {/* Dot */}

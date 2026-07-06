@@ -4,6 +4,8 @@ import { memo } from "react";
 
 import { motion } from "framer-motion";
 
+import { useTranslation } from "../../i18n";
+
 const BASE = `
 relative
 overflow-hidden
@@ -45,6 +47,7 @@ const ProjectFilters = memo(
     setCurrentPage,
     accentMap,
   }) {
+    const { t } = useTranslation();
     const handleSelect = (cat) => {
       if (cat === activeFilter)
         return;
@@ -66,7 +69,7 @@ const ProjectFilters = memo(
         mb-14
         "
         role="group"
-        aria-label="Project filters"
+        aria-label={t("projectsSection.filters.ariaLabel")}
       >
         {categories.map((cat) => {
           const isActive =
@@ -85,7 +88,7 @@ const ProjectFilters = memo(
               aria-pressed={
                 isActive
               }
-              aria-label={`Filter by ${cat}`}
+              aria-label={t("projectsSection.filters.filterBy", { name: t(`projectsSection.filters.${cat}`) })}
               className={`
               ${BASE}
 
@@ -134,7 +137,7 @@ const ProjectFilters = memo(
                 capitalize
                 "
               >
-                {cat}
+                {t(`projectsSection.filters.${cat}`)}
               </span>
             </button>
           );

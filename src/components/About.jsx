@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 
 import { fadeInUp } from "../utils/motionVariants";
+import { useTranslation } from "../i18n";
 
 /* ========================================
    CONTAINER ANIMATION
@@ -208,6 +209,7 @@ function AboutCard({
 ======================================== */
 
 export default function About() {
+  const { t } = useTranslation();
   return (
     <section
       id="about"
@@ -344,7 +346,7 @@ export default function About() {
             mb-6
             "
           >
-            About Me
+            {t("about.label")}
           </div>
 
           {/* Heading */}
@@ -362,7 +364,7 @@ export default function About() {
             dark:text-white
             "
           >
-            Building Design
+            {t("about.heading")}
             <br />
 
             <span
@@ -376,7 +378,7 @@ export default function About() {
               text-transparent
               "
             >
-              Through Creativity
+              {t("about.headingHighlight")}
             </span>
           </h2>
 
@@ -396,10 +398,7 @@ export default function About() {
             leading-relaxed
             "
           >
-            A brief look into my background,
-            education, and journey across
-            architecture, front-end
-            development, and digital design.
+            {t("about.description")}
           </p>
         </motion.div>
 
@@ -429,10 +428,10 @@ export default function About() {
 
           <AboutCard
             icon={FaUserTie}
-            title="Bio"
+            title={t("about.bio.title")}
           >
             <p>
-              I’m an{" "}
+              {t("about.bio.paragraph1Start")}{" "}
 
               <span
                 className="
@@ -442,11 +441,10 @@ export default function About() {
                 font-semibold
                 "
               >
-                Architecture student
+                {t("about.bio.paragraph1Highlight")}
               </span>{" "}
 
-              passionate about blending
-              design thinking with{" "}
+              {t("about.bio.paragraph1Middle")}{" "}
 
               <span
                 className="
@@ -456,16 +454,13 @@ export default function About() {
                 font-semibold
                 "
               >
-                front-end development
+                {t("about.bio.paragraph1Highlight2")}
               </span>
-              .
+              {t("about.bio.paragraph1End")}
             </p>
 
             <p>
-              I enjoy transforming ideas
-              into functional, visually
-              balanced, and user-centered
-              digital experiences.
+              {t("about.bio.paragraph2")}
             </p>
 
             <a
@@ -488,7 +483,7 @@ export default function About() {
               transition-colors
               "
             >
-              Explore my skills →
+              {t("about.bio.cta")}
             </a>
           </AboutCard>
 
@@ -498,87 +493,57 @@ export default function About() {
 
           <AboutCard
             icon={FaGraduationCap}
-            title="Education"
+            title={t("about.education.title")}
           >
             <div className="space-y-6">
-              <div>
-                <h4
-                  className="
-                  text-foreground
-                  dark:text-white
+              {t("about.education.entries").map((entry, i) => (
+                <React.Fragment key={i}>
+                  {i > 0 && (
+                    <div
+                      className="
+                      w-full
+                      h-px
 
-                  font-semibold
-                  text-lg
-                  "
-                >
-                  BFA in Architecture
-                </h4>
+                      bg-slate-200
+                      dark:bg-white/10
+                      "
+                    />
+                  )}
+                  <div>
+                    <h4
+                      className="
+                      text-foreground
+                      dark:text-white
 
-                <p
-                  className="
-                  text-blue-500
-                  dark:text-blue-300
+                      font-semibold
+                      text-lg
+                      "
+                    >
+                      {entry.title}
+                    </h4>
 
-                  mt-1
-                  "
-                >
-                  Helwan University
-                </p>
+                    <p
+                      className="
+                      text-blue-500
+                      dark:text-blue-300
 
-                <span
-                  className="
-                  text-sm
-                  text-gray-500
-                  "
-                >
-                  2023 — 2028
-                </span>
-              </div>
+                      mt-1
+                      "
+                    >
+                      {entry.institution}
+                    </p>
 
-              {/* Divider */}
-              <div
-                className="
-                w-full
-                h-px
-
-                bg-slate-200
-                dark:bg-white/10
-                "
-              />
-
-              <div>
-                <h4
-                  className="
-                  text-foreground
-                  dark:text-white
-
-                  font-semibold
-                  text-lg
-                  "
-                >
-                  High School Diploma
-                </h4>
-
-                <p
-                  className="
-                  text-blue-500
-                  dark:text-blue-300
-
-                  mt-1
-                  "
-                >
-                  Al-Shaheed Atef El-Sadat
-                </p>
-
-                <span
-                  className="
-                  text-sm
-                  text-gray-500
-                  "
-                >
-                  2022 — 2023
-                </span>
-              </div>
+                    <span
+                      className="
+                      text-sm
+                      text-gray-500
+                      "
+                    >
+                      {entry.period}
+                    </span>
+                  </div>
+                </React.Fragment>
+              ))}
             </div>
           </AboutCard>
 
@@ -588,96 +553,59 @@ export default function About() {
 
           <AboutCard
             icon={FaBriefcase}
-            title="Experience"
+            title={t("about.experience.title")}
           >
             <div className="space-y-6">
-              <div>
-                <h4
-                  className="
-                  text-foreground
-                  dark:text-white
+              {t("about.experience.entries").map((entry, i) => (
+                <React.Fragment key={i}>
+                  {i > 0 && (
+                    <div
+                      className="
+                      w-full
+                      h-px
 
-                  font-semibold
-                  text-lg
-                  "
-                >
-                  Freelance Designer &
-                  Developer
-                </h4>
+                      bg-slate-200
+                      dark:bg-white/10
+                      "
+                    />
+                  )}
+                  <div>
+                    <h4
+                      className="
+                      text-foreground
+                      dark:text-white
 
-                <p
-                  className="
-                  text-muted
-                  dark:text-gray-400
+                      font-semibold
+                      text-lg
+                      "
+                    >
+                      {entry.role}
+                    </h4>
 
-                  mt-1
-                  "
-                >
-                  Branding, UI/UX,
-                  Frontend Development
-                </p>
+                    <p
+                      className="
+                      text-muted
+                      dark:text-gray-400
 
-                <span
-                  className="
-                  text-sm
+                      mt-1
+                      "
+                    >
+                      {entry.description}
+                    </p>
 
-                  text-blue-500
-                  dark:text-blue-300
-                  "
-                >
-                  2024 — Present
-                </span>
-              </div>
+                    <span
+                      className="
+                      text-sm
 
-              {/* Divider */}
-              <div
-                className="
-                w-full
-                h-px
-
-                bg-slate-200
-                dark:bg-white/10
-                "
-              />
-
-              <div>
-                <h4
-                  className="
-                  text-foreground
-                  dark:text-white
-
-                  font-semibold
-                  text-lg
-                  "
-                >
-                  Architectural Academic
-                  Projects
-                </h4>
-
-                <p
-                  className="
-                  text-muted
-                  dark:text-gray-400
-
-                  mt-1
-                  "
-                >
-                  Residential,
-                  commercial, and
-                  conceptual design work
-                </p>
-
-                <span
-                  className="
-                  text-sm
-
-                  text-blue-500
-                  dark:text-blue-300
-                  "
-                >
-                  2023 — Present
-                </span>
-              </div>
+                      text-blue-500
+                      dark:text-blue-300
+                      "
+                    >
+                      {entry.period}
+                    </span>
+                  </div>
+                </React.Fragment>
+              ))}
             </div>
           </AboutCard>
         </motion.div>

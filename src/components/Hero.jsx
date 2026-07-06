@@ -17,25 +17,15 @@ import {
 } from "react-icons/fa";
 
 import useTypingEffect from "../hooks/useTypingEffect";
+import { useTranslation } from "../i18n";
 
 export default function Hero() {
-  const titles = useMemo(
-    () => [
-      "Frontend Developer",
-      "Graphic Designer",
-      "Architect",
-      "UI/UX Designer",
-      "Creative Coder",
-    ],
-    []
-  );
+  const { t } = useTranslation();
 
-  const {
-    text,
-    blink,
-    pause,
-    resume,
-  } = useTypingEffect(titles);
+  const titles = useMemo(
+    () => t("hero.titles"),
+    [t]
+  );
 
   const socials = [
     {
@@ -276,7 +266,7 @@ export default function Hero() {
               mb-7
               "
             >
-              Hello, I&apos;m
+              {t("hero.greeting")}
             </div>
 
             {/* Heading */}
@@ -357,11 +347,7 @@ export default function Hero() {
               max-w-[620px]
               "
             >
-              Passionate about crafting
-              interactive, responsive, and
-              visually engaging digital
-              experiences that merge
-              creativity with functionality.
+              {t("hero.description")}
             </p>
 
             {/* ======================================================
@@ -404,7 +390,7 @@ export default function Hero() {
                 hover:shadow-[0_0_40px_rgba(59,130,246,0.55)]
                 "
               >
-                Let&apos;s Work Together
+                {t("hero.cta.workTogether")}
 
                 <ArrowRight
                   className="
@@ -458,7 +444,7 @@ export default function Hero() {
               >
                 <Download className="w-5 h-5" />
 
-                Download CV
+                {t("hero.cta.downloadCv")}
               </a>
             </div>
 

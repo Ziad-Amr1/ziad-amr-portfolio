@@ -4,6 +4,7 @@ import { memo, useCallback } from "react";
 import { motion } from "framer-motion";
 
 import { useTabs } from "../hooks/useTabs";
+import { useTranslation } from "../i18n";
 import { fadeInUp } from "../utils/motionVariants";
 import { CATEGORIES, LEVEL_STYLES, SKILLS_DATA } from "../data/skillsData";
 import { getSkillProjectCount } from "../utils/projectCounts";
@@ -50,6 +51,8 @@ const SkillCard = memo(function SkillCard({
   activeTagFilter,
   onSkillSelect,
 }) {
+  const { t } = useTranslation();
+
   const imgName = skill.name.replace(/[\s/]/g, "");
   const imgSrc = `/images/skills/${imgName}.webp`;
 
@@ -88,7 +91,7 @@ const SkillCard = memo(function SkillCard({
         role={clickable ? "button" : undefined}
         tabIndex={clickable ? 0 : undefined}
         aria-pressed={clickable ? active : undefined}
-        aria-label={clickable ? `Filter projects by ${skill.name}` : undefined}
+        aria-label={clickable ? t("accessibility.filterByTag", { tag: skill.name }) : undefined}
         onClick={clickable ? handleClick : undefined}
         onKeyDown={clickable ? handleKeyDown : undefined}
         className={`
@@ -285,7 +288,7 @@ const SkillCard = memo(function SkillCard({
 
                     shrink-0
                     "
-                    aria-label={`${projectCount} project${projectCount !== 1 ? "s" : ""}`}
+                    aria-label={t("accessibility.projectCount", { count: projectCount })}
                   >
                     {projectCount}
                   </span>
@@ -385,6 +388,7 @@ function Skills({
   activeTagFilter = null,
   onSkillSelect,
 }) {
+  const { t } = useTranslation();
   const { activeTab, changeTab } = useTabs(
     CATEGORIES,
     "Frontend Engineering"
@@ -496,7 +500,7 @@ function Skills({
             mb-6
             "
           >
-            Skills & Expertise
+            {t("skillsSection.label")}
           </div>
 
           {/* Heading */}
@@ -511,7 +515,7 @@ function Skills({
             dark:text-white
             "
           >
-            Turning Ideas
+            {t("skillsSection.heading")}
             <br />
 
             <span
@@ -522,7 +526,7 @@ function Skills({
               text-transparent
               `}
             >
-              Into Interactive Experiences
+              {t("skillsSection.headingHighlight")}
             </span>
           </h2>
 

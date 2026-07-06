@@ -7,6 +7,8 @@ import {
   ChevronRight,
 } from "lucide-react";
 
+import { useTranslation } from "../../i18n";
+
 const BTN = `
 group
 
@@ -45,6 +47,7 @@ const PaginationControls = memo(
     totalPages,
     setCurrentPage,
   }) {
+    const { t } = useTranslation();
     const isFirst =
       currentPage === 1;
 
@@ -62,7 +65,7 @@ const PaginationControls = memo(
 
         mt-14
         "
-        aria-label="Pagination"
+        aria-label={t("projectModal.paginationLabel")}
       >
         {/* Prev */}
         <button
@@ -73,7 +76,7 @@ const PaginationControls = memo(
           }
           disabled={isFirst}
           className={BTN}
-          aria-label="Previous page"
+          aria-label={t("accessibility.previousPage")}
         >
           <ChevronLeft
             size={18}
@@ -85,7 +88,7 @@ const PaginationControls = memo(
             "
           />
 
-          Prev
+          {t("common.previous")}
         </button>
 
         {/* Counter */}
@@ -123,9 +126,9 @@ const PaginationControls = memo(
           }
           disabled={isLast}
           className={BTN}
-          aria-label="Next page"
+          aria-label={t("accessibility.nextPage")}
         >
-          Next
+          {t("common.next")}
 
           <ChevronRight
             size={18}

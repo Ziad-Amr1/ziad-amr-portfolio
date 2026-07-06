@@ -13,6 +13,8 @@ import ProjectCard from "./ProjectCard";
 
 import ProjectSkeleton from "./ProjectSkeleton";
 
+import { useTranslation } from "../../i18n";
+
 export default function ProjectGrid({
   paginatedProjects,
   getImages,
@@ -25,6 +27,7 @@ export default function ProjectGrid({
   skeletonCount = 6,
   onTagClick,
 }) {
+  const { t } = useTranslation();
   /* ======================================================
      LOADING
   ====================================================== */
@@ -32,6 +35,8 @@ export default function ProjectGrid({
   if (isLoading) {
     return (
       <div
+        role="status"
+        aria-label={t("projectsSection.loading")}
         className="
         grid
         gap-7
@@ -121,37 +126,36 @@ export default function ProjectGrid({
         </div>
 
         {/* Title */}
-        <h3
-          className="
-          relative
-          z-10
+          <h3
+            className="
+            relative
+            z-10
 
-          text-2xl
-          font-bold
+            text-2xl
+            font-bold
 
-          text-foreground dark:text-white
-          "
-        >
-          No Projects Found
-        </h3>
+            text-foreground dark:text-white
+            "
+          >
+            {t("projectsSection.empty.title")}
+          </h3>
 
-        {/* Description */}
-        <p
-          className="
-          relative
-          z-10
+          {/* Description */}
+          <p
+            className="
+            relative
+            z-10
 
-          mt-4
+            mt-4
 
-          max-w-md
+            max-w-md
 
-          text-muted dark:text-slate-500 dark:text-gray-400
-          leading-relaxed
-          "
-        >
-          Try selecting another category
-          or filter to explore more work.
-        </p>
+            text-muted dark:text-slate-500 dark:text-gray-400
+            leading-relaxed
+            "
+          >
+            {t("projectsSection.empty.description")}
+          </p>
       </div>
     );
   }

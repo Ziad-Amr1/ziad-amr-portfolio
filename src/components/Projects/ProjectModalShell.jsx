@@ -14,6 +14,8 @@ import {
   X,
 } from "lucide-react";
 
+import { useTranslation } from "../../i18n";
+
 /* ======================================================
    SHELL
 ====================================================== */
@@ -25,6 +27,7 @@ export default function ProjectModalShell({
   onExitFullscreen,
   children,
 }) {
+  const { t } = useTranslation();
   const modalRef =
     useRef(null);
 
@@ -224,7 +227,7 @@ export default function ProjectModalShell({
         "
         role="dialog"
         aria-modal="true"
-        aria-label={`Project: ${project.title}`}
+        aria-label={t("accessibility.projectDialog", { title: project.title })}
         onClick={(e) => {
           if (
             e.target ===
@@ -305,7 +308,7 @@ export default function ProjectModalShell({
               closeButtonRef
             }
             onClick={onClose}
-            aria-label="Close modal"
+            aria-label={t("accessibility.closeModal")}
             className="
             absolute
             top-5

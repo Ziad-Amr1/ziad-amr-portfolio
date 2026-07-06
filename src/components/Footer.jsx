@@ -5,6 +5,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 import { fadeInUp } from "../utils/motionVariants";
+import { useTranslation } from "../i18n";
 
 import {
   FaLinkedin,
@@ -67,6 +68,7 @@ const socialLinks = [
 ====================================================== */
 
 function Footer() {
+  const { t } = useTranslation();
   return (
     <footer
       className="
@@ -253,7 +255,7 @@ function Footer() {
               >
                 <Sparkles className="w-4 h-4" />
 
-                Let&apos;s Connect
+                {t("footer.ctaLabel")}
               </div>
 
               {/* Heading */}
@@ -271,7 +273,7 @@ function Footer() {
                 dark:text-white
                 "
               >
-                Have an Idea?
+                {t("footer.ctaHeading")}
                 <br />
 
                 <span
@@ -285,7 +287,7 @@ function Footer() {
                   text-transparent
                   "
                 >
-                  Let&apos;s Build It Together
+                  {t("footer.ctaHeadingHighlight")}
                 </span>
               </h2>
 
@@ -303,12 +305,7 @@ function Footer() {
                 max-w-xl
                 "
               >
-                I’m always open to
-                collaborations,
-                freelance projects,
-                and creative ideas
-                that blend technology
-                with design.
+                {t("footer.ctaDescription")}
               </p>
             </div>
 
@@ -345,7 +342,7 @@ function Footer() {
               hover:shadow-[0_0_40px_rgba(59,130,246,0.5)]
               "
             >
-              Start a Project
+              {t("footer.ctaButton")}
 
               <ArrowUpRight
                 className="
@@ -426,12 +423,7 @@ function Footer() {
               max-w-md
               "
             >
-              Frontend Developer,
-              Designer, and
-              Architecture student
-              focused on building
-              immersive digital
-              experiences.
+              {t("footer.description")}
             </p>
 
             {/* Copyright */}
@@ -444,11 +436,7 @@ function Footer() {
               text-gray-500
               "
             >
-              ©{" "}
-              {new Date().getFullYear()}{" "}
-              Ziad Amr.
-              <br className="sm:hidden" />{" "}
-              All rights reserved.
+              {t("footer.copyright", { year: new Date().getFullYear() })}
             </p>
           </div>
 
@@ -484,6 +472,7 @@ function Footer() {
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={t("accessibility.socialLink", { site: id })}
                     whileHover={{
                       y: -4,
                       scale: 1.08,
@@ -569,10 +558,7 @@ function Footer() {
               lg:text-right
               "
             >
-              Designed & built with
-              passion using React,
-              TailwindCSS, and
-              creativity ✨
+              {t("footer.builtWith")}
             </p>
           </div>
         </motion.div>
