@@ -1,6 +1,6 @@
 // src/components/Hero.jsx
 
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 
 import { motion } from "framer-motion";
 
@@ -468,6 +468,7 @@ export default function Hero() {
                     href={link}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={t("accessibility.socialLink", { site: id })}
                     whileHover={{
                       y: -4,
                       scale: 1.12,

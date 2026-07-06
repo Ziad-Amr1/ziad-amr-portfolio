@@ -1,7 +1,6 @@
 // src/components/About.jsx
 
-import React from "react";
-
+import { Fragment } from "react";
 import { motion } from "framer-motion";
 
 import {
@@ -497,7 +496,7 @@ export default function About() {
           >
             <div className="space-y-6">
               {t("about.education.entries").map((entry, i) => (
-                <React.Fragment key={i}>
+                <Fragment key={i}>
                   {i > 0 && (
                     <div
                       className="
@@ -542,7 +541,7 @@ export default function About() {
                       {entry.period}
                     </span>
                   </div>
-                </React.Fragment>
+                </Fragment>
               ))}
             </div>
           </AboutCard>
@@ -557,7 +556,7 @@ export default function About() {
           >
             <div className="space-y-6">
               {t("about.experience.entries").map((entry, i) => (
-                <React.Fragment key={i}>
+                <Fragment key={i}>
                   {i > 0 && (
                     <div
                       className="
@@ -604,7 +603,7 @@ export default function About() {
                       {entry.period}
                     </span>
                   </div>
-                </React.Fragment>
+                </Fragment>
               ))}
             </div>
           </AboutCard>

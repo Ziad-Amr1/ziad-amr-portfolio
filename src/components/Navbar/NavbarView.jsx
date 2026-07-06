@@ -112,7 +112,7 @@ export default function NavbarView({
           no-underline
           "
         >
-          <h1
+          <span
             className="
             text-2xl
             lg:text-3xl
@@ -139,7 +139,7 @@ export default function NavbarView({
             >
               Amr
             </span>
-          </h1>
+          </span>
         </a>
 
         {/* Desktop Nav */}

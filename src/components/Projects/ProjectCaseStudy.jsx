@@ -15,7 +15,7 @@ import { useTranslation } from "../../i18n";
    CATEGORY COLORS
 ====================================================== */
 
-export const CATEGORY_COLORS = {
+const CATEGORY_COLORS = {
   development: `
     bg-blue-500/10
     text-blue-300

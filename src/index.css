@@ -229,56 +229,10 @@ html.dark {
   }
 }
 
-/* =========================================================
-   UTILITIES
-========================================================= */
-
-@layer utilities {
-  .glass {
-    background:
-      var(--card);
-
-    backdrop-filter:
-      blur(20px);
-
-    border:
-      1px solid var(--border);
-  }
-
-  .text-gradient {
-    @apply bg-gradient-to-r
-    from-blue-400
-    via-cyan-300
-    to-blue-500
-    bg-clip-text
-    text-transparent;
-  }
-
-  .hover-card {
-    transition:
-      var(--transition-smooth);
-  }
-
-  .hover-card:hover {
-    transform:
-      translateY(-6px);
-  }
-}
 
 /* =========================================================
    ANIMATIONS
 ========================================================= */
-
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
-}
-
-.cursor {
-  animation:
-    blink 1s infinite;
-}
 
 @keyframes fadeIn {
   from {
@@ -308,9 +262,12 @@ html.dark {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .shimmer-slide,
-  [class*="animate-"] {
-    animation: none !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

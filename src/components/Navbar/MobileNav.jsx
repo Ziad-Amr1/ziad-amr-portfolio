@@ -96,6 +96,7 @@ export default function MobileNav({
 
       <aside
         ref={sidebarRef}
+        aria-hidden={!menuOpen}
         className={`
         fixed
         top-0
@@ -162,7 +163,7 @@ export default function MobileNav({
           "
         >
           {/* Logo */}
-          <h2
+          <span
             className="
             text-2xl
             font-black
@@ -186,11 +187,12 @@ export default function MobileNav({
             >
               Amr
             </span>
-          </h2>
+          </span>
 
           {/* Close */}
           <button
             onClick={() => setMenuOpen(false)}
+            aria-label="Close navigation menu"
             className="
             w-10
             h-10

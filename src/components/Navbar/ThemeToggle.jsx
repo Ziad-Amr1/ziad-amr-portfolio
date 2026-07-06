@@ -16,6 +16,8 @@ export default function ThemeToggle({
   return (
     <button
       onClick={onToggle}
+      role="switch"
+      aria-checked={isDark}
       aria-label={t("accessibility.toggleTheme")}
       className="
       relative
