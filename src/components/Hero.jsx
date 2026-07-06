@@ -1,6 +1,6 @@
 // src/components/Hero.jsx
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import { motion } from "framer-motion";
 
@@ -20,6 +20,7 @@ import { useTranslation } from "../i18n";
 
 export default function Hero() {
   const { t } = useTranslation();
+  const [imgError, setImgError] = useState(false);
 
   const titles = useMemo(
     () => t("hero.titles"),
@@ -620,27 +621,46 @@ export default function Hero() {
               dark:shadow-[0_0_50px_rgba(59,130,246,0.45)]
               "
             >
-              <img
-                loading="eager"
-                decoding="async"
-                fetchPriority="high"
-                src="/images/profile/profile.webp"
-                alt="Ziad Amr"
-                className="
-                w-full
-                h-full
+              {imgError ? (
+                <div
+                  className="
+                  w-full h-full
+                  rounded-full
+                  object-cover object-top
+                  border-[6px] border-white dark:border-[#020817]
+                  bg-slate-200 dark:bg-slate-800
+                  flex items-center justify-center
+                  text-4xl font-bold
+                  text-slate-400 dark:text-slate-500
+                  "
+                  aria-label="Ziad Amr"
+                >
+                  ZA
+                </div>
+              ) : (
+                <img
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
+                  src="/images/profile/profile.webp"
+                  alt="Ziad Amr"
+                  onError={() => setImgError(true)}
+                  className="
+                  w-full
+                  h-full
 
-                rounded-full
+                  rounded-full
 
-                object-cover
-                object-top
+                  object-cover
+                  object-top
 
-                border-[6px]
+                  border-[6px]
 
-                border-white
-                dark:border-[#020817]
-                "
-              />
+                  border-white
+                  dark:border-[#020817]
+                  "
+                />
+              )}
             </div>
           </motion.div>
         </div>

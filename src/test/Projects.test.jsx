@@ -95,7 +95,7 @@ describe("ImageSlider loading", () => {
     expect(img.className).toContain("opacity-100");
   });
 
-  test("transitions to loaded state on image error", () => {
+  test("shows fallback on image error", () => {
     render(
       <ImageSlider
         images={["images/projects/arc-1.webp"]}
@@ -109,6 +109,7 @@ describe("ImageSlider loading", () => {
       img.dispatchEvent(new Event("error"));
     });
 
-    expect(img.className).toContain("opacity-100");
+    expect(screen.queryByRole("img")).toBeNull();
+    expect(screen.getByText("No preview available")).toBeInTheDocument();
   });
 });

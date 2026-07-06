@@ -177,7 +177,7 @@ export default function Projects({
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [activeFilter, itemsPerPage]);
+  }, [activeFilter, itemsPerPage, tagFilter]);
 
   /* ======================================================
      FILTERING

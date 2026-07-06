@@ -68,6 +68,8 @@ const ImageSlider = memo(
     const { t } = useTranslation();
     const [imgLoaded, setImgLoaded] =
       useState(false);
+    const [imgError, setImgError] =
+      useState(false);
     const imgRef = useRef(null);
 
     // Reset skeleton whenever image changes.
@@ -75,6 +77,7 @@ const ImageSlider = memo(
     // where onLoad may fire before React attaches the handler.
     useEffect(() => {
       setImgLoaded(false);
+      setImgError(false);
 
       if (imgRef.current?.complete) {
         setImgLoaded(true);
@@ -93,6 +96,7 @@ const ImageSlider = memo(
     }, [onAspectRatioReady]);
 
     const handleError = useCallback(() => {
+      setImgError(true);
       setImgLoaded(true);
     }, []);
 
@@ -185,36 +189,56 @@ const ImageSlider = memo(
             dark:bg-[#081120]
           "
         >
-          {!imgLoaded && (
+          {!imgLoaded && !imgError && (
             <SliderSkeleton />
           )}
 
-          <img
-            ref={imgRef}
-            key={images[imageIndex]}
-            src={images[imageIndex]}
-            alt={t("projectModal.slideAlt", { number: imageIndex + 1 })}
-            loading="lazy"
-            decoding="async"
-            onLoad={handleLoad}
-            onError={handleError}
-            className={`
-            w-full
-            h-full
+          {imgError ? (
+            <div
+              className="
+              w-full
+              h-full
 
-            object-contain
-            object-center
+              flex
+              items-center
+              justify-center
 
-            transition-opacity
-            duration-300
+              text-muted
+              dark:text-gray-400
 
-            ${
-              imgLoaded
-                ? "opacity-100"
-                : "opacity-0 absolute inset-0"
-            }
-            `}
-          />
+              text-sm
+              "
+            >
+              {t("projectModal.noPreview")}
+            </div>
+          ) : (
+            <img
+              ref={imgRef}
+              key={images[imageIndex]}
+              src={images[imageIndex]}
+              alt={t("projectModal.slideAlt", { number: imageIndex + 1 })}
+              loading="lazy"
+              decoding="async"
+              onLoad={handleLoad}
+              onError={handleError}
+              className={`
+              w-full
+              h-full
+
+              object-contain
+              object-center
+
+              transition-opacity
+              duration-300
+
+              ${
+                imgLoaded
+                  ? "opacity-100"
+                  : "opacity-0 absolute inset-0"
+              }
+              `}
+            />
+          )}
 
           {/* Controls */}
           {hasMultiple && (

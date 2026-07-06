@@ -8,7 +8,8 @@ export function ThemeProvider({ children }) {
 
   useEffect(() => {
     // Read the saved preference from localStorage
-    const savedTheme = localStorage.getItem("theme");
+    let savedTheme = null;
+    try { savedTheme = localStorage.getItem("theme"); } catch { /* localStorage unavailable */ }
 
     // Read the OS-level preference as a fallback when no saved preference exists
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -26,7 +27,7 @@ export function ThemeProvider({ children }) {
     setIsDark((prev) => {
       const newMode = !prev;
       document.documentElement.classList.toggle("dark", newMode);
-      localStorage.setItem("theme", newMode ? "dark" : "light");
+      try { localStorage.setItem("theme", newMode ? "dark" : "light"); } catch { /* localStorage unavailable */ }
       return newMode;
     });
   };

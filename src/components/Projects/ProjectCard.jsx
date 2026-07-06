@@ -121,6 +121,8 @@ const ProjectCard = memo(
       setContainerWidth,
     ] = useState(0);
 
+    const [thumbError, setThumbError] = useState(false);
+
     /* ==================================================
        RESIZE
     ================================================== */
@@ -165,6 +167,14 @@ const ProjectCard = memo(
         ro.disconnect();
       };
     }, []);
+
+    /* ==================================================
+       RESET THUMB ERROR ON PROJECT CHANGE
+    ================================================== */
+
+    useEffect(() => {
+      setThumbError(false);
+    }, [project.id]);
 
     /* ==================================================
        TAGS
@@ -320,49 +330,76 @@ const ProjectCard = memo(
           )}
 
           {/* Image */}
-          <img
-            src={thumb}
-            alt={project.title}
-            loading={
-              isFirstCard
-                ? "eager"
-                : "lazy"
-            }
-            decoding={
-              isFirstCard
-                ? "sync"
-                : "async"
-            }
-            fetchPriority={
-              isFirstCard
-                ? "high"
-                : "auto"
-            }
-            width="640"
-            height="260"
-            onLoad={() =>
-              handleThumbLoad(
-                project.id
-              )
-            }
-            className={`
-            w-full
-            h-full
+          {thumbError ? (
+            <div
+              className="
+              w-full
+              h-full
 
-            object-cover
+              flex
+              items-center
+              justify-center
 
-            transition-all
-            duration-700
+              bg-slate-200/50
+              dark:bg-white/[0.02]
 
-            group-hover:scale-105
+              text-slate-400
+              dark:text-slate-600
 
-            ${
-              isLoaded
-                ? "opacity-100"
-                : "opacity-0"
-            }
-            `}
-          />
+              text-sm
+              font-medium
+              "
+            >
+              No Preview
+            </div>
+          ) : (
+            <img
+              src={thumb}
+              alt={project.title}
+              loading={
+                isFirstCard
+                  ? "eager"
+                  : "lazy"
+              }
+              decoding={
+                isFirstCard
+                  ? "sync"
+                  : "async"
+              }
+              fetchPriority={
+                isFirstCard
+                  ? "high"
+                  : "auto"
+              }
+              width="640"
+              height="260"
+              onLoad={() =>
+                handleThumbLoad(
+                  project.id
+                )
+              }
+              onError={() =>
+                setThumbError(true)
+              }
+              className={`
+              w-full
+              h-full
+
+              object-cover
+
+              transition-all
+              duration-700
+
+              group-hover:scale-105
+
+              ${
+                isLoaded
+                  ? "opacity-100"
+                  : "opacity-0"
+              }
+              `}
+            />
+          )}
 
           {/* Overlay */}
           <div

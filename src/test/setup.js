@@ -142,6 +142,7 @@ vi.mock("../i18n", () => {
       close: "Close modal",
       previous: "Previous",
       next: "Next",
+      noPreview: "No preview available",
     },
   };
 
