@@ -8,6 +8,8 @@ import "./index.css";
 
 import App from "./App.jsx";
 
+import ErrorBoundary from "./components/ErrorBoundary";
+
 import { ThemeProvider } from "./context/ThemeContext";
 
 /* ======================================================
@@ -19,7 +21,9 @@ createRoot(
 ).render(
   <StrictMode>
     <ThemeProvider>
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </ThemeProvider>
   </StrictMode>
 );

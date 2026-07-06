@@ -18,6 +18,13 @@ export default defineConfig({
     },
   },
 
+  test: {
+    environment: "jsdom",
+    setupFiles: ["./src/test/setup.js"],
+    css: true,
+    globals: false,
+  },
+
   build: {
     chunkSizeWarningLimit: 600,
     rollupOptions: {

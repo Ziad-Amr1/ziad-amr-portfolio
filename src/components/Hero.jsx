@@ -26,6 +26,8 @@ export default function Hero() {
     [t]
   );
 
+  const { text, blink, pause, resume } = useTypingEffect(titles);
+
   const socials = [
     {
       id: "linkedin",
@@ -359,7 +361,7 @@ export default function Hero() {
             >
               {/* Primary */}
               <a
-                href="#contact"
+                href="#projects"
                 className="
                 group
                 w-full
