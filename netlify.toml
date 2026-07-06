@@ -7,9 +7,23 @@
   to = "/index.html"
   status = 200
 
+# Hashed assets (immutable)
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Images (24-hour cache)
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# Root – security headers, no cache for HTML
 [[headers]]
   for = "/*"
   [headers.values]
+    Cache-Control = "no-cache"
     Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.emailjs.com; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; upgrade-insecure-requests"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
     X-Frame-Options = "DENY"
