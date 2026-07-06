@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 
 import {
-  FaBehance,
   FaDribbble,
   FaGithub,
   FaLinkedin,
@@ -38,12 +37,6 @@ export default function Hero() {
       id: "github",
       icon: <FaGithub />,
       link: "https://github.com/Ziad-Amr1/",
-    },
-
-    {
-      id: "behance",
-      icon: <FaBehance />,
-      link: "https://www.behance.net/ziadamrsaid",
     },
 
     {

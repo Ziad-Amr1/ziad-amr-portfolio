@@ -13,32 +13,30 @@
     "firstName": "Ziad",
     "lastName": "Amr",
     "titles": [
-      "Frontend Developer",
-      "Graphic Designer",
-      "Architect",
+      "Software Developer",
       "UI/UX Designer",
-      "Creative Coder"
+      "Architecture Student"
     ],
-    "description": "Passionate about crafting interactive, responsive, and visually engaging digital experiences that merge creativity with functionality.",
+    "description": "I build software and design interfaces. I study Architecture. I'm developing skills across code, data, and design \u2014 toward BIM, AEC technology, and digital tools for how we build.",
     "cta": {
-      "workTogether": "Let's Work Together",
+      "workTogether": "View Projects",
       "downloadCv": "Download CV"
     }
   },
 
   "about": {
     "label": "About Me",
-    "heading": "Building Design",
-    "headingHighlight": "Through Creativity",
-    "description": "A brief look into my background, education, and journey across architecture, front-end development, and digital design.",
+    "heading": "From Architecture",
+    "headingHighlight": "To Code, Data & Design",
+    "description": "Architecture is my foundation. Software, data, and design are how I build. Here is how they connect.",
     "bio": {
       "title": "Bio",
       "paragraph1Start": "I'm an",
       "paragraph1Highlight": "Architecture student",
-      "paragraph1Middle": "passionate about blending design thinking with",
-      "paragraph1Highlight2": "front-end development",
+      "paragraph1Middle": "at the Faculty of Fine Arts. I got into design through posters and brand work, then UI/UX. That led me to frontend \u2014 I wanted to build what I designed. From there, backend and data engineering added the bigger picture. Now I'm working with",
+      "paragraph1Highlight2": "software, data, and design",
       "paragraph1End": ".",
-      "paragraph2": "I enjoy transforming ideas into functional, visually balanced, and user-centered digital experiences.",
+      "paragraph2": "Long term, I'm building toward BIM, computational design, and digital tools for architecture \u2014 where code, data, and design converge.",
       "cta": "Explore my skills \u2192"
     },
     "education": {
@@ -46,7 +44,7 @@
       "entries": [
         {
           "title": "BFA in Architecture",
-          "institution": "Helwan University",
+          "institution": "Faculty of Fine Arts, Capital University",
           "period": "2023 \u2014 2028"
         },
         {
@@ -75,20 +73,20 @@
 
   "skillsSection": {
     "label": "Skills & Expertise",
-    "heading": "Turning Ideas",
-    "headingHighlight": "Into Interactive Experiences"
+    "heading": "Building Across",
+    "headingHighlight": "Architecture, Code, Data & Design"
   },
 
   "projectsSection": {
     "label": "Featured Work",
     "heading": "Selected Projects",
-    "headingHighlight": "Across Design & Development",
-    "description": "A curated collection of architecture, UI/UX, graphic design, and frontend development projects focused on visual clarity, interaction, and modern digital experiences.",
+    "headingHighlight": "Across Architecture, Design & Development",
+    "description": "A curated collection of architecture, UI/UX, graphic design, and frontend development projects \u2014 built with attention to visual clarity, structure, and purposeful interaction.",
     "stats": {
       "projects": "Projects",
       "categories": "Categories",
       "creativeFocus": "Creative Focus",
-      "focusValue": "UI / Architecture"
+      "focusValue": "Architecture + Design"
     },
     "filters": {
       "all": "All",
@@ -189,8 +187,8 @@
     "ctaHeading": "Have an Idea?",
     "ctaHeadingHighlight": "Let's Build It Together",
     "ctaDescription": "I'm always open to collaborations, freelance projects, and creative ideas that blend technology with design.",
-    "ctaButton": "Start a Project",
-    "description": "Frontend Developer, Designer, and Architecture student focused on building immersive digital experiences.",
+    "ctaButton": "Get in Touch",
+    "description": "Software developer grounded in Architecture \u2014 building across code, design, and data toward BIM and digital tools for the built world.",
     "copyright": "\u00a9 {{year}} Ziad Amr. All rights reserved.",
     "builtWith": "Designed & built with passion using React, TailwindCSS, and creativity \u2728"
   },
@@ -231,12 +229,12 @@
   },
 
   "seo": {
-    "title": "Ziad Amr \u2014 Frontend Developer & Architectural Designer",
-    "description": "Ziad Amr Said \u2014 Frontend developer and architectural designer based in Egypt. Building fast, accessible interfaces with React, Tailwind CSS, and modern web tools.",
-    "ogTitle": "Ziad Amr \u2014 Frontend Developer & Architectural Designer",
-    "ogDescription": "Portfolio of Ziad Amr Said \u2014 frontend development, graphic design, and architectural visualization.",
-    "twitterTitle": "Ziad Amr \u2014 Frontend Developer",
-    "twitterDescription": "Portfolio of Ziad Amr Said \u2014 frontend development, graphic design, and architectural visualization."
+    "title": "Ziad Amr \u2014 Software Developer Studying Architecture",
+    "description": "Software developer and UI/UX designer studying Architecture. Building across frontend, backend, and data \u2014 exploring BIM, AEC technology, and digital tools for how we build.",
+    "ogTitle": "Ziad Amr \u2014 Software Developer Studying Architecture",
+    "ogDescription": "Software developer with an Architecture background building across frontend, backend, data, and design toward BIM and digital tools for AEC.",
+    "twitterTitle": "Ziad Amr \u2014 Software Developer Studying Architecture",
+    "twitterDescription": "Software developer studying Architecture. Building skills across code, data, and design toward BIM and digital tools for the built world."
   },
 
   "common": {

@@ -10,7 +10,6 @@ import { useTranslation } from "../i18n";
 import {
   FaLinkedin,
   FaGithub,
-  FaBehance,
   FaDribbble,
   FaEnvelope,
   FaPhone,
@@ -36,12 +35,6 @@ const socialLinks = [
     id: "github",
     icon: <FaGithub />,
     url: "https://github.com/Ziad-Amr1",
-  },
-
-  {
-    id: "behance",
-    icon: <FaBehance />,
-    url: "https://www.behance.net/ZiadAmrSaid",
   },
 
   {
