@@ -85,6 +85,7 @@ vi.mock("../i18n", () => {
     skillsSection: {
       label: "Skills & Expertise",
       heading: "Building Across",
+      headingHighlight: "Architecture, Code, Data & Design",
     },
     projectsSection: {
       label: "Featured Work",

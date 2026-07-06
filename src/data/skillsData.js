@@ -1,7 +1,8 @@
 export const CATEGORIES = [
-  "Creative Foundation",
-  "Frontend Engineering",
-  "Expanding Horizons",
+  "Architecture",
+  "Design",
+  "Software Development",
+  "Data & Emerging Tech",
 ];
 
 export const LEVEL_STYLES = {
@@ -32,7 +33,7 @@ export const LEVEL_STYLES = {
 };
 
 export const SKILLS_DATA = {
-  "Creative Foundation": {
+  Architecture: {
     tagline:
       "Design thinking shaped by architectural structure and visual composition.",
     accent: "from-[#6EE7B7] via-[#3B82F6] to-[#60A5FA]",
@@ -47,8 +48,16 @@ export const SKILLS_DATA = {
           { name: "3ds Max", level: "Learning", note: "Visualization fundamentals",               tags: ["3D Modeling"] },
         ],
       },
+    ],
+  },
+
+  Design: {
+    tagline:
+      "Crafting visual identities, interfaces, and brand experiences.",
+    accent: "from-[#F59E0B] via-[#F472B6] to-[#EC4899]",
+    groups: [
       {
-        title: "Graphic & Visual Design",
+        title: "Visual & Brand Design",
         skills: [
           { name: "Adobe Illustrator",  level: "Used", note: "Icons & visual systems",       tags: ["Illustrator", "Vector Art"] },
           { name: "Adobe Photoshop",    level: "Used", note: "Image refinement",              tags: ["Photoshop", "Photo Manipulation", "Color Grading", "Advertising Design"] },
@@ -66,9 +75,9 @@ export const SKILLS_DATA = {
     ],
   },
 
-  "Frontend Engineering": {
+  "Software Development": {
     tagline:
-      "Building scalable, component-driven interfaces with clean architecture.",
+      "Building scalable, component-driven interfaces and backend foundations.",
     accent: "from-[#60A5FA] via-[#3B82F6] to-[#38BDF8]",
     groups: [
       {
@@ -96,15 +105,20 @@ export const SKILLS_DATA = {
           { name: "VS Code", level: "Used", note: "Primary development environment",             tags: [] },
         ],
       },
+      {
+        title: "Backend",
+        skills: [
+          { name: "Node.js", level: "Learning", note: "Backend fundamentals", tags: [] },
+        ],
+      },
     ],
   },
 
-  "Expanding Horizons": {
+  "Data & Emerging Tech": {
     tagline:
-      "Exploring backend systems, data workflows, and interactive experimentation.",
+      "Exploring data workflows, automation, and interactive experimentation.",
     accent: "from-[#A78BFA] via-[#C084FC] to-[#F472B6]",
     skills: [
-      { name: "Node.js",          level: "Learning",  note: "Backend fundamentals",                tags: [] },
       { name: "Python",           level: "Used",      note: "Automation & scripting",              tags: [] },
       { name: "Data Engineering", level: "Learning",  note: "Academic & practical exposure",       tags: [] },
       { name: "Game Development", level: "Exploring", note: "Interactive experiments",             tags: [] },

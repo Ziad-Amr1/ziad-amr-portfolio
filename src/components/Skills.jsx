@@ -391,7 +391,7 @@ function Skills({
   const { t } = useTranslation();
   const { activeTab, changeTab } = useTabs(
     CATEGORIES,
-    "Frontend Engineering"
+    "Software Development"
   );
 
   const currentCategory =
