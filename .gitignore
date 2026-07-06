@@ -11,6 +11,11 @@ node_modules
 dist
 dist-ssr
 *.local
+.env.local
+.env.*.local
+
+# OS files
+Thumbs.db
 
 # Editor directories and files
 .vscode/*
@@ -48,5 +53,8 @@ generate-structure.cjs
 *.db
 *.csv
 *.zip
+# Test output
+coverage
+
 ./images/projects/archive/*
 public/images/projects/archive/
