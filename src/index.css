@@ -296,6 +296,24 @@ html.dark {
   }
 }
 
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.shimmer-slide {
+  animation:
+    shimmer 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer-slide,
+  [class*="animate-"] {
+    animation: none !important;
+  }
+}
+
 /* =========================================================
    SCROLLBAR
 ========================================================= */
